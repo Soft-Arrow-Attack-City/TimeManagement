@@ -9,48 +9,107 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="{materialDesign:MaterialDesignFont}"
-        xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
+        FontFamily="{StaticResource MaterialDesignFontSC}"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <local:DivideValueConverter x:Key="DivideValueConverter"/>
-    </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <materialDesign:Card Padding="32" Margin="16">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}">My First Material Design App</TextBlock>
-            </materialDesign:Card>
-        </StackPanel>
-        <dockablz:Layout Grid.Column="1">
-            <dragablz:TabablzControl>
-                <dragablz:TabablzControl.ItemContainerStyle>
-                    <Style TargetType="{x:Type dragablz:DragablzItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
-                        <!--
-                        The tab container is horizontally scrollable so there is not really a concept of "full width"
-                        However, you can bind its width to be a relative size based upon the parent control
-                        -->
-                        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dragablz:TabablzControl}}, Converter={StaticResource DivideValueConverter}, ConverterParameter=3}" />
-                    </Style>
-                </dragablz:TabablzControl.ItemContainerStyle>
-                <dragablz:TabablzControl.InterTabController>
-                    <dragablz:InterTabController />
-                </dragablz:TabablzControl.InterTabController>
-                <TabItem Header="TAB 1">
-                    <TextBlock Text="TAB 1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </TabItem>
-                <TabItem Header="TAB 2">
-                    <TextBlock Text="TAB 2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </TabItem>
-                <TabItem Header="TAB 3">
-                    <TextBlock Text="TAB 3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </TabItem>
-            </dragablz:TabablzControl>
-        </dockablz:Layout>
-    </Grid>
+        Title="MainWindow" Height="600" Width="800">
+    <!--SizeToContent="WidthAndHeight">-->
+    <materialDesign:DialogHost
+        Identifier="RootDialog"
+        DialogTheme="Inherit">
+        <materialDesign:DrawerHost
+            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="220">
+                    <ToggleButton 
+                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Right" 
+                        Margin="16"
+                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+
+            <DockPanel>
+                <materialDesign:ColorZone
+                    Padding="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    Mode="PrimaryDark"
+                    DockPanel.Dock="Top">
+                    <DockPanel>
+                        <ToggleButton
+                            x:Name="MenuToggleButton"
+                            Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                            IsChecked="False"
+                            AutomationProperties.Name="HamburgerToggleButton" />
+
+                        <materialDesign:PopupBox
+                            DockPanel.Dock="Right"
+                            PlacementMode="BottomAndAlignRightEdges"
+                            StaysOpen="False">
+                            <StackPanel>
+                                <StackPanel
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                                    <TextBlock
+                                        Text="Light"
+                                        Margin="0 0 10 0" />
+                                    <ToggleButton x:Name="DarkModeToggleButton" />
+                                    <TextBlock
+                                        Text="Dark"
+                                        Margin="10 0 0 0" />
+                                </StackPanel>
+
+                                <Separator />
+
+                                <Button
+                                    Content="Hello World" />
+
+                                <Button
+                                    Content="Nice Popup" />
+
+                                <Button
+                                    Content="Can't Touch This"
+                                    IsEnabled="False" />
+
+                                <Separator />
+
+                                <Button
+                                    Content="Goodbye" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="22"
+                            AutomationProperties.Name="Material Design In XAML Toolkit"
+                            Text="时间管理 Time Management" />
+
+                        <!--<materialDesign:PackIcon Kind="Castle" />-->
+
+                    </DockPanel>
+                </materialDesign:ColorZone>
+                
+                <dragablz:TabablzControl BorderThickness="0"
+                                         Margin="0,-1,0,1"
+                                         FixedHeaderCount="1">
+                    <TabItem Header="主页">
+                        <TextBlock Text="TAB 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </TabItem>
+                    <TabItem Header="屏幕时间">
+                        <TextBlock Text="TAB 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </TabItem>
+                    <TabItem Header="日程管理">
+                        <TextBlock Text="TAB 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </TabItem>
+                    <TabItem Header="虚拟种树">
+                        <TextBlock Text="TAB 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </TabItem>
+                </dragablz:TabablzControl>
+                
+            </DockPanel>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
 </Window>
