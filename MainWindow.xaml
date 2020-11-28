@@ -28,7 +28,9 @@
                         HorizontalAlignment="Right"
                         Margin="16"
                         IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    <TextBlock HorizontalAlignment="Center">DrawerTest</TextBlock>
+                    <TextBlock HorizontalAlignment="Center">Drawer
+                        <LineBreak />
+                        这里可以放点什么？</TextBlock>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
 
@@ -55,30 +57,34 @@
                                     HorizontalAlignment="Center"
                                     Margin="10">
                                     <TextBlock
-                                        Text="Light"
+                                        Text="浅色"
                                         Margin="0 0 10 0" />
                                     <ToggleButton x:Name="DarkModeToggleButton" Click="MenuDarkModeButton_Click"/>
                                     <TextBlock
-                                        Text="Dark"
+                                        Text="深色"
                                         Margin="10 0 0 0" />
                                 </StackPanel>
 
                                 <Separator />
 
                                 <Button
-                                    Content="Hello World" />
+                                    x:Name="MenuButton"
+                                    Content="菜单" />
 
                                 <Button
-                                    Content="Nice Popup" />
+                                    x:Name="HistoryButton"
+                                    Content="成就榜" />
 
                                 <Button
-                                    Content="Can't Touch This"
-                                    IsEnabled="False" />
+                                    x:Name="AboutButton"
+                                    Content="关于" />
 
                                 <Separator />
 
                                 <Button
-                                    Content="Goodbye" />
+                                    x:Name="ExitButton"
+                                    Content="退出"
+                                    Click="ExitButton_Click"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
 
@@ -106,24 +112,24 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                            TimelineTest
+                            Timeline Test
                         </TextBlock>
 
                         <dragablz:TabablzControl BorderThickness="0"
-                                             Margin="0,-1,0,1"
-                                             FixedHeaderCount="1"
-                                             Grid.Column="1">
-                            <TabItem Header="主页">
-                                <TextBlock Text="TAB 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                 Margin="0,-1,0,1"
+                                                 FixedHeaderCount="1"
+                                                 Grid.Column="1">
+                            <TabItem Header="主页" Margin="16">
+                                <TextBlock Text="TAB 1" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </TabItem>
-                            <TabItem Header="屏幕时间">
-                                <TextBlock Text="TAB 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TabItem Header="屏幕时间" Margin="16">
+                                <TextBlock Text="TAB 2" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </TabItem>
-                            <TabItem Header="日程管理">
-                                <TextBlock Text="TAB 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TabItem Header="日程管理" Margin="16">
+                                <TextBlock Text="TAB 3" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </TabItem>
-                            <TabItem Header="虚拟种树">
-                                <TextBlock Text="TAB 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TabItem Header="虚拟种树" Margin="16">
+                                <TextBlock Text="TAB 4" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </TabItem>
                         </dragablz:TabablzControl>
                     </Grid>
