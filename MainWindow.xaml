@@ -16,17 +16,19 @@
     <!--SizeToContent="WidthAndHeight">-->
     <materialDesign:DialogHost
         Identifier="RootDialog"
-        DialogTheme="Inherit">
+        DialogTheme="Inherit"
+        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
         <materialDesign:DrawerHost
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="220">
-                    <ToggleButton 
-                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                    <ToggleButton
+                        Style="{StaticResource MaterialDesignHamburgerToggleButton}"
                         DockPanel.Dock="Top"
-                        HorizontalAlignment="Right" 
+                        HorizontalAlignment="Right"
                         Margin="16"
-                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
+                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <TextBlock HorizontalAlignment="Center">DrawerTest</TextBlock>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
 
@@ -55,7 +57,7 @@
                                     <TextBlock
                                         Text="Light"
                                         Margin="0 0 10 0" />
-                                    <ToggleButton x:Name="DarkModeToggleButton" />
+                                    <ToggleButton x:Name="DarkModeToggleButton" Click="MenuDarkModeButton_Click"/>
                                     <TextBlock
                                         Text="Dark"
                                         Margin="10 0 0 0" />
@@ -88,27 +90,50 @@
                             Text="时间管理 Time Management" />
 
                         <!--<materialDesign:PackIcon Kind="Castle" />-->
-
                     </DockPanel>
                 </materialDesign:ColorZone>
-                
-                <dragablz:TabablzControl BorderThickness="0"
-                                         Margin="0,-1,0,1"
-                                         FixedHeaderCount="1">
-                    <TabItem Header="主页">
-                        <TextBlock Text="TAB 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </TabItem>
-                    <TabItem Header="屏幕时间">
-                        <TextBlock Text="TAB 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </TabItem>
-                    <TabItem Header="日程管理">
-                        <TextBlock Text="TAB 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </TabItem>
-                    <TabItem Header="虚拟种树">
-                        <TextBlock Text="TAB 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </TabItem>
-                </dragablz:TabablzControl>
-                
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            TimelineTest
+                        </TextBlock>
+
+                        <dragablz:TabablzControl BorderThickness="0"
+                                             Margin="0,-1,0,1"
+                                             FixedHeaderCount="1"
+                                             Grid.Column="1">
+                            <TabItem Header="主页">
+                                <TextBlock Text="TAB 1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </TabItem>
+                            <TabItem Header="屏幕时间">
+                                <TextBlock Text="TAB 2" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </TabItem>
+                            <TabItem Header="日程管理">
+                                <TextBlock Text="TAB 3" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </TabItem>
+                            <TabItem Header="虚拟种树">
+                                <TextBlock Text="TAB 4" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </TabItem>
+                        </dragablz:TabablzControl>
+                    </Grid>
+
+                    <materialDesign:Snackbar
+                        x:Name="MainSnackbar"
+                        MessageQueue="{materialDesign:MessageQueue}"
+                        Grid.Row="1"/>
+
+                </Grid>
             </DockPanel>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
