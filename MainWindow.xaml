@@ -2,95 +2,42 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         xmlns:local="clr-namespace:TimeManagement"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:TimeManagement.Views"
+        Title="MainWindow"
+        Width="800"
+        Height="600"
         Style="{StaticResource MaterialDesignWindow}"
-        >
-    <!--SizeToContent="WidthAndHeight">-->
-    <materialDesign:DialogHost
-        Identifier="RootDialog"
-        DialogTheme="Inherit"
-        SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
-        <materialDesign:DrawerHost
-            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+        mc:Ignorable="d">
+    <!--  SizeToContent="WidthAndHeight">  -->
+    <materialDesign:DialogHost DialogTheme="Inherit"
+                               Identifier="RootDialog"
+                               SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="220">
-                    <ToggleButton
-                        Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                        DockPanel.Dock="Top"
-                        HorizontalAlignment="Right"
-                        Margin="16"
-                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    <TextBlock HorizontalAlignment="Center">Drawer
-                        <LineBreak />
-                        这里可以放点什么？</TextBlock>
-                </DockPanel>
+                <views:LeftDrawerContent />
             </materialDesign:DrawerHost.LeftDrawerContent>
 
             <DockPanel>
-                <materialDesign:ColorZone
-                    Padding="16"
-                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                    Mode="PrimaryDark"
-                    DockPanel.Dock="Top">
+                <materialDesign:ColorZone Padding="16"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          DockPanel.Dock="Top"
+                                          Mode="PrimaryDark">
                     <DockPanel>
-                        <ToggleButton
-                            x:Name="MenuToggleButton"
-                            Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                            IsChecked="False"
-                            AutomationProperties.Name="HamburgerToggleButton" />
+                        <ToggleButton x:Name="MenuToggleButton"
+                                      AutomationProperties.Name="HamburgerToggleButton"
+                                      IsChecked="False"
+                                      Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
-                        <materialDesign:PopupBox
-                            DockPanel.Dock="Right"
-                            PlacementMode="BottomAndAlignRightEdges"
-                            StaysOpen="False">
-                            <StackPanel>
-                                <StackPanel
-                                    Orientation="Horizontal"
-                                    HorizontalAlignment="Center"
-                                    Margin="10">
-                                    <TextBlock
-                                        Text="浅色"
-                                        Margin="0 0 10 0" />
-                                    <ToggleButton x:Name="DarkModeToggleButton" Click="MenuDarkModeButton_Click"/>
-                                    <TextBlock
-                                        Text="深色"
-                                        Margin="10 0 0 0" />
-                                </StackPanel>
-
-                                <Separator />
-
-                                <Button
-                                    x:Name="MenuButton"
-                                    Content="菜单" />
-
-                                <Button
-                                    x:Name="HistoryButton"
-                                    Content="成就榜" />
-
-                                <Button
-                                    x:Name="AboutButton"
-                                    Content="关于" />
-
-                                <Separator />
-
-                                <Button
-                                    x:Name="ExitButton"
-                                    Content="退出"
-                                    Click="ExitButton_Click"/>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="22"
-                            AutomationProperties.Name="Material Design In XAML Toolkit"
-                            Text="时间管理 Time Management" />
+                        <views:PopupBox DockPanel.Dock="Right" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.Name="Material Design In XAML Toolkit"
+                                   FontSize="22"
+                                   Text="时间管理 Time Management" />
 
                         <!--<materialDesign:PackIcon Kind="Castle" />-->
                     </DockPanel>
@@ -112,36 +59,43 @@
                             Timeline Test
                         </TextBlock>
 
-                        <dragablz:TabablzControl BorderThickness="0"
+                        <dragablz:TabablzControl Grid.Column="1"
                                                  Margin="0,-1,0,1"
-                                                 FixedHeaderCount="1"
-                                                 Grid.Column="1">
-                            <TabItem Header="主页" Margin="16">
+                                                 BorderThickness="0"
+                                                 FixedHeaderCount="1">
+                            <TabItem Margin="16" Header="主页">
                                 <StackPanel>
-                                    <materialDesign:ColorZone
-                                    Padding="16"
-                                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                    Mode="Standard">
+                                    <materialDesign:ColorZone Padding="16"
+                                                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                              Mode="Standard">
                                         <TextBlock Margin="16" HorizontalAlignment="Center">Test</TextBlock>
                                     </materialDesign:ColorZone>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem Header="屏幕时间" Margin="16">
-                                <TextBlock Text="TAB 2" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TabItem Margin="16" Header="屏幕时间">
+                                <TextBlock Margin="16"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="TAB 2" />
                             </TabItem>
-                            <TabItem Header="日程管理" Margin="16">
-                                <TextBlock Text="TAB 3" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TabItem Margin="16" Header="日程管理">
+                                <TextBlock Margin="16"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="TAB 3" />
                             </TabItem>
-                            <TabItem Header="虚拟种树" Margin="16">
-                                <TextBlock Text="TAB 4" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TabItem Margin="16" Header="虚拟种树">
+                                <TextBlock Margin="16"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Text="TAB 4" />
                             </TabItem>
                         </dragablz:TabablzControl>
                     </Grid>
 
-                    <materialDesign:Snackbar
-                        x:Name="MainSnackbar"
-                        MessageQueue="{materialDesign:MessageQueue}"
-                        Grid.Row="1"/>
+                    <materialDesign:Snackbar x:Name="MainSnackbar"
+                                             Grid.Row="1"
+                                             MessageQueue="{materialDesign:MessageQueue}" />
 
                 </Grid>
             </DockPanel>

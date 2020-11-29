@@ -1,13 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:themes="clr-namespace:TimeManagement.Themes">
-    <Style TargetType="Window" x:Key="MaterialDesignWindow">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="MaterialDesignWindow" TargetType="Window">
         <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
         <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}" />
         <Setter Property="TextElement.FontWeight" Value="Medium" />
         <Setter Property="TextElement.FontSize" Value="14" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
         <Setter Property="TextOptions.TextRenderingMode" Value="Auto" />
-        <Setter Property="FontFamily" Value="{themes:MaterialDesignFontSC}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MaterialDesignFontSC}" />
     </Style>
 </ResourceDictionary>

@@ -36,36 +36,8 @@ namespace TimeManagement
 
             //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
 
-            var paletteHelper = new PaletteHelper();
-            var theme = paletteHelper.GetTheme();
-
-            DarkModeToggleButton.IsChecked = theme.GetBaseTheme() == BaseTheme.Dark;
-
-            if (paletteHelper.GetThemeManager() is { } themeManager)
-            {
-                themeManager.ThemeChanged += (_, e)
-                    => DarkModeToggleButton.IsChecked = e.NewTheme?.GetBaseTheme() == BaseTheme.Dark;
-            }
-
             Snackbar = MainSnackbar;
 
-        }
-
-        private void MenuDarkModeButton_Click(object sender, RoutedEventArgs e)
-            => ModifyTheme(DarkModeToggleButton.IsChecked == true);
-
-        private static void ModifyTheme(bool isDarkTheme)
-        {
-            var paletteHelper = new PaletteHelper();
-            var theme = paletteHelper.GetTheme();
-
-            theme.SetBaseTheme(isDarkTheme ? Theme.Dark : Theme.Light);
-            paletteHelper.SetTheme(theme);
-        }
-
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Shutdown();
         }
     }
 }
