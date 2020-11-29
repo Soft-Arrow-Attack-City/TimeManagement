@@ -10,11 +10,15 @@
             <ResourceDictionary.MergedDictionaries>
                 <!-- Material Design -->
                 <materialDesign:BundledTheme BaseTheme="Inherit" PrimaryColor="LightBlue" SecondaryColor="Purple" />
+
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
                 <!-- Dragablz Material Design -->
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
-                <!-- NotoSansSC -->
-                <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignFontSC.xaml"/>
+
+                <!-- Window -->
+                <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.Window.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.FontSC.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Dragablz Material Design -->
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />

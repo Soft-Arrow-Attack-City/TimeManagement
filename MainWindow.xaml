@@ -5,14 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeManagement"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
-        FontFamily="{StaticResource MaterialDesignFontSC}"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="800"
+        Style="{StaticResource MaterialDesignWindow}"
+        >
     <!--SizeToContent="WidthAndHeight">-->
     <materialDesign:DialogHost
         Identifier="RootDialog"
@@ -120,7 +117,14 @@
                                                  FixedHeaderCount="1"
                                                  Grid.Column="1">
                             <TabItem Header="主页" Margin="16">
-                                <TextBlock Text="TAB 1" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <StackPanel>
+                                    <materialDesign:ColorZone
+                                    Padding="16"
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                    Mode="Standard">
+                                        <TextBlock Margin="16" HorizontalAlignment="Center">Test</TextBlock>
+                                    </materialDesign:ColorZone>
+                                </StackPanel>
                             </TabItem>
                             <TabItem Header="屏幕时间" Margin="16">
                                 <TextBlock Text="TAB 2" Margin="16" VerticalAlignment="Center" HorizontalAlignment="Center" />
