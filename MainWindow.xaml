@@ -55,9 +55,40 @@
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                            Timeline Test
-                        </TextBlock>
+                        <Grid Margin="0,40,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <materialDesign:Card Height="80"
+                                                     Margin="5,5,2,2"
+                                                     Padding="0"
+                                                     Background="{DynamicResource MaterialDesignDarkBackground}"
+                                                     Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignBody2TextBlock}">
+                                        Test_Left
+                                    </TextBlock>
+                                </materialDesign:Card>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <materialDesign:Card Height="80"
+                                                     Margin="2,5,2,2"
+                                                     Padding="0"
+                                                     Background="{DynamicResource MaterialDesignLightBackground}"
+                                                     Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignBody2TextBlock}">
+                                        Test_Right
+                                    </TextBlock>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </Grid>
 
                         <dragablz:TabablzControl Grid.Column="1"
                                                  Margin="0,-1,0,1"
