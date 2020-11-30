@@ -1,18 +1,16 @@
-﻿<Application
-    x:Class="TimeManagement.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    StartupUri="MainWindow.xaml">
+﻿<Application x:Class="TimeManagement.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--  Material Design  -->
-                <materialDesign:BundledTheme
-                    BaseTheme="Inherit"
-                    PrimaryColor="LightBlue"
-                    SecondaryColor="Purple" />
+                <materialDesign:BundledTheme BaseTheme="Inherit"
+                                             PrimaryColor="LightBlue"
+                                             SecondaryColor="Purple" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
@@ -22,6 +20,7 @@
                 <!--  Window  -->
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.Window.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.FontSC.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.TabColorZone.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--  Dragablz Material Design  -->
             <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />

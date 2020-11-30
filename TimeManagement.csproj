@@ -82,9 +82,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\LeftDrawerContent.xaml.cs">
-      <DependentUpon>LeftDrawerContent.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PopupBox.xaml.cs">
       <DependentUpon>PopupBox.xaml</DependentUpon>
     </Compile>
@@ -104,13 +101,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\MaterialDesignTheme.Window.xaml">
+    <Page Include="Themes\MaterialDesignTheme.TabColorZone.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\LeftDrawerContent.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Themes\MaterialDesignTheme.Window.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PopupBox.xaml">
       <SubType>Designer</SubType>
