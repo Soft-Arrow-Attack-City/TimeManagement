@@ -85,11 +85,12 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
-                                <materialDesign:Card Height="80"
-                                                     Margin="2,5,2,2"
+                                <materialDesign:Card Height="180"
+                                                     Margin="2,5,1.8,2"
                                                      Padding="0"
                                                      Background="{DynamicResource MaterialDesignLightBackground}"
-                                                     Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
+                                                     Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                                                     >
                                     <TextBlock HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                Style="{StaticResource MaterialDesignBody2TextBlock}">
@@ -146,6 +147,7 @@
                                              MessageQueue="{materialDesign:MessageQueue}" />
 
                 </Grid>
+                <Button Content="Button" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="Button_Click"/>
             </DockPanel>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
