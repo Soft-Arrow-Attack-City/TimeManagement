@@ -53,10 +53,7 @@
                 </materialDesign:ColorZone>
 
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -66,10 +63,10 @@
 
 
 
-                        <Grid x:Name="TimelineGrid">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
 
                             <Grid Grid.Row="0">
@@ -84,56 +81,22 @@
                             </Grid>
 
 
-
-
-                            <Grid Grid.Row="1">
+                            <Grid x:Name="TimelineGrid" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
 
+                                <Grid x:Name="planGrid" Grid.Column="0">
+                                    <!--  此部分内容由C#代码动态生成。  -->
+                                </Grid>
 
 
 
-                                <StackPanel x:Name="planPanel" Grid.Column="0">
-                                    <materialDesign:Card Height="52"
-                                                         Margin="4"
-                                                         Background="{DynamicResource MaterialDesignDarkBackground}"
-                                                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Style="{StaticResource MaterialDesignBody2TextBlock}">
-                                            Test_Left
-                                        </TextBlock>
-                                    </materialDesign:Card>
-
-                                    <materialDesign:Card Height="30"
-                                                         Background="{DynamicResource MaterialDesignLightBackground}"
-                                                         Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Style="{StaticResource MaterialDesignBody2TextBlock}">
-                                            Test_Left
-                                        </TextBlock>
-                                    </materialDesign:Card>
-
-                                </StackPanel>
-
-
-
-                                <StackPanel x:Name="actualPanel" Grid.Column="1">
-                                    <materialDesign:Card Height="86"
-                                                         Margin="4"
-                                                         Background="{DynamicResource MaterialDesignLightBackground}"
-                                                         Foreground="{DynamicResource PrimaryHueLightForegroundBrush}">
-                                        <TextBlock HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Style="{StaticResource MaterialDesignBody2TextBlock}">
-                                            Test_Rightfdgdsfgsdffdsg
-                                        </TextBlock>
-                                    </materialDesign:Card>
-                                </StackPanel>
+                                <Grid x:Name="actualGrid" Grid.Column="1">
+                                    <!--  此部分内容由C#代码动态生成。  -->
+                                </Grid>
 
 
                             </Grid>

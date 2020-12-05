@@ -40,35 +40,58 @@ namespace TimeManagement
             //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
 
             Snackbar = MainSnackbar;
+        }
 
-            planPanel.Children.Clear();
-            for (int i = 0; i < 10; i++)
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            //////////////////////////////////////////////////垂直alignment设置成Stretch为什么不管用！！！！！！！！！！！！！！！！！！！！！！
+            planGrid.Children.Clear();
+            planGrid.RowDefinitions.Clear();
+            for (int i = 0; i < 16; i++)
             {
+                
+                planGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100+i, GridUnitType.Star) });
+
+
                 Button b = new Button();
-                b.Height = 20 + (int)(random.NextDouble() * 40);
+                planGrid.Children.Add(b);
+                b.SetValue(Grid.RowProperty, i);
                 b.Margin = new Thickness(5, 2, 5, 2);
+                //b.VerticalAlignment = VerticalAlignment.Stretch;
 
-                SolidColorBrush c= new SolidColorBrush(Color.FromArgb(255, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
-                b.Background = c;
-                b.BorderBrush = c;
-                b.Content = "sadfdsaf";
-                planPanel.Children.Add(b);
-            }
-            actualPanel.Children.Clear();
-            for (int i = 0; i < 10; i++)
-            {
-                Button b = new Button();
                 SolidColorBrush c = new SolidColorBrush(Color.FromArgb(255, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
-                b.Height = 20+ (int)(random.NextDouble()*40);
-                b.Margin = new Thickness(5,2,5,2);
                 b.Background = c;
                 b.BorderBrush = c;
-                b.Content = "sadfdsaf";
-                actualPanel.Children.Add(b);
+                b.Content = "plan";
+
             }
 
+            actualGrid.Children.Clear();
+            actualGrid.RowDefinitions.Clear();
+            for (int i = 0; i < 16; i++)
+            {
 
+                actualGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100+15-i, GridUnitType.Star) });
+
+
+                Button b = new Button();
+                actualGrid.Children.Add(b);
+                b.SetValue(Grid.RowProperty, i);
+                b.Margin = new Thickness(5, 2, 5, 2);
+                //b.VerticalAlignment = VerticalAlignment.Stretch;
+
+                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(255, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
+                b.Background = c;
+                b.BorderBrush = c;
+                b.Content = "actual";
+
+            }
 
         }
+
+
+        
     }
 }
