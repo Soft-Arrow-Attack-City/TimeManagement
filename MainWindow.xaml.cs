@@ -22,7 +22,10 @@ namespace TimeManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Snackbar Snackbar = new Snackbar();
+        public static Snackbar Snackbar;
+        private Random random = new Random();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +40,34 @@ namespace TimeManagement
             //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
 
             Snackbar = MainSnackbar;
+
+            planPanel.Children.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                Button b = new Button();
+                b.Height = 20 + (int)(random.NextDouble() * 40);
+                b.Margin = new Thickness(5, 2, 5, 2);
+
+                SolidColorBrush c= new SolidColorBrush(Color.FromArgb(255, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
+                b.Background = c;
+                b.BorderBrush = c;
+                b.Content = "sadfdsaf";
+                planPanel.Children.Add(b);
+            }
+            actualPanel.Children.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                Button b = new Button();
+                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(255, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
+                b.Height = 20+ (int)(random.NextDouble()*40);
+                b.Margin = new Thickness(5,2,5,2);
+                b.Background = c;
+                b.BorderBrush = c;
+                b.Content = "sadfdsaf";
+                actualPanel.Children.Add(b);
+            }
+
+
 
         }
     }

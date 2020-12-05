@@ -96,7 +96,7 @@
 
 
 
-                                <StackPanel Grid.Column="0">
+                                <StackPanel x:Name="planPanel" Grid.Column="0">
                                     <materialDesign:Card Height="52"
                                                          Margin="4"
                                                          Background="{DynamicResource MaterialDesignDarkBackground}"
@@ -122,7 +122,7 @@
 
 
 
-                                <StackPanel Grid.Column="1">
+                                <StackPanel x:Name="actualPanel" Grid.Column="1">
                                     <materialDesign:Card Height="86"
                                                          Margin="4"
                                                          Background="{DynamicResource MaterialDesignLightBackground}"
@@ -137,8 +137,6 @@
 
 
                             </Grid>
-
-
                         </Grid>
 
 
