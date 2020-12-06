@@ -115,7 +115,7 @@
                                                  BorderThickness="0"
                                                  FixedHeaderCount="1">
                             <TabItem Margin="16" Header="主页">
-                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone Grid.Column="0" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
