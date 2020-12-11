@@ -53,15 +53,11 @@
                 </materialDesign:ColorZone>
 
                 <Grid>
-
-
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
-
-
 
                         <Grid>
                             <Grid.RowDefinitions>
@@ -80,7 +76,6 @@
 
                             </Grid>
 
-
                             <Grid x:Name="TimelineGrid" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -92,22 +87,11 @@
                                     <!--  此部分内容由C#代码动态生成。  -->
                                 </Grid>
 
-
-
                                 <Grid x:Name="actualGrid" Grid.Column="1">
                                     <!--  此部分内容由C#代码动态生成。  -->
                                 </Grid>
-
-
                             </Grid>
                         </Grid>
-
-
-
-
-
-
-
 
                         <dragablz:TabablzControl x:Name="MainZoneTabablz"
                                                  Grid.Column="1"
@@ -115,7 +99,7 @@
                                                  BorderThickness="0"
                                                  FixedHeaderCount="1">
                             <TabItem Margin="16" Header="主页">
-                                <materialDesign:ColorZone Grid.Column="0" Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -124,7 +108,7 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="屏幕时间">
-                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -133,7 +117,7 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="日程管理">
-                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -142,7 +126,7 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="虚拟种树">
-                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -155,7 +139,6 @@
                     <materialDesign:Snackbar x:Name="MainSnackbar"
                                              Grid.Row="1"
                                              MessageQueue="{materialDesign:MessageQueue}" />
-
                 </Grid>
             </DockPanel>
         </materialDesign:DrawerHost>
