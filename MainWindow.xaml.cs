@@ -46,7 +46,23 @@ namespace TimeManagement
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+            drawTimeline();
+        }      
+        
 
+
+        //假设没有后端数据的时候，先生成一些随机的数据作为后端。
+        //后端数据的生成方式：时间点+任务。
+        //直接用均分的方法，均分段里面有哪个记录多就直接记录为哪个。如果没有记录就不透明度为零（全透明），如果上下两块东西一样就合并。
+        public void generatedata()
+        {
+            
+        }
+
+        //绘制时间线的函数
+        private void drawTimeline()
+        {
+            //绘制计划的时间线
             planGrid.Children.Clear();
             planGrid.RowDefinitions.Clear();
             for (int i = 0; i < 10; i++)
