@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace TimeManagement.Tests
 {
@@ -21,7 +16,7 @@ namespace TimeManagement.Tests
             Assert.Equal(5, Multiply(2, 2));
         }
 
-        int Multiply(int x, int y)
+        private int Multiply(int x, int y)
         {
             return x * y;
         }
