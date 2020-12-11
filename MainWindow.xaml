@@ -107,9 +107,7 @@
                                                  BorderThickness="0"
                                                  FixedHeaderCount="1">
                             <TabItem Margin="16" Header="主页">
-                                <materialDesign:ColorZone Grid.Column="0"
-                                                          VerticalAlignment="Stretch"
-                                                          Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone Grid.Column="0" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -118,7 +116,7 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="屏幕时间">
-                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -127,7 +125,7 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="日程管理">
-                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -136,7 +134,7 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="虚拟种树">
-                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
+                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
