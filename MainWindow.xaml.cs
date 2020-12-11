@@ -42,11 +42,19 @@ namespace TimeManagement
             Snackbar = MainSnackbar;
         }
 
+
         //窗口整体初始化完成后，执行绘制左侧边栏的代码。
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+            drawTimeline();
+        }      
+        
 
+        //绘制时间线的函数
+        private void drawTimeline()
+        {
+            //绘制计划的时间线
             planGrid.Children.Clear();
             planGrid.RowDefinitions.Clear();
             for (int i = 0; i < 10; i++)
@@ -64,6 +72,7 @@ namespace TimeManagement
 
             }
 
+            //绘制实际的时间线。（需要用采集到的信息来绘制，要有足够长时间。现在是以秒为单位的数据，但将来可能是以小时为单位的数据。）
             actualGrid.Children.Clear();
             actualGrid.RowDefinitions.Clear();
             for (int i = 0; i < 10; i++)
@@ -80,6 +89,11 @@ namespace TimeManagement
                 b.Content = "actual" + i.ToString();
 
             }
-        }       
+        }
+
+        private void TimelineGrid_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            drawTimeline();
+        }
     }
 }

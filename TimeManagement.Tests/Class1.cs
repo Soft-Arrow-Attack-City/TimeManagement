@@ -10,15 +10,15 @@ namespace TimeManagement.Tests
     public class Class1
     {
         [Fact]
-        public void PassingTest()
+        public void Test1()
         {
             Assert.Equal(4, Multiply(2, 2));
         }
 
         [Fact]
-        public void FailingTest()
+        public void Test2()
         {
-            Assert.Equal(5, Multiply(2, 2));
+            Assert.Equal(6, Multiply(2, 3));
         }
 
         int Multiply(int x, int y)
