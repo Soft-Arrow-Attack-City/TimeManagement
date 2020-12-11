@@ -22,7 +22,10 @@ namespace TimeManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Snackbar Snackbar = new Snackbar();
+        public static Snackbar Snackbar;
+        private Random random = new Random();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,7 +40,46 @@ namespace TimeManagement
             //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
 
             Snackbar = MainSnackbar;
-
         }
+
+        //窗口整体初始化完成后，执行绘制左侧边栏的代码。
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            planGrid.Children.Clear();
+            planGrid.RowDefinitions.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                planGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(random.NextDouble(), GridUnitType.Star) });
+                Button b = new Button();
+                planGrid.Children.Add(b);
+                b.SetValue(Grid.RowProperty, i);
+                b.Margin = new Thickness(5, 2, 3, 2);
+                b.Height = double.NaN;
+                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
+                b.Background = c;
+                b.BorderBrush = c;
+                b.Content = "plan" + i.ToString();
+
+            }
+
+            actualGrid.Children.Clear();
+            actualGrid.RowDefinitions.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                actualGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(random.NextDouble(), GridUnitType.Star) });
+                Button b = new Button();
+                actualGrid.Children.Add(b);
+                b.SetValue(Grid.RowProperty, i);
+                b.Margin = new Thickness(3, 2, 5, 2);
+                b.Height = double.NaN;
+                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
+                b.Background = c;
+                b.BorderBrush = c;
+                b.Content = "actual" + i.ToString();
+
+            }
+        }       
     }
 }
