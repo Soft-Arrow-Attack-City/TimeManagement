@@ -17,6 +17,44 @@ using System.Windows.Shapes;
 
 namespace TimeManagement
 {
+    //一条记录
+    class Alog
+    {
+        public DateTime t;
+        public string s;
+
+        public Alog(DateTime tt,string ss)
+        {
+            t = tt;
+            s = ss;
+        }
+
+        public Alog(int tt, string ss)
+        {
+            t = new DateTime(2020, 12, 11, tt / 3600, (tt / 60) % 60, tt % 60);
+            s = ss;
+        }
+
+        public static bool operator <(Alog a, Alog b)
+        {
+            return a.t < b.t;
+        }
+        public static bool operator >(Alog a, Alog b)
+        {
+            return a.t > b.t;
+        }
+
+        public static bool operator ==(Alog a, Alog b)
+        {
+            return a.t == b.t;
+        }
+        public static bool operator !=(Alog a, Alog b)
+        {
+            return a.t != b.t;
+        }
+    }
+
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -24,6 +62,8 @@ namespace TimeManagement
     {
         public static Snackbar Snackbar;
         private Random random = new Random();
+        private SortedSet<Alog> logs = new SortedSet<Alog>();
+
 
 
         public MainWindow()
@@ -54,10 +94,23 @@ namespace TimeManagement
 
         //假设没有后端数据的时候，先生成一些随机的数据作为后端。
         //后端数据的生成方式：时间点+任务。
-        //直接用均分的方法，均分段里面有哪个记录多就直接记录为哪个。如果没有记录就不透明度为零（全透明），如果上下两块东西一样就合并。
+        //直接用均分的方法，均分段里面有哪个记录多就直接记录为哪个。如果没有记录就不透明度为零（全透明），如果上下两块东西一样就合并。（这个合并比较难。？！）
+
+
+
         public void generatedata()
         {
-            
+            logs.Clear();
+            List<string> ls = new List<string>(new string[] { "rdgv4v", "c32crq", "q5r34ct34v", "4c3c6c", "4vt3", "34ct9v8", "43vc53", "6b3bv" });
+            for(int i = 0; i < 500; i++)
+            {
+                logs.Add(new Alog(random.Next(86400), ls[random.Next(8)]));
+            }
+        }
+
+        public void processdata()
+        {
+
         }
 
         //绘制时间线的函数
@@ -91,7 +144,8 @@ namespace TimeManagement
                 actualGrid.Children.Add(b);
                 b.SetValue(Grid.RowProperty, i);
                 b.Margin = new Thickness(3, 2, 5, 2);
-                b.Height = double.NaN;
+                if (random.NextDouble() > 0.5) b.Height = 0;
+                else b.Height = double.NaN;
                 SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
                 b.Background = c;
                 b.BorderBrush = c;
