@@ -72,33 +72,23 @@
                             <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5*" />
-                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Grid.Column="1" Margin="6,5,6,2">日程计划</Button>
-                                <Button Grid.Column="2" Margin="6,5,6,2">屏幕使用</Button>
+                                <Button Grid.Column="0" Margin="12,5,12,2">日程计划</Button>
+                                <Button Grid.Column="1" Margin="12,5,12,2">屏幕使用</Button>
 
                             </Grid>
 
 
-                            <Grid x:Name="TimelineGrid"
-                                  Grid.Row="1"
-                                  MouseWheel="TimelineGrid_MouseWheel">
+                            <Grid x:Name="TimelineGrid" Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5*" />
-                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <materialDesign:Card Grid.ColumnSpan="3"
-                                                     Height="NaN"
-                                                     VerticalAlignment="Stretch"
-                                                     MouseWheel="TimelineGrid_MouseWheel"
-                                                     Opacity="0" />
 
-
-                                <Grid x:Name="planGrid" Grid.Column="1">
+                                <Grid x:Name="planGrid" Grid.Column="0">
                                     <!--  此部分内容由C#代码动态生成。  -->
                                 </Grid>
 
