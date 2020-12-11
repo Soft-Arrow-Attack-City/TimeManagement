@@ -92,24 +92,13 @@
                                     <!--  此部分内容由C#代码动态生成。  -->
                                 </Grid>
 
-
-
                                 <Grid x:Name="actualGrid" Grid.Column="2">
                                     <!--  此部分内容由C#代码动态生成。  -->
                                 </Grid>
 
 
-
-
-
                             </Grid>
                         </Grid>
-
-
-
-
-
-
 
 
                         <dragablz:TabablzControl x:Name="MainZoneTabablz"
