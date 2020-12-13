@@ -39,5 +39,10 @@ namespace TimeManagement
             Snackbar = MainSnackbar;
 
         }
+
+        private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
