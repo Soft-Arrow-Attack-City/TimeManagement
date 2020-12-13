@@ -80,6 +80,11 @@ namespace TimeManagement
                 b.Content = "actual" + i.ToString();
 
             }
-        }       
+        }
+
+        private void MainZoneTabablz_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

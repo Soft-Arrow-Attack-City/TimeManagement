@@ -113,7 +113,7 @@
                                                  Grid.Column="1"
                                                  Margin="0,-1,0,1"
                                                  BorderThickness="0"
-                                                 FixedHeaderCount="1">
+                                                 FixedHeaderCount="1" SelectionChanged="MainZoneTabablz_SelectionChanged">
                             <TabItem Margin="16" Header="主页">
                                 <materialDesign:ColorZone Grid.Column="0" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <TextBlock Margin="16"
@@ -144,7 +144,171 @@
                             <TabItem Margin="16" Header="虚拟种树">
                                 <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}"
                                                           VerticalAlignment="Stretch">
-                                    <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <!--    <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                                    <materialDesign:Card  Width="350">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition        Height="200" />
+                                                <RowDefinition        Height="*" />
+                                           
+                                                <RowDefinition        Height="auto" />
+                                                <RowDefinition        Height="auto" />
+                                                <RowDefinition        Height="auto" />
+                                                <RowDefinition        Height="auto" />
+                                                <RowDefinition        Height="auto" />
+                                                <RowDefinition        Height="auto" />
+                                                <RowDefinition        Height="auto" />
+ 
+                                            </Grid.RowDefinitions>
+                                            <Image    Grid.Row="0"   Source="Resources/Pic/tree.png"      
+                                                      Height="100"      Stretch="UniformToFill" 
+                                                      Width="100"
+                                                      Margin="0,0,0,0"                                                        />
+
+                                            <StackPanel      Grid.Row="1"
+                                                              Margin="0,0,0,0"
+                                                            >
+                                                <TextBlock        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"     VerticalAlignment="Center"   Margin="10,0,0,0">
+                                                        任务名称
+                                                    <TextBox Text="键入新任务名称"  Margin=" 130,0,0,0">
+                                                </TextBox>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <StackPanel      Grid.Row="2"
+                                                              Margin="0,0"
+                                                            >
+
+                                                   <!-- ok-->
+                                                <StackPanel
+                                                    Orientation="Horizontal"
+                                                    Margin="0 0 0 0">
+                                                    <TextBlock
+    
+                                                    Text="设置时间（min）" 
+                                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                        VerticalAlignment="Center"
+                                                        Margin="10,0"
+                                                        />
+                                                    <TextBox
+                                                    x:Name="sliderMaxH"
+                                                    Text="120"/>
+                                                    <Slider
+                                                    Minimum="0"
+                                                    Maximum="{Binding Text, ElementName=sliderMaxH, Mode=OneWay}"
+                                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                                    ToolTip="MaterialDesignDiscreteSlider"
+                                                    Value="50"
+                                                    Width="160"
+                                                    />
+                                                </StackPanel>         
+                                                <!-- ok-->
+                                        
+                                            </StackPanel>
+                                            <StackPanel      Grid.Row="3"
+                                                              Margin="0,0"
+                                                            >
+                                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}"        VerticalAlignment="Center"      Margin="10,0">
+                                                    工作性质
+                                                    
+                                                    <ComboBox
+                                                          materialDesign:HintAssist.Hint="工作性质"
+                                                          materialDesign:HintAssist.HintOpacity=".26"
+                                                          IsEditable="True"
+                                                        Margin="150,0,0,0"
+                                                    >
+                                                        <ComboBoxItem>
+                                                            学习
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            休息
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            工作
+                                                        </ComboBoxItem>
+                                                        <ComboBoxItem>
+                                                            运动
+                                                        </ComboBoxItem>
+
+                                                    </ComboBox>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel
+                                                          Orientation="Horizontal"
+                                                        
+                                                Grid.Row="4"
+                                                 Margin="0,10"
+                                                            >
+                                                
+                                                <TextBlock 
+                                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
+                                                        Margin=" 10,0"
+                                                                  VerticalAlignment="Center"
+                                                                Text="优先级"
+                                                                />
+                                                <materialDesign:RatingBar
+                                                    Value="3"
+                                                    x:Name="BasicRatingBar"
+                                                    
+                                                  Margin="130,0"/>
+                                                
+
+
+                                            </StackPanel>
+
+
+                                            
+
+                                            <StackPanel
+                                                    Orientation="Horizontal"
+                                                    materialDesign:RippleAssist.IsCentered="True"
+                                                Grid.Row="5"
+                                                Margin="0,10"
+                                                             >
+
+                                                <TextBlock
+                                                        
+                                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
+                                                        Margin=" 10,0"
+                                                            Text="黑名单模式" 
+                                                          VerticalAlignment="Center"
+                                                            />
+                                                <ToggleButton
+                                                                  Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                                                                  VerticalAlignment="Bottom"
+                                                                  Margin="180,0"   />
+
+
+
+                                            </StackPanel>
+                                            <StackPanel  Grid.Row="6">
+
+                                                <Button
+                                                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                                            Width="100"
+                                                            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="40,20"
+                                                          VerticalAlignment="Center">
+                                                开始
+                                                </Button>
+                                            </StackPanel>
+
+
+
+                                            <StackPanel
+                                                Grid.Row="7"
+                                                 Margin="0,0"
+                                                      VerticalAlignment="Center">
+                                                <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="8 0 8 8">                                   
+                                                    黑名单设置
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </materialDesign:Card>
                                 </materialDesign:ColorZone>
 
 
