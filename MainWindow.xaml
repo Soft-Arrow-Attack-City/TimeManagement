@@ -122,10 +122,7 @@
 
                             <TabItem Margin="16" Header="屏幕时间">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <TextBlock Margin="16"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Text="TAB 2" />
+                                    <views:ScreenTime />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
