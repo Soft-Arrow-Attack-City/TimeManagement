@@ -104,5 +104,10 @@ namespace TimeManagement
         {
             drawTimeline();
         }
+
+        private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
