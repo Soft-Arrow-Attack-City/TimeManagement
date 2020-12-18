@@ -406,7 +406,7 @@ class Calculate
         Console.WriteLine();
     }
 
-    public static void Main_()
+    public static void Monitor()
     {
         //调用示例
         Dictionary<string, double> WindowProportion = new Dictionary<string, double>();

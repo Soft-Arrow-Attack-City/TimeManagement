@@ -91,7 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Utilities\Calculate.cs" />
+    <Compile Include="Utilities\ScreenMonitoring.cs" />
+    <Compile Include="Views\Homepage.xaml.cs">
+      <DependentUpon>Homepage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PopupBox.xaml.cs">
       <DependentUpon>PopupBox.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
     <Page Include="Themes\MaterialDesignTheme.Window.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Homepage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PopupBox.xaml">
       <SubType>Designer</SubType>
