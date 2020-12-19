@@ -21,6 +21,9 @@
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.Window.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.FontSC.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.TabColorZone.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--  Dragablz Material Design  -->
             <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
