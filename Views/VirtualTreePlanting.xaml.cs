@@ -1,47 +1,28 @@
-﻿using LiveCharts;
-using LiveCharts.Wpf;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace TimeManagement.Views
 {
     /// <summary>
-    /// ScreenTime.xaml 的交互逻辑
+    /// VirtualTreePlanting.xaml 的交互逻辑
     /// </summary>
-    public partial class ScreenTime : UserControl
+    public partial class VirtualTreePlanting : UserControl
     {
-        public Func<ChartPoint, string> PointLabel { get; set; }
-        public SeriesCollection SeriesCollection { get; set; }
-
-        public ScreenTime()
+        public VirtualTreePlanting()
         {
             InitializeComponent();
-            PointLabel = chartPoint => string.Format("{0}({1:p})", chartPoint.Y, chartPoint.Participation);
-            DataContext = this;
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Values = new ChartValues<double> { 3, 5, 7, 4, 6, 8, 1 }
-                },
-                    new ColumnSeries
-                {
-                    Values = new ChartValues<decimal> { 3, 5, 7, 4, 6, 8, 1 }
-                }
-            };
-        }
-
-        private void pipChart_DataClick(object sender, ChartPoint chartPoint)
-        {
-            var chart = (PieChart)chartPoint.ChartView;
-            //clear selected slice
-            foreach (PieSeries series in chart.Series)
-            {
-                series.PushOut = 0;
-                var selectedSeries = (PieSeries)chartPoint.SeriesView;
-                selectedSeries.PushOut = 8;
-            }
-
         }
     }
 }

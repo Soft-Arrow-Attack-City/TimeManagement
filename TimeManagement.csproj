@@ -128,11 +128,11 @@
     <Compile Include="Views\PopupBox.xaml.cs">
       <DependentUpon>PopupBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VirtualTreePlanting.xaml.cs">
-      <DependentUpon>VirtualTreePlanting.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ScreenTime.xaml.cs">
       <DependentUpon>ScreenTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VirtualTreePlanting.xaml.cs">
+      <DependentUpon>VirtualTreePlanting.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -166,11 +166,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\VirtualTreePlanting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\ScreenTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VirtualTreePlanting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
