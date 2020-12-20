@@ -1,12 +1,13 @@
 ﻿<UserControl x:Class="TimeManagement.Views.VirtualTreePlanting"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TimeManagement.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
 
     <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
         <!--    <materialDesign:PackIcon Kind="Account" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
@@ -29,27 +30,27 @@
 
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0"
-                                                       Width="100"
-                                                       Height="100"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       Source="./TimeManagement/Resources/Pics/tree.jpg" />
+                           Width="100"
+                           Height="100"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Source="pack://application:,,,/Resources/Pics/tree.jpg" />
 
                     <StackPanel Grid.Row="1" Margin="0,0,0,0">
                         <DockPanel>
                             <TextBlock Margin="10,0,0,0"
-                                                                   VerticalAlignment="Center"
-                                                                   DockPanel.Dock="Left"
-                                                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                                                            任务名称
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
+                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                任务名称
                             </TextBlock>
 
                             <TextBox Width="130"
-                                                                 Margin="0,0,30,0"
-                                                                 HorizontalAlignment="Right"
-                                                                 DockPanel.Dock="Right"
-                                                                 Text="键入新任务名称"
-                                                                 TextAlignment="Center" />
+                                     Margin="0,0,30,0"
+                                     HorizontalAlignment="Right"
+                                     DockPanel.Dock="Right"
+                                     Text="键入新任务名称"
+                                     TextAlignment="Center" />
 
                         </DockPanel>
                     </StackPanel>
@@ -59,18 +60,18 @@
                         <DockPanel>
 
                             <TextBlock Margin="10,0"
-                                                                   VerticalAlignment="Center"
-                                                                   DockPanel.Dock="Left"
-                                                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                                   Text="设置时间（min）" />
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
+                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                       Text="设置时间（min）" />
                             <Slider Width="160"
-                                                                VerticalAlignment="Top"
-                                                                DockPanel.Dock="Right"
-                                                                Maximum="120"
-                                                                Minimum="0"
-                                                                Style="{StaticResource MaterialDesignDiscreteSlider}"
-                                                                ToolTip="MaterialDesignDiscreteSlider"
-                                                                Value="50" />
+                                    VerticalAlignment="Top"
+                                    DockPanel.Dock="Right"
+                                    Maximum="120"
+                                    Minimum="0"
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    ToolTip="MaterialDesignDiscreteSlider"
+                                    Value="50" />
                         </DockPanel>
                         <!--  ok  -->
 
@@ -78,17 +79,17 @@
                     <StackPanel Grid.Row="3" Margin="0,0">
                         <DockPanel>
                             <TextBlock Margin="10,0"
-                                                                   VerticalAlignment="Center"
-                                                                   DockPanel.Dock="Left"
-                                                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                                                            工作性质
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
+                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                工作性质
                             </TextBlock>
                             <ComboBox Margin="0,0,30,0"
-                                                                  HorizontalAlignment="Right"
-                                                                  materialDesign:HintAssist.Hint="工作性质"
-                                                                  materialDesign:HintAssist.HintOpacity=".26"
-                                                                  DockPanel.Dock="Right"
-                                                                  IsEditable="True">
+                                      HorizontalAlignment="Right"
+                                      materialDesign:HintAssist.Hint="工作性质"
+                                      materialDesign:HintAssist.HintOpacity=".26"
+                                      DockPanel.Dock="Right"
+                                      IsEditable="True">
                                 <ComboBoxItem>
                                     学习
                                 </ComboBoxItem>
@@ -108,17 +109,17 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="4"
-                                                            Margin="0,10"
-                                                            Orientation="Horizontal">
+                                Margin="0,10"
+                                Orientation="Horizontal">
 
                         <TextBlock Margin="10,0"
-                                                               VerticalAlignment="Center"
-                                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                               Text="优先级" />
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                   Text="优先级" />
                         <materialDesign:RatingBar x:Name="BasicRatingBar"
-                                                                              Margin="140,0,0,0"
-                                                                              HorizontalAlignment="Right"
-                                                                              Value="3" />
+                                                  Margin="140,0,0,0"
+                                                  HorizontalAlignment="Right"
+                                                  Value="3" />
 
 
 
@@ -128,17 +129,17 @@
 
 
                     <StackPanel Grid.Row="5"
-                                                            Margin="0,10"
-                                                            materialDesign:RippleAssist.IsCentered="True"
-                                                            Orientation="Horizontal">
+                                Margin="0,10"
+                                materialDesign:RippleAssist.IsCentered="True"
+                                Orientation="Horizontal">
 
                         <TextBlock Margin="10,0"
-                                                               VerticalAlignment="Center"
-                                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                               Text="黑名单模式" />
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                   Text="黑名单模式" />
                         <ToggleButton Margin="180,0"
-                                                                  VerticalAlignment="Bottom"
-                                                                  Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" />
+                                      VerticalAlignment="Bottom"
+                                      Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" />
 
 
 
@@ -146,12 +147,12 @@
                     <StackPanel Grid.Row="6">
 
                         <Button Width="100"
-                                                            Margin="40,20"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                                            Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                            ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                Margin="40,20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             开始
                         </Button>
                     </StackPanel>
@@ -159,13 +160,13 @@
 
 
                     <StackPanel Grid.Row="6"
-                                                            Margin="0,0"
-                                                            VerticalAlignment="Center">
+                                Margin="0,0"
+                                VerticalAlignment="Center">
                         <Button Margin="8,0,8,8"
-                                                            HorizontalAlignment="Left"
-                                                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                                                            Content=" 黑名单设置"
-                                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                HorizontalAlignment="Left"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                Content=" 黑名单设置"
+                                Style="{StaticResource MaterialDesignFlatButton}">
 
                             <Button.CommandParameter>
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -174,9 +175,9 @@
                                         <StackPanel Orientation="Horizontal">
 
                                             <TextBlock Margin="16,5,0,5"
-                                                                                   HorizontalAlignment="Center"
-                                                                                   VerticalAlignment="Center">
-                                                                            黑名单设置
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">
+                                                黑名单设置
                                             </TextBlock>
 
 
@@ -201,32 +202,32 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <CheckBox Grid.Row="0"
-                                                                                      Grid.Column="0"
-                                                                                      VerticalAlignment="Center"
-                                                                                      IsChecked="{Binding IsSelected}" />
+                                                          Grid.Column="0"
+                                                          VerticalAlignment="Center"
+                                                          IsChecked="{Binding IsSelected}" />
                                                 <StackPanel Grid.Row="0"
-                                                                                        Grid.Column="1"
-                                                                                        Margin="8,0,0,0">
+                                                            Grid.Column="1"
+                                                            Margin="8,0,0,0">
 
                                                     <TextBlock FontWeight="Bold" Text="微信" />
                                                 </StackPanel>
                                                 <CheckBox Grid.Row="1"
-                                                                                      Grid.Column="0"
-                                                                                      VerticalAlignment="Center"
-                                                                                      IsChecked="{Binding IsSelected}" />
+                                                          Grid.Column="0"
+                                                          VerticalAlignment="Center"
+                                                          IsChecked="{Binding IsSelected}" />
                                                 <StackPanel Grid.Row="1"
-                                                                                        Grid.Column="1"
-                                                                                        Margin="8,0,0,0">
+                                                            Grid.Column="1"
+                                                            Margin="8,0,0,0">
 
                                                     <TextBlock FontWeight="Bold" Text="Dota2" />
                                                 </StackPanel>
                                                 <CheckBox Grid.Row="2"
-                                                                                      Grid.Column="0"
-                                                                                      VerticalAlignment="Center"
-                                                                                      IsChecked="{Binding IsSelected}" />
+                                                          Grid.Column="0"
+                                                          VerticalAlignment="Center"
+                                                          IsChecked="{Binding IsSelected}" />
                                                 <StackPanel Grid.Row="2"
-                                                                                        Grid.Column="1"
-                                                                                        Margin="8,0,0,0">
+                                                            Grid.Column="1"
+                                                            Margin="8,0,0,0">
 
                                                     <TextBlock FontWeight="Bold" Text="Visual Studio" />
                                                 </StackPanel>
@@ -237,11 +238,11 @@
 
                                         <!--  ok  -->
                                         <Button HorizontalAlignment="Center"
-                                                                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                                            CommandParameter="Sample2Cancel"
-                                                                            Content="关闭"
-                                                                            IsCancel="True"
-                                                                            Style="{StaticResource MaterialDesignFlatButton}" />
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                CommandParameter="Sample2Cancel"
+                                                Content="关闭"
+                                                IsCancel="True"
+                                                Style="{StaticResource MaterialDesignFlatButton}" />
                                     </StackPanel>
                                 </ScrollViewer>
                             </Button.CommandParameter>
@@ -261,12 +262,12 @@
                     <materialDesign:ColorZone Padding="6" Mode="PrimaryMid">
                         <StackPanel Orientation="Horizontal">
                             <Button HorizontalAlignment="Left"
-                                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                                                Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}">
                                 <materialDesign:PackIcon HorizontalAlignment="Right" Kind="ArrowLeft" />
                             </Button>
                             <TextBlock Margin="8,0,0,0" VerticalAlignment="Center">
-                                                            返回
+                                返回
                             </TextBlock>
                         </StackPanel>
                     </materialDesign:ColorZone>
@@ -280,26 +281,26 @@
 
 
                         <Image Grid.Row="0"
-                                                           Width="200"
-                                                           Height="200"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Center"
-                                                           Source="./TimeManagement/Resources/Pics/tree.jpg" />
+                               Width="200"
+                               Height="200"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Source="./TimeManagement/Resources/Pics/tree.jpg" />
                         <TextBlock Grid.Row="1"
-                                                               Margin="8,0,0,0"
-                                                               HorizontalAlignment="Center"
-                                                               VerticalAlignment="Center">
-                                                        正在种树...
+                                   Margin="8,0,0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                            正在种树...
                         </TextBlock>
 
                         <Button Grid.Row="2"
-                                                            Width="100"
-                                                            Margin="40,20"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                                            Style="{StaticResource MaterialDesignRaisedLightButton}"
-                                                            ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                                Width="100"
+                                Margin="40,20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                ToolTip="Resource name: MaterialDesignRaisedLightButton">
                             放弃
                         </Button>
                     </Grid>
