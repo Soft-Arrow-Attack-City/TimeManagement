@@ -94,10 +94,7 @@ namespace TimeManagement
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(delegate { aclock.Time = DateTime.Now; }));
-
-
-            
+            Dispatcher.Invoke(new Action(delegate { aclock.Time = DateTime.Now; }));
         }
 
 
@@ -163,14 +160,10 @@ namespace TimeManagement
 
             }
         }
-
-        private void Clock_SourceUpdated(object sender, DataTransferEventArgs e)
+        private void TimelineGrid_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-
+            drawTimeline();
         }
 
-        public void TimerCallback(object state) {
-
-        }
     }
 }
