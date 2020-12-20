@@ -20,9 +20,10 @@ namespace TimeManagement.Views
     /// </summary>
     public partial class Timeline : UserControl
     {
+        private double mouseY = 0;
         private Random random = new Random();
         private SortedSet<DataModel.Alog> winlog=null;
-        private int startsecond, endsecond;
+        private double startsecond, endsecond;
 
 
 
@@ -87,42 +88,155 @@ namespace TimeManagement.Views
             }
         }
 
-        private void TimelineGrid_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void drawTime()
         {
-
-            //MessageBox.Show(e.Delta.ToString());
-            //所有刻度都出现在该出现的位置。
             timeGrid.Children.Clear();
-
-
             //4小时刻度出现：0，4，8，12，16，20，24。（一直都在）
-            int drawtime = 0;
-            
-
-
-            TextBlock a = new TextBlock();
-            a.Text = "asdf";
-            a.HorizontalAlignment = HorizontalAlignment.Right;
-            a.Margin = new Thickness(0,350,0,0);
-
-            timeGrid.Children.Add(a);
-            if (endsecond - startsecond <= 8 * 60 * 60)
+            for (int drawtime = (int)startsecond / 60 / 60 / 4; drawtime <= endsecond / 60 / 60 / 4; drawtime++)
             {
 
+                double margin = timeGrid.ActualHeight * (drawtime * 60 * 60 * 4 - startsecond) / (endsecond - startsecond) - 20;
+                if (margin > -30)
+                {
+                    TextBlock a = new TextBlock();
+                    a.Text = (drawtime * 4).ToString("D2") + ":00";
+                    a.HorizontalAlignment = HorizontalAlignment.Right;
+                    a.Margin = new Thickness(0, margin, 0, 0);
+                    timeGrid.Children.Add(a);
+                }
+
+            }
+            //1小时刻度出现：当间隔小于12小时
+            if (endsecond - startsecond < 12 * 60 * 60)
+            {
+                for (int drawtime = (int)startsecond / 60 / 60; drawtime <= endsecond / 60 / 60; drawtime++)
+                {
+                    double margin = timeGrid.ActualHeight * (drawtime * 60 * 60 - startsecond) / (endsecond - startsecond) - 20;
+                    if (margin > -30)
+                    {
+                        TextBlock a = new TextBlock();
+                        a.Text = drawtime.ToString("D2") + ":00";
+                        a.HorizontalAlignment = HorizontalAlignment.Right;
+                        a.Margin = new Thickness(0, margin, 0, 0);
+                        timeGrid.Children.Add(a);
+                    }
+
+                }
             }
 
+            //15分钟刻度出现：当间隔小于3小时
+            if (endsecond - startsecond < 3 * 60 * 60)
+            {
+                for (int drawtime = (int)startsecond / 60 / 15; drawtime <= endsecond / 60 / 15; drawtime++)
+                {
 
+                    double margin = timeGrid.ActualHeight * (drawtime * 60 * 15 - startsecond) / (endsecond - startsecond) - 20;
+                    if (margin > -30)
+                    {
+                        TextBlock a = new TextBlock();
+                        a.Text = (drawtime / 4).ToString("D2") + ":" + (drawtime % 4 * 15).ToString("D2");
+                        a.HorizontalAlignment = HorizontalAlignment.Right;
+                        a.Margin = new Thickness(0, margin, 0, 0);
+                        timeGrid.Children.Add(a);
 
+                    }
+                }
+            }
+            //5分钟刻度出现：当间隔小于45分钟
+            if (endsecond - startsecond < 45 * 60)
+            {
+                for (int drawtime = (int)startsecond / 60 / 5; drawtime <= endsecond / 60 / 5; drawtime++)
+                {
 
-            //1小时刻度出现：当间隔小于8小时
+                    double margin = timeGrid.ActualHeight * (drawtime * 60 * 5 - startsecond) / (endsecond - startsecond) - 20;
+                    if (margin > -30)
+                    {
+                        TextBlock a = new TextBlock();
+                        a.Text = (drawtime / 12).ToString("D2") + ":" + (drawtime % 12 * 5).ToString("D2");
+                        a.HorizontalAlignment = HorizontalAlignment.Right;
+                        a.Margin = new Thickness(0, margin, 0, 0);
+                        timeGrid.Children.Add(a);
 
-            //15分钟刻度出现：当间隔小于2小时
+                    }
 
-            //5分钟刻度出现：当间隔小于30分钟
-
+                }
+            }
             //1分钟刻度出现：当间隔小于10分钟
+            if (endsecond - startsecond < 10 * 60)
+            {
+                for (int drawtime = (int)startsecond / 60 / 1; drawtime <= endsecond / 60 / 1; drawtime++)
+                {
 
-            //drawTimeline();
+                    double margin = timeGrid.ActualHeight * (drawtime * 60 - startsecond) / (endsecond - startsecond) - 20;
+                    if (margin > -30)
+                    {
+                        TextBlock a = new TextBlock();
+                        a.Text = (drawtime / 60).ToString("D2") + ":" + (drawtime % 60).ToString("D2");
+                        a.HorizontalAlignment = HorizontalAlignment.Right;
+                        a.Margin = new Thickness(0, margin, 0, 0);
+                        timeGrid.Children.Add(a);
+                    }
+
+
+                }
+            }
+        }
+
+        private void TimelineGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            mouseY = e.GetPosition(timeGrid).Y;
+        }
+
+
+        private void TimelineGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.MiddleButton==MouseButtonState.Pressed)
+            {
+                //认为是在中键拖动
+                double dragseconds = (mouseY-e.GetPosition(timeGrid).Y) / timeGrid.ActualHeight * (endsecond - startsecond);
+                //MessageBox.Show(dragseconds.ToString());
+                mouseY = e.GetPosition(timeGrid).Y;
+                if ((startsecond + dragseconds >= 0) && (endsecond + dragseconds <= 86400)){
+                    startsecond += dragseconds;
+                    endsecond += dragseconds;
+                }
+
+
+                drawTime();
+            }
+        }
+
+        private void TimelineGrid_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            //以鼠标点为中心缩放。总缩放指标为全长的0.2倍，按比例分给startsecond和endsecond。
+            double pointprop = (double)(e.GetPosition(timeGrid).Y) / timeGrid.ActualHeight;
+            if (pointprop > 0)
+            {
+                double totalsecond = (endsecond - startsecond) * 0.2;
+                if (e.Delta > 0)
+                {
+                    startsecond -= totalsecond * pointprop;
+                    endsecond += totalsecond * (1 - pointprop);
+                }
+                else
+                {
+                    startsecond += totalsecond * pointprop;
+                    endsecond -= totalsecond * (1 - pointprop);
+                }
+                //这四条限制最小分度和上下位置，顺序不能随意调换！否则出bug
+                if (endsecond - startsecond < 300)
+                {
+                    totalsecond = 300 - (endsecond - startsecond);
+                    startsecond -= totalsecond * pointprop;
+                    endsecond += totalsecond * (1 - pointprop);
+                }
+                if (startsecond < 0) startsecond = 0;
+                if (endsecond - startsecond < 300) endsecond = startsecond + 300;
+                if (endsecond > 86400) endsecond = 86400;
+                if (endsecond - startsecond < 300) startsecond = endsecond - 300;
+            }
+
+            drawTime();
         }
 
     }

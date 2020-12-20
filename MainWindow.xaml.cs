@@ -48,9 +48,6 @@ namespace TimeManagement
         {
             base.OnInitialized(e);
             timeLine.drawTimeline();
-
-
-
         }
     }
 }
