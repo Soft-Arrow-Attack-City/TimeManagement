@@ -107,12 +107,9 @@
                                                  BorderThickness="0"
                                                  FixedHeaderCount="1">
                             <TabItem Margin="16" Header="主页">
-                                <materialDesign:ColorZone Grid.Column="0" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <TextBlock Margin="16"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Text="TAB 1" />
-                                </materialDesign:ColorZone>
+                                <materialDesign:Clock x:Name="aclock"
+                                                      DisplayAutomation="CycleWithSeconds"
+                                                      IsEnabled="False" />
                             </TabItem>
 
                             <TabItem Margin="16" Header="屏幕时间">

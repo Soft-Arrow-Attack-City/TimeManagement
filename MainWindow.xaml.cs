@@ -65,7 +65,6 @@ namespace TimeManagement
         private SortedSet<Alog> logs = new SortedSet<Alog>();
 
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -87,21 +86,34 @@ namespace TimeManagement
         {
             base.OnInitialized(e);
             drawTimeline();
-        }      
-        
+
+            System.Timers.Timer timer = new System.Timers.Timer(100);
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new Action(delegate { aclock.Time = DateTime.Now; }));
+
+
+            
+        }
+
+
+
+
 
 
         //假设没有后端数据的时候，先生成一些随机的数据作为后端。
         //后端数据的生成方式：时间点+任务。
         //直接用均分的方法，均分段里面有哪个记录多就直接记录为哪个。如果没有记录就不透明度为零（全透明），如果上下两块东西一样就合并。（这个合并比较难。？！）
 
-
-
         public void generatedata()
         {
             logs.Clear();
             List<string> ls = new List<string>(new string[] { "rdgv4v", "c32crq", "q5r34ct34v", "4c3c6c", "4vt3", "34ct9v8", "43vc53", "6b3bv" });
-            for(int i = 0; i < 500; i++)
+            for (int i = 0; i < 500; i++)
             {
                 logs.Add(new Alog(random.Next(86400), ls[random.Next(8)]));
             }
@@ -150,6 +162,15 @@ namespace TimeManagement
                 b.Content = "actual" + i.ToString();
 
             }
-        }       
+        }
+
+        private void Clock_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
+
+        public void TimerCallback(object state) {
+
+        }
     }
 }
