@@ -8,17 +8,12 @@ namespace TimeManagement.DataModel
 {
     class Alog
     {
-        public DateTime t;
+        public int t;//暂定0到86400之间的一个数。
         public string s;
-        public Alog(DateTime tt, string ss)
-        {
-            t = tt;
-            s = ss;
-        }
 
         public Alog(int tt, string ss)
         {
-            t = new DateTime(2020, 12, 11, tt / 3600, (tt / 60) % 60, tt % 60);
+            t = tt;// new DateTime(2020, 12, 11, tt / 3600, (tt / 60) % 60, tt % 60);
             s = ss;
         }
 
@@ -55,7 +50,7 @@ namespace TimeManagement.DataModel
     {
         public int Compare(Alog x, Alog y)
         {
-            return (int)(x.t - y.t).TotalSeconds;
+            return (int)(x.t - y.t);//.TotalSeconds;
         }
     }
 
@@ -68,7 +63,7 @@ namespace TimeManagement.DataModel
 
 
         //当前暂未与后端对接，使用generagedata生产随机的数据，测试前端代码。
-        public static SortedSet<Alog> generatedata()
+        public static List<Alog> generatedata()
         {
 
             SortedSet<Alog> logs = new SortedSet<Alog>(new AlogCompare());
@@ -82,7 +77,9 @@ namespace TimeManagement.DataModel
                 logs.Add(new Alog(random.Next(10000) + 66000, ls[random.Next(3) + 4]));
                 logs.Add(new Alog(random.Next(10000) + 76000, ls[random.Next(3) + 5]));
             }
-            return logs;
+
+            List<Alog> sortedLogs = new List<Alog>(logs);
+            return sortedLogs;
         }
 
 

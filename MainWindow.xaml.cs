@@ -41,13 +41,5 @@ namespace TimeManagement
 
             Snackbar = MainSnackbar;
         }
-
-
-        //窗口整体初始化完成后，执行绘制左侧边栏的代码。
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-            timeLine.drawTimeline();
-        }
     }
 }
