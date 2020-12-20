@@ -121,6 +121,7 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\Schedule.cs" />
     <Compile Include="DataModel\Event.cs" />
+    <Compile Include="DataModel\TimelineData.cs" />
     <Compile Include="Utilities\ScreenMonitoring.cs" />
     <Compile Include="Views\Homepage.xaml.cs">
       <DependentUpon>Homepage.xaml</DependentUpon>
