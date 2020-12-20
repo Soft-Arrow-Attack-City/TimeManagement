@@ -13,7 +13,7 @@
                                              SecondaryColor="Lime" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
                 <!--  Dragablz Material Design  -->
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
 
@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.Window.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.FontSC.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Themes/MaterialDesignTheme.TabColorZone.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
             <!--  Dragablz Material Design  -->
             <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
