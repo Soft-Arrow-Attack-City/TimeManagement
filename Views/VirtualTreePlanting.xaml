@@ -24,8 +24,8 @@
                                                        Height="100"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
-                                                       Source="Resources/Pic/tree.jpg" />
-
+                                                       Source="./Resources/Pics/tree.jpg" />
+   
         <StackPanel Grid.Row="1" Margin="0,0,0,0">
             <DockPanel>
                 <TextBlock Margin="10,0,0,0"
