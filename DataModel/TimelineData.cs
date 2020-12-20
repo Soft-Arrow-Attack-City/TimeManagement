@@ -64,11 +64,14 @@ namespace TimeManagement.DataModel
 
 
         private static Random random = new Random();
-        private static SortedSet<Alog> logs = new SortedSet<Alog>(new AlogCompare());
-        public static void generatedata()
+        
+
+
+        //当前暂未与后端对接，使用generagedata生产随机的数据，测试前端代码。
+        public static SortedSet<Alog> generatedata()
         {
 
-            logs.Clear();
+            SortedSet<Alog> logs = new SortedSet<Alog>(new AlogCompare());
             List<string> ls = new List<string>(new string[] { "1rdgv4v", "2c32crq", "3q5r34ctv", "44c3c6c", "54vkgt3", "634ct9v8", "743vc53", "86b3bv" });
             for (int i = 0; i < 1000; i++)
             {
@@ -79,17 +82,9 @@ namespace TimeManagement.DataModel
                 logs.Add(new Alog(random.Next(10000) + 66000, ls[random.Next(3) + 4]));
                 logs.Add(new Alog(random.Next(10000) + 76000, ls[random.Next(3) + 5]));
             }
+            return logs;
         }
-        static void Mafgin(string[] args)
-        {
-            generatedata();
-            foreach (Alog al in logs)
-            {
-                Console.WriteLine(al.s + "    " + al.t.ToString());
-            }
-            Console.WriteLine(logs.Count);
-            Console.ReadKey();
-        }
+
 
     }
 }

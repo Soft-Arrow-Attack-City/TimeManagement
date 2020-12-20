@@ -21,11 +21,20 @@ namespace TimeManagement.Views
     public partial class Timeline : UserControl
     {
         private Random random = new Random();
+        private SortedSet<DataModel.Alog> winlog=null;
+        private int startsecond, endsecond;
+
+
 
 
         public Timeline()
         {
             InitializeComponent();
+            //获取真的或者假的屏幕使用记录数据，要排好序的。
+            winlog = DataModel.TimelineData.generatedata();
+            startsecond = 28800;
+            endsecond = 86400;
+
         }
 
 
@@ -33,7 +42,11 @@ namespace TimeManagement.Views
         //绘制时间线的函数
         public void drawTimeline()
         {
-            //绘制计划的时间线
+
+            
+
+
+            //绘制计划的时间线，暂时先用随机数据。
             planGrid.Children.Clear();
             planGrid.RowDefinitions.Clear();
             for (int i = 0; i < 10; i++)
@@ -51,7 +64,11 @@ namespace TimeManagement.Views
 
             }
 
-            //绘制实际的时间线。（需要用采集到的信息来绘制，要有足够长时间。现在是以秒为单位的数据，但将来可能是以小时为单位的数据。）
+            //绘制实际的时间线。采用winlog中的数据。
+
+
+
+
             actualGrid.Children.Clear();
             actualGrid.RowDefinitions.Clear();
             for (int i = 0; i < 10; i++)
@@ -72,7 +89,40 @@ namespace TimeManagement.Views
 
         private void TimelineGrid_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            drawTimeline();
+
+            //MessageBox.Show(e.Delta.ToString());
+            //所有刻度都出现在该出现的位置。
+            timeGrid.Children.Clear();
+
+
+            //4小时刻度出现：0，4，8，12，16，20，24。（一直都在）
+            int drawtime = 0;
+            
+
+
+            TextBlock a = new TextBlock();
+            a.Text = "asdf";
+            a.HorizontalAlignment = HorizontalAlignment.Right;
+            a.Margin = new Thickness(0,350,0,0);
+
+            timeGrid.Children.Add(a);
+            if (endsecond - startsecond <= 8 * 60 * 60)
+            {
+
+            }
+
+
+
+
+            //1小时刻度出现：当间隔小于8小时
+
+            //15分钟刻度出现：当间隔小于2小时
+
+            //5分钟刻度出现：当间隔小于30分钟
+
+            //1分钟刻度出现：当间隔小于10分钟
+
+            //drawTimeline();
         }
 
     }
