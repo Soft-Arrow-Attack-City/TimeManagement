@@ -47,8 +47,8 @@ namespace TimeManagement.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -133,9 +133,9 @@ namespace TimeManagement.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap tree {
+        internal static System.Drawing.Bitmap Tree {
             get {
-                object obj = ResourceManager.GetObject("tree", resourceCulture);
+                object obj = ResourceManager.GetObject("Tree", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,30 +143,30 @@ namespace TimeManagement.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap tree1 {
+        internal static System.Drawing.Bitmap TreeFailed {
             get {
-                object obj = ResourceManager.GetObject("tree1", resourceCulture);
+                object obj = ResourceManager.GetObject("TreeFailed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static byte[] 种树失败 {
+        internal static System.Drawing.Bitmap TreePlanting {
             get {
-                object obj = ResourceManager.GetObject("种树失败", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("TreePlanting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static byte[] 种树失败1 {
+        internal static System.Drawing.Bitmap TreeSuccess {
             get {
-                object obj = ResourceManager.GetObject("种树失败1", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("TreeSuccess", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
