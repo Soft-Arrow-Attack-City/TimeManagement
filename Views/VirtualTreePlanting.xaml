@@ -9,7 +9,13 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
         <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}">
             <materialDesign:Flipper.FrontContent>
@@ -29,9 +35,7 @@
                         <TextBox MinWidth="200"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Center"
-                                 TextAlignment="Center">
-                            键入新任务名称
-                        </TextBox>
+                                 materialDesign:HintAssist.Hint="键入新任务名称" />
                     </DockPanel>
 
                     <DockPanel Grid.Row="2" Margin="0,2">
