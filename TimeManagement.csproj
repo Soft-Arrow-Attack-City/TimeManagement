@@ -242,7 +242,9 @@
     <Analyzer Include="packages\MessagePackAnalyzer.2.2.85\analyzers\dotnet\MessagePackAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Pics\tree.jpg" />
+    <Resource Include="Resources\Pics\tree.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Pics\tree.png" />
     <Content Include="Resources\Pics\种树失败.jfif" />
   </ItemGroup>
