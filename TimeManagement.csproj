@@ -129,6 +129,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\TimelineData.cs" />
     <Compile Include="Utilities\ScreenMonitoring.cs" />
     <Compile Include="Views\Homepage.xaml.cs">
       <DependentUpon>Homepage.xaml</DependentUpon>
@@ -138,6 +139,9 @@
     </Compile>
     <Compile Include="Views\ScreenTime.xaml.cs">
       <DependentUpon>ScreenTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Timeline.xaml.cs">
+      <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VirtualTreePlanting.xaml.cs">
       <DependentUpon>VirtualTreePlanting.xaml</DependentUpon>
@@ -175,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ScreenTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Timeline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
