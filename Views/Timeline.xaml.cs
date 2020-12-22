@@ -263,6 +263,7 @@ namespace TimeManagement.Views
                 while ((usingstring[i + 1] == nowstring) && (i < (int)(endsecond / interval)))
                 {
                     i++;
+                    if ((endsecond / interval) == i) break;//这一行也要加，用来解决24:00导致数组越界的bug！
                     height += interval;
                     if (i == (int)(startsecond / interval)) height += (i * interval - startsecond);
                     if (i == (int)(endsecond / interval)) height -= (i * interval - endsecond + interval);
@@ -273,16 +274,17 @@ namespace TimeManagement.Views
 
                 //如果和下面的相同，就一起做了！
                 actualGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height, GridUnitType.Star) });
+                if (nowstring == null)
+                {
+                    realcount++;
+                    continue;
+                }
+
                 Button b = new Button();
                 actualGrid.Children.Add(b);
                 b.SetValue(Grid.RowProperty,realcount++);
                 b.Margin = new Thickness(3, 2, 5, 2);
                 b.Height = double.NaN;
-                if (nowstring == null)
-                {
-                    b.Opacity = 0;
-                    continue;
-                }
                 b.Content = nowstring;
                 SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)nowstring.GetHashCode(), (byte)(nowstring.GetHashCode()/256), 255));
                 b.Background = c;
