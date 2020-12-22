@@ -6,6 +6,8 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+
+
             <ResourceDictionary.MergedDictionaries>
                 <!--  Material Design  -->
                 <materialDesign:BundledTheme BaseTheme="Inherit"
@@ -24,6 +26,8 @@
             </ResourceDictionary.MergedDictionaries>
             <!--  Dragablz Material Design  -->
             <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
