@@ -8,14 +8,14 @@ using MessagePack;
 namespace TimeManagement.DataModel
 {
     [MessagePackObject]
-    class Event
+    public class TimeEvent
     {
         [Key(0)]
         public Guid Id { get; } = Guid.NewGuid();
         [Key(1)]
         public DateTime Created { get; } = DateTime.Now;
         [Key(2)]
-        public string Title { get; set; }
+        public string Title { get; set; } = "";
 
         [IgnoreMember]
         public string EventInfo { get { return $"Guid: {Id}; Created: {Created}"; } }

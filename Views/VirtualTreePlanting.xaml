@@ -55,9 +55,10 @@
                         <TextBlock Width="150"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                            工作性质
+                            任务性质
                         </TextBlock>
-                        <ComboBox MinWidth="200"
+                        <ComboBox x:Name="TaskProperties"
+                                  MinWidth="200"
                                   HorizontalAlignment="Right"
                                   HorizontalContentAlignment="Center"
                                   materialDesign:HintAssist.Hint="工作性质"
@@ -67,6 +68,7 @@
                             <ComboBoxItem>休息</ComboBoxItem>
                             <ComboBoxItem>工作</ComboBoxItem>
                             <ComboBoxItem>运动</ComboBoxItem>
+                            <ComboBoxItem>其他</ComboBoxItem>
 
                         </ComboBox>
                     </DockPanel>
@@ -100,72 +102,31 @@
                             开始
                         </Button>
 
-                        <Button Margin="0,2"
+                        <Button Name="Blacklist"
+                                Margin="0,2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                Click="Blacklist_Click"
                                 Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                                 Content=" 黑名单设置"
                                 Style="{StaticResource MaterialDesignFlatButton}">
                             <Button.CommandParameter>
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <StackPanel Width="200" Margin="16">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="16,5,0,5"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">
-                                                黑名单设置
-                                            </TextBlock>
-                                        </StackPanel>
+                                    <StackPanel Width="750" Margin="16">
+                                        <TextBlock Margin="16,5,0,5"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center">
+                                            黑名单设置
+                                        </TextBlock>
 
-                                        <Border x:Name="Border" Padding="8">
-                                            <Grid>
-                                                <Grid.RowDefinitions>
+                                        <TextBox x:Name="blackListSearchText" 
+                                            VerticalAlignment="Center"
+                                                 materialDesign:HintAssist.Hint="Search"
+                                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                 TextChanged="TextBox_TextChanged" />
 
-                                                    <RowDefinition Height="auto" />
-                                                    <RowDefinition Height="auto" />
-                                                    <RowDefinition Height="auto" />
-                                                    <RowDefinition Height="auto" />
-                                                    <RowDefinition Height="auto" />
-
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="auto" />
-                                                    <ColumnDefinition Width="auto" />
-
-                                                </Grid.ColumnDefinitions>
-
-                                                <CheckBox Grid.Row="0"
-                                                          Grid.Column="0"
-                                                          VerticalAlignment="Center"
-                                                          IsChecked="{Binding IsSelected}" />
-                                                <StackPanel Grid.Row="0"
-                                                            Grid.Column="1"
-                                                            Margin="8,0,0,0">
-
-                                                    <TextBlock FontWeight="Bold" Text="微信" />
-                                                </StackPanel>
-                                                <CheckBox Grid.Row="1"
-                                                          Grid.Column="0"
-                                                          VerticalAlignment="Center"
-                                                          IsChecked="{Binding IsSelected}" />
-                                                <StackPanel Grid.Row="1"
-                                                            Grid.Column="1"
-                                                            Margin="8,0,0,0">
-
-                                                    <TextBlock FontWeight="Bold" Text="Dota2" />
-                                                </StackPanel>
-                                                <CheckBox Grid.Row="2"
-                                                          Grid.Column="0"
-                                                          VerticalAlignment="Center"
-                                                          IsChecked="{Binding IsSelected}" />
-                                                <StackPanel Grid.Row="2"
-                                                            Grid.Column="1"
-                                                            Margin="8,0,0,0">
-
-                                                    <TextBlock FontWeight="Bold" Text="Visual Studio" />
-                                                </StackPanel>
-
-                                            </Grid>
+                                        <Border Padding="8">
+                                            <ListBox x:Name="BlacklistBox" Style="{StaticResource MaterialDesignFilterChipListBox}" />
                                         </Border>
 
                                         <Button HorizontalAlignment="Center"
