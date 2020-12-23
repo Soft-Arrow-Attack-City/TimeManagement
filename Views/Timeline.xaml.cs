@@ -248,28 +248,29 @@ namespace TimeManagement.Views
 
 
             int realcount = 0;
-            for (int i = (int)(startsecond/ interval); i <=(int)(endsecond/ interval);i++)
+            for (int i = (int)(startsecond / interval); i <= (int)(endsecond / interval); i++)
             {
                 if ((endsecond / interval) == i) break;//这一行可以解决24:00导致数组越界的bug！
 
                 double height = interval;
                 if (i == (int)(startsecond / interval)) height += (i * interval - startsecond);
                 if (i == (int)(endsecond / interval)) height -= (i * interval - endsecond + interval);
-                
+
                 string nowstring = usingstring[i];
 
 
-                
+
                 while ((usingstring[i + 1] == nowstring) && (i < (int)(endsecond / interval)))
                 {
                     i++;
+                    if ((endsecond / interval) == i) break;//这一行也要加，用来解决24:00导致数组越界的bug！
                     height += interval;
                     if (i == (int)(startsecond / interval)) height += (i * interval - startsecond);
                     if (i == (int)(endsecond / interval)) height -= (i * interval - endsecond + interval);
 
                 }
 
-                
+
 
                 //如果和下面的相同，就一起做了！
                 actualGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height, GridUnitType.Star) });
