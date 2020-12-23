@@ -7,20 +7,17 @@ using MessagePack;
 
 namespace TimeManagement.DataModel
 {
-    enum Freq { NoRepeat, Daily, Weekly, Monthly}
-
     [MessagePackObject]
-    class Schedule: Event
+    class Task: Event
     {
         [Key(3)]
-        public DateTime Start { get; set; }
+        public DateTime Due { get; set; }
         [Key(4)]
-        public TimeSpan Duration { get; set; }
-        [Key(5)]
         public string Comment { get; set; }
-        [Key(6)]
+        [Key(5)]
         public int Priority { get; set; }
-        [Key(7)]
-        public Freq Repeat { get; set; } = Freq.NoRepeat;
+
+        [IgnoreMember]
+        public bool Overdue { get { return DateTime.Now > Due; } }
     }
 }
