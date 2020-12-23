@@ -137,6 +137,9 @@
     <Compile Include="Views\PopupBox.xaml.cs">
       <DependentUpon>PopupBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\schedulepage.xaml.cs">
+      <DependentUpon>schedulepage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ScreenTime.xaml.cs">
       <DependentUpon>ScreenTime.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PopupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\schedulepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
