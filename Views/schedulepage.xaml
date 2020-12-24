@@ -33,7 +33,6 @@
             </Grid.RowDefinitions>
             <GroupBox Margin="0,0,8,2"
                       materialDesign:ColorZoneAssist.Mode="Accent"
-                      Header="任务卡"
                       Style="{DynamicResource MaterialDesignCardGroupBox}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
@@ -45,7 +44,7 @@
                             <TextBlock Margin="8,0,0,0"
                                        VerticalAlignment="Center"
                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                       Text="{Binding}" />
+                                       Text="任务卡" />
                         </StackPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
