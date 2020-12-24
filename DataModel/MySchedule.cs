@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using MessagePack;
 
 namespace TimeManagement.DataModel
 {
-    public enum Freq { NoRepeat, Daily, Weekly, Monthly, Annual}
+    public enum Freq { NoRepeat, Daily, Weekly, Monthly, Annual }
     public enum RemindMode { NoRemind, RemindOnTime, Advance5min, Advance10min, Advance30min }
 
     [MessagePackObject]
-    public class MySchedule: TimeEvent
+    public class MySchedule : TimeEvent
     {
         [Key(3)]
         public DateTime Start { get; set; } = DateTime.Now;
@@ -26,7 +28,7 @@ namespace TimeManagement.DataModel
         [Key(8)]
         public RemindMode remindMode { get; set; } = RemindMode.NoRemind;
 
-
+        private static readonly string fileName = "Schedule.dat";
 
         [IgnoreMember]
         public MySchedule NextSchedule
@@ -34,7 +36,7 @@ namespace TimeManagement.DataModel
             get
             {
                 if (Repeat == Freq.NoRepeat) throw new ArgumentException("Cannot repeat.");
-                DateTime newStart=Start;
+                DateTime newStart = Start;
                 DateTime today = DateTime.Now.Date;
                 if (newStart < today)
                 {
@@ -74,7 +76,7 @@ namespace TimeManagement.DataModel
                 }
 
 
-                return new MySchedule { Description = Description, Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat, remindMode = remindMode};
+                return new MySchedule { Description = Description, Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat, remindMode = remindMode };
             }
         }
 
@@ -83,9 +85,9 @@ namespace TimeManagement.DataModel
         [IgnoreMember]
         private static Dictionary<Guid, MySchedule> ArchivedSchedules = new Dictionary<Guid, MySchedule>();
         [IgnoreMember]
-        private static Dictionary<Guid, MySchedule> ActiveSchedules= new Dictionary<Guid, MySchedule>();
-        
-        
+        private static Dictionary<Guid, MySchedule> ActiveSchedules = new Dictionary<Guid, MySchedule>();
+
+
 
         //程序刚打开的时候应该有这么一步，来处理一下可能已经过期了的日程。
         //根据当前的日期时间来刷新日程，该封存的封存，该排到下个周期的排到下个周期
@@ -93,14 +95,14 @@ namespace TimeManagement.DataModel
         {
             List<Guid> toremovelist = new List<Guid>();
 
-            foreach(KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
+            foreach (KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
             {
                 if (kvp.Value.Start < DateTime.Now)
                 {
                     toremovelist.Add(kvp.Key);
                 }
             }
-            foreach(Guid id in toremovelist)
+            foreach (Guid id in toremovelist)
             {
                 ArchivedSchedules.Add(id, ActiveSchedules[id]);
                 if (ActiveSchedules[id].Repeat != Freq.NoRepeat)
@@ -173,19 +175,35 @@ namespace TimeManagement.DataModel
 
         public static bool saveAllSchedule()
         {
-            //save
-            //throw new NotImplementedException("messagepack序列化未实现！");
+            try
+            {
+                File.WriteAllBytes($"Archived{fileName}", MessagePackSerializer.Serialize(ArchivedSchedules));
+                File.WriteAllBytes($"Active{fileName}", MessagePackSerializer.Serialize(ActiveSchedules));
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
             return true;
         }
 
         public static bool loadAllSchedule()
         {
-            //load
-            //throw new NotImplementedException("messagepack反序列化未实现！");
+            try
+            {
+                if (File.Exists($"Archived{fileName}"))
+                    ArchivedSchedules = MessagePackSerializer.Deserialize<Dictionary<Guid, MySchedule>>(File.ReadAllBytes($"Archived{fileName}"));
+                if (File.Exists($"Active{fileName}"))
+                    ActiveSchedules = MessagePackSerializer.Deserialize<Dictionary<Guid, MySchedule>>(File.ReadAllBytes($"Active{fileName}"));
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
             return true;
         }
-
-
     }
 
 }

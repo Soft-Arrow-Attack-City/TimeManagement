@@ -105,7 +105,6 @@ namespace TimeManagement.Views
             ScheduleRemindBox.SelectedIndex = -1;
             ScheduleFlipper.IsFlipped = false;
             drawScheduleCards();
-
         }
 
         private void CancelCreateScheduleButton_Click(object sender, RoutedEventArgs e)
@@ -218,8 +217,8 @@ namespace TimeManagement.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            drawScheduleCards();
             MySchedule.loadAllSchedule();
+            drawScheduleCards();
         }
     }
 }
