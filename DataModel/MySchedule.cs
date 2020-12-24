@@ -11,7 +11,7 @@ namespace TimeManagement.DataModel
     public enum RemindMode { NoRemind, RemindOnTime, Advance5min, Advance10min, Advance30min }
 
     [MessagePackObject]
-    public class Schedule: TimeEvent
+    public class MySchedule: TimeEvent
     {
         [Key(3)]
         public DateTime Start { get; set; } = DateTime.Now;
@@ -29,7 +29,7 @@ namespace TimeManagement.DataModel
 
 
         [IgnoreMember]
-        public Schedule NextSchedule
+        public MySchedule NextSchedule
         {
             get
             {
@@ -74,16 +74,16 @@ namespace TimeManagement.DataModel
                 }
 
 
-                return new Schedule {Description = Description, Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat, remindMode = remindMode};
+                return new MySchedule { Description = Description, Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat, remindMode = remindMode};
             }
         }
 
 
 
         [IgnoreMember]
-        private static Dictionary<Guid, Schedule> ArchivedSchedules = new Dictionary<Guid, Schedule>();
+        private static Dictionary<Guid, MySchedule> ArchivedSchedules = new Dictionary<Guid, MySchedule>();
         [IgnoreMember]
-        private static Dictionary<Guid, Schedule> ActiveSchedules= new Dictionary<Guid, Schedule>();
+        private static Dictionary<Guid, MySchedule> ActiveSchedules= new Dictionary<Guid, MySchedule>();
         
         
 
@@ -93,7 +93,7 @@ namespace TimeManagement.DataModel
         {
             List<Guid> toremovelist = new List<Guid>();
 
-            foreach(KeyValuePair<Guid, Schedule> kvp in ActiveSchedules)
+            foreach(KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
             {
                 if (kvp.Value.Start < DateTime.Now)
                 {
@@ -119,7 +119,7 @@ namespace TimeManagement.DataModel
         }
 
         //添加一个日程，允许在过去或者未来的某天添加一个可重复的日程，所以添加完以后要刷新日程。
-        public static bool AddSchedule(Schedule s)
+        public static bool AddSchedule(MySchedule s)
         {
             ActiveSchedules.Add(Guid.NewGuid(), s);
             refreshSchedule();
@@ -127,7 +127,7 @@ namespace TimeManagement.DataModel
         }
 
         //获取一个Guid为id的日程。如果获取不到，就直接报错了。
-        public static Schedule getActiveSchedule(Guid id)
+        public static MySchedule getActiveSchedule(Guid id)
         {
             return ActiveSchedules[id];
         }
@@ -137,15 +137,14 @@ namespace TimeManagement.DataModel
         {
             List<Guid> guids = new List<Guid>();
             var dicSort = from objDic in ActiveSchedules orderby objDic.Value.Start ascending select objDic;
-            foreach (KeyValuePair<Guid, Schedule> kvp in dicSort)
+            foreach (KeyValuePair<Guid, MySchedule> kvp in dicSort)
             {
                 guids.Add(kvp.Key);
             }
             return guids;
         }
 
-
-
+        //本次取消日程提醒，下次继续提醒。被手动取消过的日程提醒不会显示到时间线中。
         public static bool removeScheduleOnce(Guid id)
         {
             ArchivedSchedules.Add(id, ActiveSchedules[id]);
@@ -157,7 +156,7 @@ namespace TimeManagement.DataModel
 
             return true;
         }
-
+        //取消本系列日程的所有重复
         public static bool removeScheduleAll(Guid id)
         {
             ArchivedSchedules.Add(id, ActiveSchedules[id]);
@@ -165,13 +164,27 @@ namespace TimeManagement.DataModel
             return true;
         }
 
-        public static Dictionary<Guid, Schedule> getSchedulesofDay(DateTime dt)
+        public static Dictionary<Guid, MySchedule> getSchedulesofDay(DateTime dt)
         {
             return null;
         }
 
         public static bool saveAllSchedule()
         {
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter binFormat =
+                                     new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
+            using (System.IO.Stream fsStream = new System.IO.FileStream("config/ArchivedSchedules.dat", System.IO.FileMode.Create,
+                                System.IO.FileAccess.Write, System.IO.FileShare.None))
+            {
+                binFormat.Serialize(fsStream, ArchivedSchedules);
+            }
+            using (System.IO.Stream fsStream = new System.IO.FileStream("config/ActiveSchedules.dat", System.IO.FileMode.Create,
+                    System.IO.FileAccess.Write, System.IO.FileShare.None))
+            {
+                binFormat.Serialize(fsStream, ActiveSchedules);
+            }
+
             return true;
         }
 

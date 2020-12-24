@@ -90,7 +90,7 @@ namespace TimeManagement.Views
                 startday = ScheduleCalendar.SelectedDate.Value;
             }
 
-            Schedule.AddSchedule(new Schedule
+            MySchedule.AddSchedule(new MySchedule
             {
                 Title = title,
                 Start = startday.Date + starttime.Value.TimeOfDay,
@@ -135,10 +135,10 @@ namespace TimeManagement.Views
             ScheduleShowerPanel.Children.Clear();
             
 
-            List<Guid> guids = Schedule.getAllActiveSchedules();
+            List<Guid> guids = MySchedule.getAllActiveSchedules();
             foreach (Guid guid in guids)
             {
-                Schedule sched=Schedule.getActiveSchedule(guid);
+                MySchedule sched = MySchedule.getActiveSchedule(guid);
 
 
                 Expander expd = new Expander();
@@ -207,21 +207,19 @@ namespace TimeManagement.Views
 
         private void CancelOnce_Click(object sender, RoutedEventArgs e)
         {
-            Schedule.removeScheduleOnce((Guid)(((Button)sender).Tag));
+            MySchedule.removeScheduleOnce((Guid)(((Button)sender).Tag));
             drawScheduleCards();
         }
 
         private void CancelAll_Click(object sender, RoutedEventArgs e)
         {
-            Schedule.removeScheduleAll((Guid)(((Button)sender).Tag));
+            MySchedule.removeScheduleAll((Guid)(((Button)sender).Tag));
             drawScheduleCards();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             drawScheduleCards();
-
-
         }
     }
 }
