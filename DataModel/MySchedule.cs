@@ -123,6 +123,7 @@ namespace TimeManagement.DataModel
         {
             ActiveSchedules.Add(Guid.NewGuid(), s);
             refreshSchedule();
+            saveAllSchedule();
             return true;
         }
 
@@ -153,7 +154,7 @@ namespace TimeManagement.DataModel
                 ActiveSchedules.Add(Guid.NewGuid(), ActiveSchedules[id].NextSchedule);
             }
             ActiveSchedules.Remove(id);
-
+            saveAllSchedule();
             return true;
         }
         //取消本系列日程的所有重复
@@ -161,6 +162,7 @@ namespace TimeManagement.DataModel
         {
             ArchivedSchedules.Add(id, ActiveSchedules[id]);
             ActiveSchedules.Remove(id);
+            saveAllSchedule();
             return true;
         }
 
@@ -171,25 +173,15 @@ namespace TimeManagement.DataModel
 
         public static bool saveAllSchedule()
         {
-            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter binFormat =
-                                     new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-            using (System.IO.Stream fsStream = new System.IO.FileStream("config/ArchivedSchedules.dat", System.IO.FileMode.Create,
-                                System.IO.FileAccess.Write, System.IO.FileShare.None))
-            {
-                binFormat.Serialize(fsStream, ArchivedSchedules);
-            }
-            using (System.IO.Stream fsStream = new System.IO.FileStream("config/ActiveSchedules.dat", System.IO.FileMode.Create,
-                    System.IO.FileAccess.Write, System.IO.FileShare.None))
-            {
-                binFormat.Serialize(fsStream, ActiveSchedules);
-            }
-
+            //save
+            throw new NotImplementedException("messagepack序列化未实现！");
             return true;
         }
 
         public static bool loadAllSchedule()
         {
+            //load
+            //throw new NotImplementedException("messagepack反序列化未实现！");
             return true;
         }
 

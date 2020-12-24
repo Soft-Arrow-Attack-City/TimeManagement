@@ -127,7 +127,6 @@ namespace TimeManagement.Views
             //结束时间：
             //重复周期：
             //提醒：未设置之类的
-
             //按钮：本次提前结束
             //按钮：永久结束
             //这些按钮里面应该对应着GUID的，所以就能取消到。
@@ -220,6 +219,7 @@ namespace TimeManagement.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             drawScheduleCards();
+            MySchedule.loadAllSchedule();
         }
     }
 }
