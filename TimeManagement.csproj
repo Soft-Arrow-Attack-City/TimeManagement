@@ -127,7 +127,7 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\Task.cs" />
     <Compile Include="DataModel\TreeSession.cs" />
-    <Compile Include="DataModel\Schedule.cs" />
+    <Compile Include="DataModel\MySchedule.cs" />
     <Compile Include="DataModel\TimeEvent.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -142,6 +142,9 @@
     </Compile>
     <Compile Include="Views\PopupBox.xaml.cs">
       <DependentUpon>PopupBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\schedulepage.xaml.cs">
+      <DependentUpon>schedulepage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ScreenTime.xaml.cs">
       <DependentUpon>ScreenTime.xaml</DependentUpon>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PopupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\schedulepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

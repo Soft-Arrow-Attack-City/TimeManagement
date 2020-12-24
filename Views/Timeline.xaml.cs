@@ -38,7 +38,7 @@ namespace TimeManagement.Views
             InitializeComponent();
             startsecond = 28800;
             endsecond = 86400;
-            LoadData();
+            LoadUsageData();
 
         }
 
@@ -56,7 +56,7 @@ namespace TimeManagement.Views
         }
 
         //将真的或者假的数据载入进来，并进行一定的处理
-        private bool LoadData()
+        private bool LoadUsageData()
         {
             //修复24:00:00的bug，要加1。
             ScreenUsage1h = new string[24 + 1];
@@ -191,7 +191,10 @@ namespace TimeManagement.Views
             return true;
         }
 
-
+        private bool LoadScheduleData()
+        {
+            return true;
+        }
 
         //绘制时间线的函数
         public void drawTimeline()
@@ -274,16 +277,17 @@ namespace TimeManagement.Views
 
                 //如果和下面的相同，就一起做了！
                 actualGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height, GridUnitType.Star) });
+                if (nowstring == null)
+                {
+                    realcount++;
+                    continue;
+                }
+
                 Button b = new Button();
                 actualGrid.Children.Add(b);
                 b.SetValue(Grid.RowProperty,realcount++);
                 b.Margin = new Thickness(3, 2, 5, 2);
                 b.Height = double.NaN;
-                if (nowstring == null)
-                {
-                    b.Opacity = 0;
-                    continue;
-                }
                 b.Content = nowstring;
                 SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)nowstring.GetHashCode(), (byte)(nowstring.GetHashCode()/256), 255));
                 b.Background = c;

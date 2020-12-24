@@ -8,8 +8,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:TimeManagement.Views"
         Title="MainWindow"
-        Width="960"
-        Height="640"
+        Width="1200"
+        Height="800"
         Style="{StaticResource MaterialDesignWindow}"
         mc:Ignorable="d">
     <!--  SizeToContent="WidthAndHeight">  -->
@@ -82,15 +82,8 @@
                             </TabItem>
 
                             <TabItem Margin="16" Header="日程管理">
-                                <materialDesign:ColorZone Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <TextBox Grid.Column="2"
-                                             Height="300"
-                                             Margin="0,0,0,100"
-                                             materialDesign:HintAssist.Hint="新建日程"
-                                             AcceptsReturn="True"
-                                             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                             TextWrapping="Wrap"
-                                             VerticalScrollBarVisibility="Auto" />
+                                <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
+                                    <views:schedulepage />
                                 </materialDesign:ColorZone>
                             </TabItem>
 

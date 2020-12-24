@@ -11,13 +11,13 @@ namespace TimeManagement.DataModel
     public class TimeEvent
     {
         [Key(0)]
-        public Guid Id { get; } = Guid.NewGuid();
-        [Key(1)]
         public DateTime Created { get; } = DateTime.Now;
-        [Key(2)]
+        [Key(1)]
         public string Title { get; set; } = "";
+        [Key(2)]
+        public string Description { get; set; } = "";
 
         [IgnoreMember]
-        public string EventInfo { get { return $"Guid: {Id}; Created: {Created}"; } }
+        public string EventInfo { get { return $"Title: {Title}; Created: {Created}"; } }
     }
 }
