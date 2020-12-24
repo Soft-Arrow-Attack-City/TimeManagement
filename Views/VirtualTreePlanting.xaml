@@ -106,9 +106,8 @@
                                 Margin="0,2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Click="Blacklist_Click"
                                 Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                                Content=" 黑名单设置"
+                                Content="黑名单设置"
                                 Style="{StaticResource MaterialDesignFlatButton}">
                             <Button.CommandParameter>
                                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -119,14 +118,16 @@
                                             黑名单设置
                                         </TextBlock>
 
-                                        <TextBox x:Name="blackListSearchText" 
-                                            VerticalAlignment="Center"
-                                                 materialDesign:HintAssist.Hint="Search"
+                                        <TextBox x:Name="BlacklistSearchText"
+                                                 VerticalAlignment="Center"
+                                                 materialDesign:HintAssist.Hint="搜索"
                                                  Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                                 TextChanged="TextBox_TextChanged" />
+                                                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
                                         <Border Padding="8">
-                                            <ListBox x:Name="BlacklistBox" Style="{StaticResource MaterialDesignFilterChipListBox}" />
+                                            <ListBox x:Name="BlacklistBox"
+                                                     ItemsSource="{Binding ListBoxContent}"
+                                                     Style="{StaticResource MaterialDesignFilterChipListBox}" />
                                         </Border>
 
                                         <Button HorizontalAlignment="Center"

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FluentScheduler;
+using TimeManagement.ViewModel;
 
 namespace TimeManagement
 {
@@ -28,13 +29,14 @@ namespace TimeManagement
         public MainWindow()
         {
             InitializeComponent();
+            JobManager.Initialize();
 
             Task.Factory.StartNew(() => Thread.Sleep(2500)).ContinueWith(t =>
             {
                 MainSnackbar.MessageQueue?.Enqueue("欢迎来到Time Management时间管理小程序！");
             }, TaskScheduler.FromCurrentSynchronizationContext());
 
-            JobManager.Initialize();
+            //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
         }
     }
 }
