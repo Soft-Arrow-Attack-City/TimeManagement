@@ -7,6 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
+             Loaded="UserControl_Loaded"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -173,14 +174,20 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Calendar />
+            <Calendar x:Name="ScheduleCalendar" />
 
-            <materialDesign:Flipper Grid.Row="1">
+
+
+
+
+            <materialDesign:Flipper x:Name="ScheduleFlipper"
+                                    Grid.Row="1"
+                                    Style="{StaticResource MaterialDesignCardFlipper}">
                 <materialDesign:Flipper.FrontContent>
 
 
-                    <GroupBox Header="近期日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
 
+                    <GroupBox Header="近期日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <DockPanel>
@@ -207,10 +214,11 @@
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
 
+                        <ScrollViewer>
+                            <StackPanel x:Name="ScheduleShowerPanel" />
+                        </ScrollViewer>
 
-                        <ScrollViewer Grid.Row="0"
-                                      Margin="0,10,10,10"
-                                      BorderThickness="10" />
+
 
                     </GroupBox>
 
@@ -246,7 +254,6 @@
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
 
-
                         <StackPanel Margin="12,8,12,8"
                                     Orientation="Vertical"
                                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
@@ -261,7 +268,8 @@
                             </StackPanel.Resources>
 
 
-                            <TextBox Margin="12,0,24,0"
+                            <TextBox x:Name="ScheduleNameInputBox"
+                                     Margin="12,0,24,0"
                                      materialDesign:HintAssist.Hint="日程名称 Schedule name"
                                      Text="新日程1" />
 
@@ -271,17 +279,20 @@
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="135" />
                                 </Grid.ColumnDefinitions>
-                                <materialDesign:TimePicker Grid.Column="0"
+                                <materialDesign:TimePicker x:Name="ScheduleStartTimerPicker"
+                                                           Grid.Column="0"
                                                            Margin="12,12,24,0"
                                                            materialDesign:HintAssist.Hint="开始时间"
                                                            Is24Hours="True"
                                                            WithSeconds="True" />
-                                <materialDesign:TimePicker Grid.Column="1"
+                                <materialDesign:TimePicker x:Name="ScheduleEndTimerPicker"
+                                                           Grid.Column="1"
                                                            Margin="12,12,24,0"
                                                            materialDesign:HintAssist.Hint="结束时间"
                                                            Is24Hours="True"
                                                            WithSeconds="True" />
-                                <ComboBox Grid.Column="2"
+                                <ComboBox x:Name="ScheduleRemindBox"
+                                          Grid.Column="2"
                                           Margin="12,12,24,0"
                                           materialDesign:HintAssist.Hint="提醒">
                                     <ComboBoxItem Content="不提醒    " />
@@ -293,7 +304,8 @@
                             </Grid>
 
                             <DockPanel>
-                                <ComboBox Width="60"
+                                <ComboBox x:Name="ScheduleRepeatBox"
+                                          Width="60"
                                           Margin="12,0,8,0"
                                           materialDesign:HintAssist.Hint="重复">
                                     <ComboBoxItem Content="不重复" />
@@ -304,18 +316,27 @@
                                 </ComboBox>
 
                                 <!--  点一下变成“从今天开始”，再点一下变成“从选定日期开始”  -->
-                                <Button>从选定日期开始</Button>
+                                <Button x:Name="WhentoStartButton"
+                                        Width="130"
+                                        Click="WhentoStartButton_Click">
+                                    从选定日期开始
+                                </Button>
 
 
                                 <StackPanel Margin="0,16,0,0"
                                             HorizontalAlignment="Right"
                                             Orientation="Horizontal">
-                                    <Button Height="28"
+                                    <Button x:Name="CreateScheduleButton"
+                                            Height="28"
                                             Margin="0,0,2,0"
                                             Background="YellowGreen"
                                             BorderBrush="YellowGreen"
+                                            Click="CreateScheduleButton_Click"
                                             Content="创建 !" />
-                                    <Button Height="28" Content=" 取消  " />
+                                    <Button x:Name="CancelCreateScheduleButton"
+                                            Height="28"
+                                            Click="CancelCreateScheduleButton_Click"
+                                            Content=" 取消  " />
                                 </StackPanel>
                             </DockPanel>
 
@@ -326,12 +347,10 @@
 
                         </StackPanel>
 
-                    </GroupBox>
 
+                    </GroupBox>
                 </materialDesign:Flipper.BackContent>
             </materialDesign:Flipper>
-
-
 
 
         </Grid>

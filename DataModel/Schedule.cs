@@ -8,6 +8,7 @@ using MessagePack;
 namespace TimeManagement.DataModel
 {
     public enum Freq { NoRepeat, Daily, Weekly, Monthly, Annual}
+    public enum RemindMode { NoRemind, RemindOnTime, Advance5min, Advance10min, Advance30min }
 
     [MessagePackObject]
     public class Schedule: TimeEvent
@@ -22,33 +23,58 @@ namespace TimeManagement.DataModel
         public int Priority { get; set; } = 1;
         [Key(7)]
         public Freq Repeat { get; set; } = Freq.NoRepeat;
+        [Key(8)]
+        public RemindMode remindMode { get; set; } = RemindMode.NoRemind;
+
+
 
         [IgnoreMember]
         public Schedule NextSchedule
         {
             get
             {
-                if (Repeat == Freq.NoRepeat)
-                    throw new ArgumentException("Cannot repeat.");
+                if (Repeat == Freq.NoRepeat) throw new ArgumentException("Cannot repeat.");
                 DateTime newStart=Start;
                 DateTime today = DateTime.Now.Date;
-                switch (Repeat)
+                if (newStart < today)
                 {
-
-                    case Freq.Daily:
-                        newStart = today.Date + newStart.TimeOfDay;
-                        break;
-                    case Freq.Weekly:
-                        while (newStart < today) newStart.AddDays(7);
-                        break;
-                    case Freq.Monthly:
-                        while (newStart < today) newStart.AddMonths(1);
-                        break;
-                    case Freq.Annual:
-                        while (newStart < today) newStart.AddYears(1);
-                        break;
+                    switch (Repeat)
+                    {
+                        case Freq.Daily:
+                            newStart = today.Date + newStart.TimeOfDay;
+                            break;
+                        case Freq.Weekly:
+                            while (newStart < today) newStart = newStart.AddDays(7);
+                            break;
+                        case Freq.Monthly:
+                            while (newStart < today) newStart = newStart.AddMonths(1);
+                            break;
+                        case Freq.Annual:
+                            while (newStart < today) newStart = newStart.AddYears(1);
+                            break;
+                    }
                 }
-                return new Schedule { Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat };
+                else
+                {
+                    switch (Repeat)
+                    {
+                        case Freq.Daily:
+                            newStart = newStart.AddDays(1);
+                            break;
+                        case Freq.Weekly:
+                            newStart = newStart.AddDays(7);
+                            break;
+                        case Freq.Monthly:
+                            newStart = newStart.AddMonths(1);
+                            break;
+                        case Freq.Annual:
+                            newStart = newStart.AddYears(1);
+                            break;
+                    }
+                }
+
+
+                return new Schedule {Description = Description, Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat, remindMode = remindMode};
             }
         }
 
@@ -92,7 +118,7 @@ namespace TimeManagement.DataModel
             return ActiveSchedules.Count > 0;
         }
 
-        //添加一个日程，允许在过去或者未来的某天添加一个可重复的日程，所以添加完以后要refresh。
+        //添加一个日程，允许在过去或者未来的某天添加一个可重复的日程，所以添加完以后要刷新日程。
         public static bool AddSchedule(Schedule s)
         {
             ActiveSchedules.Add(Guid.NewGuid(), s);
@@ -100,20 +126,42 @@ namespace TimeManagement.DataModel
             return true;
         }
 
-        //获取当前时刻最近的日程，用于启动定时器。只有当初次启动程序或者已经结掉一个日程需要找下一个的时候才会调用。
-        //如果前面有很多已经错过的日程（指的是连结束时间都错过的那种），则直接扔进archive里面。用户也可以指定将某一个扔进archive里面。
-        public static KeyValuePair<Guid, Schedule> getNearestSchedule()
+        //获取一个Guid为id的日程。如果获取不到，就直接报错了。
+        public static Schedule getActiveSchedule(Guid id)
         {
-            refreshSchedule();
-            if (!haveActiveSchedule()) throw new ArgumentException("No Schedule!");
-
-            return new KeyValuePair<Guid, Schedule>();
-
-
+            return ActiveSchedules[id];
         }
 
-        public static bool popSchedule(Guid guid)
+        //按照时间由近到远的顺序获取所有等待提醒的日程。（注意调用前应该刷新日程。）
+        public static List<Guid> getAllActiveSchedules()
         {
+            List<Guid> guids = new List<Guid>();
+            var dicSort = from objDic in ActiveSchedules orderby objDic.Value.Start ascending select objDic;
+            foreach (KeyValuePair<Guid, Schedule> kvp in dicSort)
+            {
+                guids.Add(kvp.Key);
+            }
+            return guids;
+        }
+
+
+
+        public static bool removeScheduleOnce(Guid id)
+        {
+            ArchivedSchedules.Add(id, ActiveSchedules[id]);
+            if (ActiveSchedules[id].Repeat != Freq.NoRepeat)
+            {
+                ActiveSchedules.Add(Guid.NewGuid(), ActiveSchedules[id].NextSchedule);
+            }
+            ActiveSchedules.Remove(id);
+
+            return true;
+        }
+
+        public static bool removeScheduleAll(Guid id)
+        {
+            ArchivedSchedules.Add(id, ActiveSchedules[id]);
+            ActiveSchedules.Remove(id);
             return true;
         }
 
