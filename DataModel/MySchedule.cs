@@ -174,7 +174,7 @@ namespace TimeManagement.DataModel
         public static bool saveAllSchedule()
         {
             //save
-            throw new NotImplementedException("messagepack序列化未实现！");
+            //throw new NotImplementedException("messagepack序列化未实现！");
             return true;
         }
 
