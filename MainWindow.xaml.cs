@@ -31,12 +31,12 @@ namespace TimeManagement
             InitializeComponent();
             JobManager.Initialize();
 
-            Task.Factory.StartNew(() => Thread.Sleep(2500)).ContinueWith(t =>
+            Task.Factory.StartNew(() => Thread.Sleep(1250)).ContinueWith(t =>
             {
                 MainSnackbar.MessageQueue?.Enqueue("欢迎来到Time Management时间管理小程序！");
             }, TaskScheduler.FromCurrentSynchronizationContext());
 
-            //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
+            DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
         }
 
     }

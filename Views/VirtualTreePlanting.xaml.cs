@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using TimeManagement.ViewModel;
 using FluentScheduler;
 using TimeManagement.DataModel;
+using Task = System.Threading.Tasks.Task;
+using System.Threading;
 
 namespace TimeManagement.Views
 {
@@ -29,12 +31,10 @@ namespace TimeManagement.Views
         {
             InitializeComponent();
             DataContext = ViewModel;
-            
+
         }
 
         private VirtualTreePlantingViewModel ViewModel { get; } = new VirtualTreePlantingViewModel();
-
-        private TreeSession Tree;
 
         private void Blacklist_Click(object sender, RoutedEventArgs e)
         {
@@ -72,8 +72,24 @@ namespace TimeManagement.Views
             {
                 Duration = TimeSpan.FromMinutes(TimeSlider.Value),
                 Title = TaskNameText.Text,
-                Type = TaskProperties.SelectedItem.ToString() ?? ""
+                Type = TaskProperties.SelectedItem?.ToString() ?? ""
             });
+        }
+
+        private void TreeFlipper_IsFlippedChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            if (!e.NewValue)
+            {
+                Task.Factory.StartNew(() => Thread.Sleep(1000)).ContinueWith(t =>
+                {
+                    MainWindowViewModel.MainSnackbarMessageQueue?.Enqueue(ViewModel.PlantSuccess ? "种树成功！" : "种树失败！");
+                }, TaskScheduler.Current);
+                TreeImg.Source = new BitmapImage(
+                    new Uri(ViewModel.PlantSuccess ?
+                    "pack://application:,,,/Resources/Images/TreeSuccess.png" :
+                    "pack://application:,,,/Resources/Images/TreeFailed.png"
+                    ));
+            }
         }
     }
 }

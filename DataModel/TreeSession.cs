@@ -17,6 +17,8 @@ namespace TimeManagement.DataModel
         [Key(4)]
         public DateTime End { get; set; } = DateTime.Now.AddDays(1);
         [IgnoreMember]
+        public bool Due { get { return DateTime.Now >= Created + Duration; } }
+        [IgnoreMember]
         public bool Success { get { return End - Created >= Duration; } }
     }
 }

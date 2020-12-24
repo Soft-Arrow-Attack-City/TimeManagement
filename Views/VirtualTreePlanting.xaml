@@ -17,18 +17,21 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-        <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}">
+        <materialDesign:Flipper x:Name="TreeFlipper"
+                                IsFlipped="{Binding Planting, Mode=TwoWay}"
+                                IsFlippedChanged="TreeFlipper_IsFlippedChanged"
+                                Style="{StaticResource MaterialDesignCardFlipper}">
             <materialDesign:Flipper.FrontContent>
                 <StackPanel Margin="30,20" Orientation="Vertical">
-                    <Image Grid.Row="0"
-                           Width="100"
-                           Height="100"
+                    <Image x:Name="TreeImg"
+                           Width="120"
+                           Height="120"
                            Margin="0,10"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Source="/Resources/Images/Tree.png" />
 
-                    <DockPanel Grid.Row="1" Margin="0,2">
+                    <DockPanel Margin="0,2">
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                             任务名称
                         </TextBlock>
@@ -39,7 +42,7 @@
                                  materialDesign:HintAssist.Hint="键入新任务名称" />
                     </DockPanel>
 
-                    <DockPanel Grid.Row="2" Margin="0,2">
+                    <DockPanel Margin="0,2">
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                             设置时间(min)
                         </TextBlock>
@@ -53,7 +56,7 @@
                                 Value="50" />
                     </DockPanel>
 
-                    <DockPanel Grid.Row="3" Margin="0,2">
+                    <DockPanel Margin="0,2">
                         <TextBlock Width="150"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
@@ -75,7 +78,7 @@
                         </ComboBox>
                     </DockPanel>
 
-                    <DockPanel Grid.Row="4" Margin="0,8">
+                    <DockPanel Margin="0,8">
                         <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                    Text="优先级" />
@@ -84,16 +87,7 @@
                                                   Value="3" />
                     </DockPanel>
 
-                    <DockPanel Grid.Row="5"
-                               Margin="0,5"
-                               materialDesign:RippleAssist.IsCentered="True">
-                        <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">黑名单模式</TextBlock>
-                        <ToggleButton HorizontalAlignment="Right"
-                                      VerticalAlignment="Center"
-                                      Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" />
-                    </DockPanel>
-
-                    <StackPanel Grid.Row="6">
+                    <StackPanel>
                         <Button x:Name="Start"
                                 MinWidth="100"
                                 Margin="0,5"
