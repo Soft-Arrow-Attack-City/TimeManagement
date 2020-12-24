@@ -56,6 +56,9 @@
     <Reference Include="Dragablz, Version=0.0.3.223, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Dragablz.0.0.3.223\lib\net45\Dragablz.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FluentScheduler.5.5.1\lib\netstandard2.0\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -122,8 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\Task.cs" />
+    <Compile Include="DataModel\TreeSession.cs" />
     <Compile Include="DataModel\Schedule.cs" />
-    <Compile Include="DataModel\Event.cs" />
+    <Compile Include="DataModel\TimeEvent.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -254,9 +259,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="packages\MessagePackAnalyzer.2.2.85\analyzers\dotnet\MessagePackAnalyzer.dll" />
   </ItemGroup>
