@@ -19,7 +19,7 @@ namespace TimeManagement.Tests
         [Fact]
         public void ScheduleTest()
         {
-            var timeEvent = new Schedule {  };
+            var timeEvent = new MySchedule { Title="Test title" };
             Assert.Equal("Test title", timeEvent.Title);
         }
     }

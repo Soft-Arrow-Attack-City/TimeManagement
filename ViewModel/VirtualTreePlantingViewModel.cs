@@ -5,11 +5,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using FluentScheduler;
 using TimeManagement.DataModel;
+using Task = System.Threading.Tasks.Task;
 
 namespace TimeManagement.ViewModel
 {
@@ -19,7 +19,7 @@ namespace TimeManagement.ViewModel
         {
             JobManager.AddJob(
                 () => UpdateProcess(),
-                s => s.ToRunNow().AndEvery(1).Minutes().DelayFor(1).Seconds()
+                s => s.ToRunNow().AndEvery(30).Seconds().DelayFor(1).Seconds()
             );
             JobManager.AddJob(
                 () => InitializeListBox(),
@@ -31,8 +31,11 @@ namespace TimeManagement.ViewModel
         private string _SearchText = "";
         public HashSet<string> Processes { get; set; } = new HashSet<string>();
         public HashSet<string> Selected { get; set; } = new HashSet<string>();
+        private TreeSession MyTree { get; set; }
+        private bool _Planting = false;
+        public bool PlantSuccess { get; private set; } = false;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
@@ -74,6 +77,15 @@ namespace TimeManagement.ViewModel
             }
         }
 
+        public bool Planting
+        {
+            get => _Planting;
+            set
+            {
+                SetField(ref _Planting, value);
+            }
+        }
+
         private void UpdateProcess()
         {
             Process[] localAll = Process.GetProcesses();
@@ -90,12 +102,25 @@ namespace TimeManagement.ViewModel
 
         public void PlantStart(TreeSession tree)
         {
-            Guid Id = new Guid();
+            MyTree = tree;
+            Registry registry = new Registry();
+            registry.Schedule(() => CheckPlanting()).WithName("tree").ToRunEvery(3).Seconds();
+            JobManager.Initialize(registry);
         }
 
         private void CheckPlanting()
         {
-            throw new NotImplementedException();
+            string[] currentProcesses = Process.GetProcesses().Select(p => p.ProcessName).ToArray();
+            if (MyTree.Due ||
+                (Selected.Intersect(currentProcesses).Count() > 0))
+            {
+                JobManager.RemoveJob("tree");
+                if (MyTree.Due)
+                    PlantSuccess = true;
+                else
+                    PlantSuccess = false;
+                Planting = false;
+            }
         }
     }
 }

@@ -174,7 +174,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Calendar x:Name="ScheduleCalendar" />
+            <Calendar x:Name="ScheduleCalendar" xml:lang="zh-CN"/>
 
 
 
@@ -182,7 +182,8 @@
 
             <materialDesign:Flipper x:Name="ScheduleFlipper"
                                     Grid.Row="1"
-                                    Style="{StaticResource MaterialDesignCardFlipper}">
+                                    Style="{StaticResource MaterialDesignCardFlipper}"
+                                    MinHeight="250">
                 <materialDesign:Flipper.FrontContent>
 
 
