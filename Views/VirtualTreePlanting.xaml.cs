@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimeManagement.ViewModel;
+using FluentScheduler;
+using TimeManagement.DataModel;
 
 namespace TimeManagement.Views
 {
@@ -25,7 +28,52 @@ namespace TimeManagement.Views
         public VirtualTreePlanting()
         {
             InitializeComponent();
-            DataContext = new VirtualTreePlantingViewModel();
+            DataContext = ViewModel;
+            
+        }
+
+        private VirtualTreePlantingViewModel ViewModel { get; } = new VirtualTreePlantingViewModel();
+
+        private TreeSession Tree;
+
+        private void Blacklist_Click(object sender, RoutedEventArgs e)
+        {
+            BlacklistSearchText.Text = "Refreshing...";
+            BlacklistSearchText.Text = "";
+            foreach (string p in ViewModel.Selected)
+                BlacklistBox.SelectedItems.Add(p);
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            string text = BlacklistSearchText.Text;
+            if ((text.Length > 0) && !BlacklistBox.SelectedItems.Contains(text))
+            {
+                if (!BlacklistBox.Items.Contains(text))
+                {
+                    ViewModel.Processes.Add(text);
+                    ViewModel.ListBoxContent.Add(text);
+                }
+                BlacklistBox.SelectedItems.Add(text);
+            }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e) => BlacklistBox.SelectedItems.Clear();
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Selected.Clear();
+            ViewModel.Selected.UnionWith(BlacklistBox.SelectedItems.Cast<string>().ToList());
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.PlantStart(new TreeSession
+            {
+                Duration = TimeSpan.FromMinutes(TimeSlider.Value),
+                Title = TaskNameText.Text,
+                Type = TaskProperties.SelectedItem.ToString() ?? ""
+            });
         }
     }
 }

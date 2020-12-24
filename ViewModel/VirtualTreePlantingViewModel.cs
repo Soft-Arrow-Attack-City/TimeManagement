@@ -8,9 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TimeManagement.DataModel;
 using FluentScheduler;
-
+using TimeManagement.DataModel;
 
 namespace TimeManagement.ViewModel
 {
@@ -29,9 +28,9 @@ namespace TimeManagement.ViewModel
         }
 
         private ObservableCollection<string> _ListBoxContent = new ObservableCollection<string>();
-        private TreeSession Tree = new TreeSession();
         private string _SearchText = "";
-        private HashSet<string> processes = new HashSet<string>();
+        public HashSet<string> Processes { get; set; } = new HashSet<string>();
+        public HashSet<string> Selected { get; set; } = new HashSet<string>();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -56,18 +55,15 @@ namespace TimeManagement.ViewModel
                     if (_SearchText.Length > 0)
                     {
                         string text = _SearchText.Trim().ToLower();
-                        foreach (string p in processes)
+                        foreach (string p in Processes)
                             if (p.ToLower().StartsWith(text))
                                 ListBoxContent.Add(p);
                     }
                     else
-                    {
                         InitializeListBox();
-                    }
                 }
             }
         }
-
 
         public ObservableCollection<string> ListBoxContent
         {
@@ -82,15 +78,24 @@ namespace TimeManagement.ViewModel
         {
             Process[] localAll = Process.GetProcesses();
             string[] processNames = localAll.Select(p => p.ProcessName).ToArray();
-            processes.Clear();
-            processes.UnionWith(processNames);
+            Processes.UnionWith(processNames);
         }
 
         private void InitializeListBox()
         {
             ListBoxContent.Clear();
-            foreach (string p in processes)
+            foreach (string p in Processes)
                 ListBoxContent.Add(p);
+        }
+
+        public void PlantStart(TreeSession tree)
+        {
+            Guid Id = new Guid();
+        }
+
+        private void CheckPlanting()
+        {
+            throw new NotImplementedException();
         }
     }
 }

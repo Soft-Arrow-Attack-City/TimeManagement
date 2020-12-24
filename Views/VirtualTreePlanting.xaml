@@ -32,7 +32,8 @@
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                             任务名称
                         </TextBlock>
-                        <TextBox MinWidth="200"
+                        <TextBox x:Name="TaskNameText"
+                                 MinWidth="200"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Center"
                                  materialDesign:HintAssist.Hint="键入新任务名称" />
@@ -42,7 +43,8 @@
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                             设置时间(min)
                         </TextBlock>
-                        <Slider MinWidth="200"
+                        <Slider x:Name="TimeSlider"
+                                MinWidth="200"
                                 HorizontalAlignment="Right"
                                 Maximum="120"
                                 Minimum="0"
@@ -92,10 +94,12 @@
                     </DockPanel>
 
                     <StackPanel Grid.Row="6">
-                        <Button MinWidth="100"
+                        <Button x:Name="Start"
+                                MinWidth="100"
                                 Margin="0,5"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                Click="Start_Click"
                                 Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}"
                                 ToolTip="开启本次种树">
@@ -106,6 +110,7 @@
                                 Margin="0,2"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                Click="Blacklist_Click"
                                 Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                                 Content="黑名单设置"
                                 Style="{StaticResource MaterialDesignFlatButton}">
@@ -114,15 +119,42 @@
                                     <StackPanel Width="750" Margin="16">
                                         <TextBlock Margin="16,5,0,5"
                                                    HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center">
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}">
                                             黑名单设置
                                         </TextBlock>
+                                        <DockPanel Margin="10,5">
 
-                                        <TextBox x:Name="BlacklistSearchText"
-                                                 VerticalAlignment="Center"
-                                                 materialDesign:HintAssist.Hint="搜索"
-                                                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Button x:Name="Clear"
+                                                    Width="120"
+                                                    Margin="10,0,0,0"
+                                                    HorizontalAlignment="Right"
+                                                    Click="Clear_Click"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                    ToolTip="MaterialDesignOutlinedButton">
+                                                清除
+                                            </Button>
+                                            <Button x:Name="Add"
+                                                    Width="120"
+                                                    Margin="10,0,0,0"
+                                                    HorizontalAlignment="Right"
+                                                    Click="Add_Click"
+                                                    DockPanel.Dock="Right"
+                                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                    ToolTip="MaterialDesignOutlinedButton">
+                                                添加
+                                            </Button>
+                                            <TextBox x:Name="BlacklistSearchText"
+                                                     Margin="0,0,10,0"
+                                                     VerticalAlignment="Center"
+                                                     materialDesign:HintAssist.Hint="搜索"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                                        </DockPanel>
 
                                         <Border Padding="8">
                                             <ListBox x:Name="BlacklistBox"
@@ -130,7 +162,9 @@
                                                      Style="{StaticResource MaterialDesignFilterChipListBox}" />
                                         </Border>
 
-                                        <Button HorizontalAlignment="Center"
+                                        <Button x:Name="Close"
+                                                HorizontalAlignment="Center"
+                                                Click="Close_Click"
                                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                                 CommandParameter="Sample2Cancel"
                                                 Content="关闭"
@@ -151,13 +185,8 @@
                     </Grid.RowDefinitions>
                     <materialDesign:ColorZone Padding="6" Mode="PrimaryMid">
                         <StackPanel Orientation="Horizontal">
-                            <Button HorizontalAlignment="Left"
-                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                    Style="{StaticResource MaterialDesignToolForegroundButton}">
-                                <materialDesign:PackIcon HorizontalAlignment="Right" Kind="ArrowLeft" />
-                            </Button>
                             <TextBlock Margin="8,0,0,0" VerticalAlignment="Center">
-                                返回
+                                种树任务
                             </TextBlock>
                         </StackPanel>
                     </materialDesign:ColorZone>
