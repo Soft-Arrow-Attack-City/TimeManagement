@@ -38,5 +38,6 @@ namespace TimeManagement
 
             //DataContext = new MainWindowViewModel(MainSnackbar.MessageQueue!);
         }
+
     }
 }

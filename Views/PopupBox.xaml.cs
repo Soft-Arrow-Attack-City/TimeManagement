@@ -47,10 +47,21 @@ namespace TimeManagement.Views
 
             theme.SetBaseTheme(isDarkTheme ? Theme.Dark : Theme.Light);
             paletteHelper.SetTheme(theme);
+
+
+            //new MainWindow().Show();
+            //Application.Current.MainWindow.ShowInTaskbar = false;
+            //Application.Current.MainWindow.Visibility = Visibility.Hidden;
+            MainWindow ww = (MainWindow)Application.Current.MainWindow;
+            MainWindow w = new MainWindow();
+            w.Show();
+            Application.Current.MainWindow = w;
+            ww.Close();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+
             System.Windows.Application.Current.Shutdown();
         }
     }
