@@ -203,6 +203,17 @@ namespace TimeManagement.DataModel
                     ArchivedSchedules = MessagePackSerializer.Deserialize<Dictionary<Guid, MySchedule>>(File.ReadAllBytes($"Archived{fileName}"));
                 if (File.Exists($"Active{fileName}"))
                     ActiveSchedules = MessagePackSerializer.Deserialize<Dictionary<Guid, MySchedule>>(File.ReadAllBytes($"Active{fileName}"));
+
+
+                foreach(KeyValuePair<Guid, MySchedule> kvp in ArchivedSchedules)
+                {
+                    if(kvp.Value.Start.ToLocalTime().Date == DateTime.Today) kvp.Value.Start = kvp.Value.Start.ToLocalTime();
+
+                }
+                foreach (KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
+                {
+                    if (kvp.Value.Start.ToLocalTime().Date == DateTime.Today) kvp.Value.Start = kvp.Value.Start.ToLocalTime();
+                }
             }
             catch (IOException e)
             {

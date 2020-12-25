@@ -94,7 +94,7 @@ namespace TimeManagement.DataModel
     public class TimelineData
     {
         [Key(0)]
-        public DateTime Created { get; } = DateTime.Now;
+        public DateTime Created { get; set; } = DateTime.Today;
         [Key(1)]
         public string Title { get; set; } = "";
         [Key(2)]
@@ -128,6 +128,12 @@ namespace TimeManagement.DataModel
             {
                 if (File.Exists("timelinedata.dat"))
                     todaylist = MessagePackSerializer.Deserialize<List<TimelineData>>(File.ReadAllBytes($"timelinedata.dat"));
+                else todaylist = new List<TimelineData>();
+
+                foreach(TimelineData tld in todaylist)
+                {
+                    tld.Created = tld.Created.ToLocalTime();
+                }
             }
             catch (IOException e)
             {
@@ -139,7 +145,7 @@ namespace TimeManagement.DataModel
 
         public static bool Sample()
         {
-            todaylist.Add(new TimelineData { Title = Monitor.GetForgroundWindowName(), Program = Monitor.GetForgroundWindowProgram() });
+            todaylist.Add(new TimelineData {Created=DateTime.Now, Title = Monitor.GetForgroundWindowName(), Program = Monitor.GetForgroundWindowProgram() });
             saveAllData();
             return true;
         }

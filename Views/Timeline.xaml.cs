@@ -46,9 +46,7 @@ namespace TimeManagement.Views
         //窗口加载完成后执行，在xaml里添加loaded消息。
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            drawplanGrid();
-            drawactualGrid();
-            drawTime();
+
 
             JobManager.AddJob(
                 () => TimelineData.Sample(),
@@ -59,6 +57,12 @@ namespace TimeManagement.Views
                 s => s.ToRunNow().AndEvery(60).Seconds()
             ) ;
 
+            JobManager.AddJob(() => inittimelinepic(),s => s.ToRunOnceIn(1).Seconds() );
+        }
+
+        private void inittimelinepic()
+        {
+            Dispatcher.Invoke(new Action(() => { drawplanGrid(); drawactualGrid(); drawTime(); }));
         }
 
         //这个消息响应让时间跟着窗口大小变化。
@@ -208,11 +212,9 @@ namespace TimeManagement.Views
 
 
 
-        //绘制时间线的函数，分成两半来写。
         public void drawplanGrid()
         {
-
-            //绘制计划的时间线，暂时先用随机数据。
+            
             planGrid.Children.Clear();
             planGrid.RowDefinitions.Clear();
 
