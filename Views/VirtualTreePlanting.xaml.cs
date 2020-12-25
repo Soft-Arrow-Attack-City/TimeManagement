@@ -74,6 +74,7 @@ namespace TimeManagement.Views
                 Title = TaskNameText.Text,
                 Type = TaskProperties.SelectedItem?.ToString() ?? ""
             });
+            PlantTitle.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
         }
 
         private void TreeFlipper_IsFlippedChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)

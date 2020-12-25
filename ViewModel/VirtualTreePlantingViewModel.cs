@@ -25,6 +25,7 @@ namespace TimeManagement.ViewModel
                 () => InitializeListBox(),
                 s => s.ToRunOnceIn(2).Seconds()
             );
+            TreeSession.loadAllTreeSession();
         }
 
         private ObservableCollection<string> _ListBoxContent = new ObservableCollection<string>();
@@ -34,6 +35,7 @@ namespace TimeManagement.ViewModel
         private TreeSession MyTree { get; set; }
         private bool _Planting = false;
         public bool PlantSuccess { get; private set; } = false;
+        public string TreeTitle { get => MyTree?.Title ?? "未命名任务"; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -116,7 +118,10 @@ namespace TimeManagement.ViewModel
             {
                 JobManager.RemoveJob("tree");
                 if (MyTree.Due)
+                {
                     PlantSuccess = true;
+
+                }
                 else
                     PlantSuccess = false;
                 Planting = false;

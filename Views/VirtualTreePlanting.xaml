@@ -178,11 +178,14 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <materialDesign:ColorZone Padding="6" Mode="PrimaryMid">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center">
-                                种树任务
-                            </TextBlock>
-                        </StackPanel>
+                        <DockPanel>
+                            <TextBlock Margin="8,0" VerticalAlignment="Center">种树任务</TextBlock>
+                            <TextBlock x:Name="PlantTitle"
+                                       Margin="8,0"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Path=TreeTitle}" />
+                        </DockPanel>
                     </materialDesign:ColorZone>
 
                     <Grid Grid.Row="1" Margin="0,25">
