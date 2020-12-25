@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using MessagePack;
+using TimeManagement.Utilities;
+using System.Windows;
 
 namespace TimeManagement.DataModel
 {
@@ -54,12 +58,12 @@ namespace TimeManagement.DataModel
         }
     }
 
-    class TimelineData
+    class FakeTimelineData
     {
 
 
         private static Random random = new Random();
-        
+
 
 
         //当前暂未与后端对接，使用generagedata生产随机的数据，测试前端代码。
@@ -83,5 +87,67 @@ namespace TimeManagement.DataModel
         }
 
 
+    }
+
+
+    [MessagePackObject]
+    public class TimelineData
+    {
+        [Key(0)]
+        public DateTime Created { get; set; } = DateTime.Today;
+        [Key(1)]
+        public string Title { get; set; } = "";
+        [Key(2)]
+        public string Program { get; set; } = "";
+
+        [IgnoreMember]
+        public int t { get { return (int)(Created - Created.Date).TotalSeconds; } }
+        [IgnoreMember]
+        public string s { get { return Path.GetFileName(Program) ?? ""; } }
+
+
+        [IgnoreMember]
+        public static List<TimelineData> todaylist = new List<TimelineData>();
+
+        public static bool saveAllData()
+        {
+            try
+            {
+                File.WriteAllBytes("timelinedata.dat", MessagePackSerializer.Serialize(todaylist));
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
+            return true;
+        }
+        public static bool loadAllData()
+        {
+            try
+            {
+                if (File.Exists("timelinedata.dat"))
+                    todaylist = MessagePackSerializer.Deserialize<List<TimelineData>>(File.ReadAllBytes($"timelinedata.dat"));
+                else todaylist = new List<TimelineData>();
+
+                foreach (TimelineData tld in todaylist)
+                {
+                    tld.Created = tld.Created.ToLocalTime();
+                }
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
+            return true;
+        }
+
+        public static bool Sample()
+        {
+            todaylist.Add(new TimelineData { Created = DateTime.Now, Title = Monitor.GetForgroundWindowName(), Program = Monitor.GetForgroundWindowProgram() });
+            saveAllData();
+            return true;
+        }
     }
 }

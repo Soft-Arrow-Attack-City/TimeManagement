@@ -22,9 +22,11 @@ namespace TimeManagement.Views
     /// </summary>
     public partial class schedulepage : UserControl
     {
+        public bool usePriority = false;
         private bool TodayToStart = false;
         private string[] chongfu = new string[]{"不重复", "每天", "每周", "每月", "每年"};
         private string[] tixing = new string[] { "不提醒", "准时提醒", "提前5分钟", "提前10分钟", "提前半小时" };
+        private string[] youxianji= new string[] { "最低", "较低", "一般", "较高", "最高" };
 
 
         public schedulepage()
@@ -221,72 +223,329 @@ namespace TimeManagement.Views
             TaskShowerPanel.Children.Clear();
             TaskShowerPanel.Orientation = Orientation.Vertical;
 
-            Expander ex = new Expander();
-            DockPanel dp1 = new DockPanel();
-            TextBlock tb1 = new TextBlock();
-            tb1.Text = "软工项目";
-            TextBlock tb2 = new TextBlock();
-            tb2.Text = "0 day left";
-            tb2.Foreground = Brushes.Red;
-            tb2.HorizontalAlignment = HorizontalAlignment.Right;
-            dp1.Children.Add(tb1);
-            dp1.Children.Add(tb2);
-            ex.Header = dp1;
-            DockPanel dp2 = new DockPanel();
-            TextBlock tb3 = new TextBlock();
-            tb3.Text= "Due: 2020/12/25\n优先级：最高";
-            tb3.Margin = new Thickness(24, 8, 8, 16);
-            dp2.Children.Add(tb3);
-            //对于没过ddl的任务，未完成的任务有“标记为完成”和“删除”，已完成的任务有“标记为未完成”和“删除”，删除的任务就没了
-            //对于已经过ddl的任务，只能删除，或者保留7天后自动清除。
-            DockPanel dp3 = new DockPanel();
-            dp3.Width = 80;
-            dp3.HorizontalAlignment = HorizontalAlignment.Right;
-            dp3.Margin = new Thickness(24, 8, 8, 16);
+            DateTime today = DateTime.Now.Date;
+            List<Guid> guids1;
+            if (usePriority)
+            {
+                guids1 = MyTask.getActiveTasksByPriority();
+            }
+            else
+            {
+                guids1 = MyTask.getActiveTasksByDue();
+            }
             
-            Button bt1 = new Button();
-            bt1.Height = 30;
-            bt1.Width = 30;
-            bt1.Style = refButton.Style;
-            MaterialDesignThemes.Wpf.PackIcon pi1 = new MaterialDesignThemes.Wpf.PackIcon();
-            pi1.Kind = MaterialDesignThemes.Wpf.PackIconKind.Check;
-            pi1.Height = 24;
-            pi1.Width = 24;
-            bt1.Content = pi1;
-            bt1.ToolTip = "完成此任务";
+            foreach (Guid id in guids1)
+            {
+                MyTask task = MyTask.getActiveTask(id);
 
-            Button bt2 = new Button();
-            bt2.Height = 30;
-            bt2.Width = 30;
-            bt2.Style = refButton.Style;
-            MaterialDesignThemes.Wpf.PackIcon pi2 = new MaterialDesignThemes.Wpf.PackIcon();
-            pi2.Kind = MaterialDesignThemes.Wpf.PackIconKind.TrashCanOutline;
-            pi2.Height = 24;
-            pi2.Width = 24;
-            bt2.Content = pi2;
-            bt2.ToolTip = "删除此任务";
-            bt2.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
-            bt2.BorderBrush = Brushes.BlueViolet;
-            bt2.Foreground = Brushes.Red;
+                Expander ex = new Expander();
+                ex.Margin = new Thickness(3, 5, 3, 5);
+                DockPanel dp1 = new DockPanel();
+                TextBlock tb1 = new TextBlock();
+                tb1.Text = task.Title;
+                TextBlock tb2 = new TextBlock();
 
-            dp3.Children.Add(bt1);
-            dp3.Children.Add(bt2);
+                int days = (int)((task.Due-today).TotalDays);
+                if (days <= 1)
+                {
+                    tb2.Text = $"{days} day left";
+                    tb2.Foreground = Brushes.Red;
+                }
+                else if (days <= 3)
+                {
+                    tb2.Text = $"{days} days left";
+                    tb2.Foreground = Brushes.Orange;
+                }
+                else if (days <= 7)
+                {
+                    tb2.Text = $"{days} days left";
+                    tb2.Foreground = Brushes.BlueViolet;
+                }
+                else
+                {
+                    tb2.Text = $"{days} days left";
+                    tb2.Foreground = Brushes.DeepSkyBlue;
+                }
+                tb2.HorizontalAlignment = HorizontalAlignment.Right;
+                dp1.Children.Add(tb1);
+                dp1.Children.Add(tb2);
+                ex.Header = dp1;
+                DockPanel dp2 = new DockPanel();
+                TextBlock tb3 = new TextBlock();
+                tb3.Text = $"Due: {task.Due.ToString("yyyy-MM-dd")}\n优先级：{youxianji[task.Priority]}";
+                tb3.Margin = new Thickness(24, 8, 8, 16);
+                dp2.Children.Add(tb3);
+                //对于没过ddl的任务，未完成的任务有“标记为完成”和“删除”，已完成的任务有“标记为未完成”和“删除”，删除的任务就没了
+                //对于已经过ddl的任务，只能删除，或者保留7天后自动清除。
+                DockPanel dp3 = new DockPanel();
+                dp3.Width = 80;
+                dp3.HorizontalAlignment = HorizontalAlignment.Right;
+                dp3.Margin = new Thickness(24, 8, 8, 16);
+
+                Button bt1 = new Button();
+                bt1.Height = 30;
+                bt1.Width = 30;
+                bt1.Style = refButton.Style;
+                MaterialDesignThemes.Wpf.PackIcon pi1 = new MaterialDesignThemes.Wpf.PackIcon();
+                pi1.Kind = MaterialDesignThemes.Wpf.PackIconKind.Check;
+                pi1.Height = 24;
+                pi1.Width = 24;
+                bt1.Content = pi1;
+                bt1.ToolTip = "标记为已完成";
+                bt1.Tag = id;
+                bt1.Click += FinishTask_Click;
+
+                Button bt2 = new Button();
+                bt2.Height = 30;
+                bt2.Width = 30;
+                bt2.Style = refButton.Style;
+                MaterialDesignThemes.Wpf.PackIcon pi2 = new MaterialDesignThemes.Wpf.PackIcon();
+                pi2.Kind = MaterialDesignThemes.Wpf.PackIconKind.TrashCanOutline;
+                pi2.Height = 24;
+                pi2.Width = 24;
+                bt2.Content = pi2;
+                bt2.ToolTip = "删除此任务";
+                bt2.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+                bt2.BorderBrush = Brushes.BlueViolet;
+                bt2.Foreground = Brushes.Red;
+                bt2.Tag = id;
+                bt2.Click += DeleteTask_Click;
+
+                dp3.Children.Add(bt1);
+                dp3.Children.Add(bt2);
+
+                dp2.Children.Add(dp3);
+                ex.Content = dp2;
+                TaskShowerPanel.Children.Add(ex);
+            }
+
+            TextBox pp1 = new TextBox();
+            MaterialDesignThemes.Wpf.HintAssist.SetHint(pp1, "已完成的任务");
+            pp1.IsEnabled = false;
+            TaskShowerPanel.Children.Add(pp1);
+
+            List<Guid> guids2 = MyTask.getFinishedTasks();
+            foreach (Guid id in guids2)
+            {
+                MyTask task = MyTask.getFinishedTask(id);
+
+                Expander ex = new Expander();
+                ex.Margin = new Thickness(3, 5, 3, 5);
+                DockPanel dp1 = new DockPanel();
+                TextBlock tb1 = new TextBlock();
+                tb1.Text = task.Title;
+                TextBlock tb2 = new TextBlock();
+
+                int days = (int)((task.Due - today).TotalDays);
+                if (days <= 1)
+                {
+                    tb2.Text = $"{days} day left";
+                }
+                else
+                {
+                    tb2.Text = $"{days} days left";
+                }
+                tb2.Foreground = Brushes.Green;
+                tb2.HorizontalAlignment = HorizontalAlignment.Right;
+                dp1.Children.Add(tb1);
+                dp1.Children.Add(tb2);
+                ex.Header = dp1;
+                DockPanel dp2 = new DockPanel();
+                TextBlock tb3 = new TextBlock();
+                tb3.Text = $"Due: {task.Due.ToString("yyyy-MM-dd")}\n优先级：{youxianji[task.Priority]}";
+                tb3.Margin = new Thickness(24, 8, 8, 16);
+                dp2.Children.Add(tb3);
+                //对于没过ddl的任务，未完成的任务有“标记为完成”和“删除”，已完成的任务有“标记为未完成”和“删除”，删除的任务就没了
+                //对于已经过ddl的任务，只能删除，或者保留7天后自动清除。
+                DockPanel dp3 = new DockPanel();
+                dp3.Width = 80;
+                dp3.HorizontalAlignment = HorizontalAlignment.Right;
+                dp3.Margin = new Thickness(24, 8, 8, 16);
+
+                Button bt1 = new Button();
+                bt1.Height = 30;
+                bt1.Width = 30;
+                bt1.Style = refButton.Style;
+                MaterialDesignThemes.Wpf.PackIcon pi1 = new MaterialDesignThemes.Wpf.PackIcon();
+                pi1.Kind = MaterialDesignThemes.Wpf.PackIconKind.UndoVariant;
+                pi1.Height = 24;
+                pi1.Width = 24;
+                bt1.Content = pi1;
+                bt1.ToolTip = "标记为未完成";
+                bt1.Tag = id;
+                bt1.Click += UnfinishTask_Click;
+
+                Button bt2 = new Button();
+                bt2.Height = 30;
+                bt2.Width = 30;
+                bt2.Style = refButton.Style;
+                MaterialDesignThemes.Wpf.PackIcon pi2 = new MaterialDesignThemes.Wpf.PackIcon();
+                pi2.Kind = MaterialDesignThemes.Wpf.PackIconKind.TrashCanOutline;
+                pi2.Height = 24;
+                pi2.Width = 24;
+                bt2.Content = pi2;
+                bt2.ToolTip = "删除此任务";
+                bt2.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+                bt2.BorderBrush = Brushes.BlueViolet;
+                bt2.Foreground = Brushes.Red;
+                bt2.Tag = id;
+                bt2.Click += DeleteTask_Click;
+
+                dp3.Children.Add(bt1);
+                dp3.Children.Add(bt2);
+
+                dp2.Children.Add(dp3);
+                ex.Content = dp2;
+                TaskShowerPanel.Children.Add(ex);
+            }
 
 
-            dp2.Children.Add(dp3) ;
-            ex.Content = dp2;
-            TaskShowerPanel.Children.Add(ex);
+            TextBox pp2 = new TextBox();
+            MaterialDesignThemes.Wpf.HintAssist.SetHint(pp2, "已过期的任务");
+            pp2.IsEnabled = false;
+            TaskShowerPanel.Children.Add(pp2);
 
+
+            List<Guid> guids3 = MyTask.getOveredTasks();
+            foreach (Guid id in guids3)
+            {
+                MyTask task = MyTask.getOveredTask(id);
+
+                Expander ex = new Expander();
+                ex.Margin = new Thickness(3, 5, 3, 5);
+                DockPanel dp1 = new DockPanel();
+                TextBlock tb1 = new TextBlock();
+                tb1.Text = task.Title;
+                TextBlock tb2 = new TextBlock();
+
+                int days = (int)((today - task.Due).TotalDays);
+                if (days <= 1)
+                {
+                    tb2.Text = $"{days} day ago";
+                }
+                else
+                {
+                    tb2.Text = $"{days} days ago";
+                }
+                tb2.Foreground = Brushes.Gray;
+                tb2.HorizontalAlignment = HorizontalAlignment.Right;
+                dp1.Children.Add(tb1);
+                dp1.Children.Add(tb2);
+                ex.Header = dp1;
+                DockPanel dp2 = new DockPanel();
+                TextBlock tb3 = new TextBlock();
+                tb3.Text = $"Due: {task.Due.ToString("yyyy-MM-dd")}\n优先级：{youxianji[task.Priority]}";
+                tb3.Margin = new Thickness(24, 8, 8, 16);
+                dp2.Children.Add(tb3);
+                //对于没过ddl的任务，未完成的任务有“标记为完成”和“删除”，已完成的任务有“标记为未完成”和“删除”，删除的任务就没了
+                //对于已经过ddl的任务，只能删除，或者保留7天后自动清除。
+                DockPanel dp3 = new DockPanel();
+                dp3.Width = 80;
+                dp3.HorizontalAlignment = HorizontalAlignment.Right;
+                dp3.Margin = new Thickness(24, 8, 8, 16);
+
+                Button bt1 = new Button();
+                bt1.Height = 30;
+                bt1.Width = 30;
+                bt1.Style = refButton.Style;
+                MaterialDesignThemes.Wpf.PackIcon pi1 = new MaterialDesignThemes.Wpf.PackIcon();
+                pi1.Kind = MaterialDesignThemes.Wpf.PackIconKind.UndoVariant;
+                pi1.Height = 24;
+                pi1.Width = 24;
+                bt1.Content = pi1;
+                bt1.Opacity = 0;
+
+                Button bt2 = new Button();
+                bt2.Height = 30;
+                bt2.Width = 30;
+                bt2.Style = refButton.Style;
+                MaterialDesignThemes.Wpf.PackIcon pi2 = new MaterialDesignThemes.Wpf.PackIcon();
+                pi2.Kind = MaterialDesignThemes.Wpf.PackIconKind.TrashCanOutline;
+                pi2.Height = 24;
+                pi2.Width = 24;
+                bt2.Content = pi2;
+                bt2.ToolTip = "删除此任务";
+                bt2.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+                bt2.BorderBrush = Brushes.BlueViolet;
+                bt2.Foreground = Brushes.Red;
+                bt2.Tag = id;
+                bt2.Click += DeleteTask_Click;
+
+                dp3.Children.Add(bt1);
+                dp3.Children.Add(bt2);
+
+                dp2.Children.Add(dp3);
+                ex.Content = dp2;
+                TaskShowerPanel.Children.Add(ex);
+            }
         }
-
-
 
 
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             MySchedule.loadAllSchedule();
+            MyTask.loadAllTasks();
             drawScheduleCards();
+            drawTaskCards();
+        }
+
+        private void CreateTask_Click(object sender, RoutedEventArgs e)
+        {
+            string taskName = TaskNameBox.Text;
+            int prior = TaskPriorBar.Value - 1;
+
+            if (taskName.Length == 0)
+            {
+                MessageBox.Show("请输入任务名称！");
+                return;
+            }
+
+            if (TaskDueDateBox.SelectedDate == null)
+            {
+                MessageBox.Show("请选择截止日期！");
+                return;
+            }
+
+            DateTime duedate = TaskDueDateBox.SelectedDate.Value;
+            
+            MyTask.AddTask(new MyTask { Title = taskName, Priority = prior, Due = duedate });
+
+            NewTaskExpander.IsExpanded = false;
+
+            TaskNameBox.Text = "";
+            TaskPriorBar.Value = 3;
+            TaskDueDateBox.SelectedDate = null;
+            drawTaskCards();
+        }
+
+        private void CreateTaskCancle_Click(object sender, RoutedEventArgs e)
+        {
+            NewTaskExpander.IsExpanded = false;
+        }
+
+
+        private void FinishTask_Click(object sender, RoutedEventArgs e)
+        {
+            MyTask.FinishTask((Guid)((Button)sender).Tag);
+            drawTaskCards();
+        }
+
+        private void UnfinishTask_Click(object sender, RoutedEventArgs e)
+        {
+            MyTask.UnfinishTask((Guid)((Button)sender).Tag);
+            drawTaskCards();
+        }
+
+        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+            MyTask.DeleteTask((Guid)((Button)sender).Tag);
+            drawTaskCards();
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            usePriority = ((System.Windows.Controls.Primitives.ToggleButton)sender).IsChecked.Value;
             drawTaskCards();
         }
     }

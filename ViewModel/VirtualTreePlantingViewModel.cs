@@ -29,6 +29,7 @@ namespace TimeManagement.ViewModel
         }
 
         private ObservableCollection<string> _ListBoxContent = new ObservableCollection<string>();
+        private ObservableCollection<TreeSession> _TreeHistoryListViewContent = new ObservableCollection<TreeSession>();
         private string _SearchText = "";
         public HashSet<string> Processes { get; set; } = new HashSet<string>();
         public HashSet<string> Selected { get; set; } = new HashSet<string>();
@@ -36,6 +37,8 @@ namespace TimeManagement.ViewModel
         private bool _Planting = false;
         public bool PlantSuccess { get; private set; } = false;
         public string TreeTitle { get => MyTree?.Title ?? "未命名任务"; }
+        private TimeSpan _TotalDuration = TimeSpan.Zero;
+        private TimeSpan _TimeLeft = TimeSpan.Zero;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -77,6 +80,24 @@ namespace TimeManagement.ViewModel
             {
                 SetField(ref _ListBoxContent, value);
             }
+        }        
+        
+        public ObservableCollection<TreeSession> TreeHistoryListViewContent
+        {
+            get => _TreeHistoryListViewContent;
+            set
+            {
+                SetField(ref _TreeHistoryListViewContent, value);
+            }
+        }
+
+        public TimeSpan TotalDuration
+        {
+            get => _TotalDuration;
+            set
+            {
+                SetField(ref _TotalDuration, value);
+            }
         }
 
         public bool Planting
@@ -85,6 +106,15 @@ namespace TimeManagement.ViewModel
             set
             {
                 SetField(ref _Planting, value);
+            }
+        }        
+        
+        public TimeSpan TimeLeft
+        {
+            get => _TimeLeft;
+            set
+            {
+                SetField(ref _TimeLeft, value);
             }
         }
 
@@ -107,7 +137,14 @@ namespace TimeManagement.ViewModel
             MyTree = tree;
             Registry registry = new Registry();
             registry.Schedule(() => CheckPlanting()).WithName("tree").ToRunEvery(3).Seconds();
+            registry.Schedule(() => UpdateTime()).WithName("timer").ToRunEvery(1).Seconds();
             JobManager.Initialize(registry);
+        }       
+        
+        public void UpdateHistory()
+        {
+            TreeHistoryListViewContent = new ObservableCollection<TreeSession>(TreeSession.RecentTree);
+            TotalDuration = TreeSession.getTotalDuration;
         }
 
         private void CheckPlanting()
@@ -117,6 +154,7 @@ namespace TimeManagement.ViewModel
                 (Selected.Intersect(currentProcesses).Count() > 0))
             {
                 JobManager.RemoveJob("tree");
+                JobManager.RemoveJob("timer");
                 if (MyTree.Due)
                     PlantSuccess = true;
                 else
@@ -126,6 +164,11 @@ namespace TimeManagement.ViewModel
                 MyTree.Success = PlantSuccess;
                 TreeSession.addTree(MyTree);
             }
+        }
+
+        public void UpdateTime()
+        {
+            TimeLeft = MyTree.End - DateTime.Now;
         }
     }
 }

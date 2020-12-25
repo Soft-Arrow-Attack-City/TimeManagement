@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeManagement.Utilities;
 
 namespace TimeManagement.Views
 {
@@ -24,5 +25,11 @@ namespace TimeManagement.Views
         {
             InitializeComponent();
         }
+
+        private void GitHubButton_Click(object sender, RoutedEventArgs e) =>
+            Link.OpenInBrowser("https://github.com/Soft-Arrow-Attack-City/TimeManagement");
+
+        private void MaterialFrameworkButton_Click(object sender, RoutedEventArgs e) =>
+            Link.OpenInBrowser("http://materialdesigninxaml.net/");
     }
 }

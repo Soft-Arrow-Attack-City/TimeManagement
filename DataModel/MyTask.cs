@@ -26,18 +26,34 @@ namespace TimeManagement.DataModel
 
 
         [IgnoreMember]//未完成的任务，蓝，黄，红，允许完成或删除
-        public static Dictionary<Guid,MyTask> ActiveTasks =new Dictionary<Guid,MyTask>();
+        private static Dictionary<Guid,MyTask> ActiveTasks =new Dictionary<Guid,MyTask>();
 
         [IgnoreMember]//已完成，未到期的任务，绿，允许删除
-        public static Dictionary<Guid, MyTask> FinishedTasks = new Dictionary<Guid, MyTask>();
+        private static Dictionary<Guid, MyTask> FinishedTasks = new Dictionary<Guid, MyTask>();
 
         [IgnoreMember]//已到期的任务（可以设置成仅保留最近一周的），灰，允许删除
-        public static Dictionary<Guid, MyTask> OveredTasks = new Dictionary<Guid, MyTask>();
+        private static Dictionary<Guid, MyTask> OveredTasks = new Dictionary<Guid, MyTask>();
+
+        public static MyTask getActiveTask(Guid id)
+        {
+            return ActiveTasks[id];
+        }
+
+        public static MyTask getFinishedTask(Guid id)
+        {
+            return FinishedTasks[id];
+        }
+
+        public static MyTask getOveredTask(Guid id)
+        {
+            return OveredTasks[id];
+        }
 
         public static bool AddTask(MyTask mt)
         {
             ActiveTasks.Add(Guid.NewGuid(), mt);
             refreshTasks();
+            saveAllTasks();
             return true;
         }
 
@@ -45,6 +61,24 @@ namespace TimeManagement.DataModel
         {
             FinishedTasks.Add(id, ActiveTasks[id]);
             ActiveTasks.Remove(id);
+            saveAllTasks();
+            return true;
+        }
+
+        public static bool UnfinishTask(Guid id)
+        {
+            ActiveTasks.Add(id, FinishedTasks[id]);
+            FinishedTasks.Remove(id);
+            saveAllTasks();
+            return true;
+        }
+
+        public static bool DeleteTask(Guid id)
+        {
+            if (ActiveTasks.ContainsKey(id)) ActiveTasks.Remove(id);
+            if (FinishedTasks.ContainsKey(id)) FinishedTasks.Remove(id);
+            if (OveredTasks.ContainsKey(id)) OveredTasks.Remove(id);
+            saveAllTasks();
             return true;
         }
 
@@ -76,10 +110,21 @@ namespace TimeManagement.DataModel
             return true;
         }
 
-        public static List<Guid> getActiveTasks()
+        public static List<Guid> getActiveTasksByDue()
         {
             List<Guid> guids = new List<Guid>();
-            var dicSort = from objDic in ActiveTasks orderby objDic.Value.Due ascending select objDic;
+            var dicSort = from objDic in ActiveTasks orderby objDic.Value.Due ascending, objDic.Value.Priority descending select objDic;
+            foreach (KeyValuePair<Guid, MyTask> kvp in dicSort)
+            {
+                guids.Add(kvp.Key);
+            }
+            return guids;
+        }
+
+        public static List<Guid> getActiveTasksByPriority()
+        {
+            List<Guid> guids = new List<Guid>();
+            var dicSort = from objDic in ActiveTasks orderby objDic.Value.Priority descending ,objDic.Value.Due ascending select objDic;
             foreach (KeyValuePair<Guid, MyTask> kvp in dicSort)
             {
                 guids.Add(kvp.Key);
@@ -111,6 +156,7 @@ namespace TimeManagement.DataModel
 
         public static bool saveAllTasks()
         {
+            refreshTasks();
             try
             {
                 File.WriteAllBytes($"Active{fileName}", MessagePackSerializer.Serialize(ActiveTasks));
@@ -141,6 +187,7 @@ namespace TimeManagement.DataModel
                 MessageBox.Show(e.ToString());
                 return false;
             }
+            refreshTasks();
             return true;
         }
 

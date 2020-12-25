@@ -57,6 +57,12 @@
             </Grid>
 
             <Grid x:Name="planGrid" Grid.Column="1">
+                <!--Button Height="NaN" Margin="0,100,0,200">
+                    asdf
+                </>
+                <Button Height="NaN" Margin="0,300,0,0">
+                    asdf
+                </Button-->
                 <!--  计划安排，此部分内容由C#代码动态生成。  -->
             </Grid>
 

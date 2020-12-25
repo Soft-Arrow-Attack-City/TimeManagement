@@ -30,11 +30,12 @@ namespace TimeManagement.DataModel
         private static Dictionary<Guid, TreeSession> TreeSessions = new Dictionary<Guid, TreeSession>();
 
         [IgnoreMember]
-        public static int TotalMinutes
+        public static TimeSpan getTotalDuration
         {
             get => TreeSessions.Values
-                .Select(t => (int)t.Duration.TotalMinutes)
-                .Sum();
+                .Aggregate
+                (TimeSpan.Zero,
+                (s, nextTree) => s + nextTree.Duration);
         }
 
         public static bool addTree(TreeSession tree)
