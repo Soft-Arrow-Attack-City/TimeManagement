@@ -55,47 +55,15 @@
                               Margin="0,10,10,10"
                               BorderThickness="10"
                               VerticalScrollBarVisibility="Visible">
-                    <StackPanel>
+                    <StackPanel x:Name="TaskShowerPanel">
+                        <Button x:Name="refButton"
+                                Width="30"
+                                Height="30"
+                                Opacity="0"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
+
                         <!--  任务卡放在这里面  -->
-                        <Expander Margin="3,3,10,3">
-                            <Expander.Header>
-                                <DockPanel>
-                                    <TextBlock>软工项目</TextBlock>
-                                    <TextBlock HorizontalAlignment="Right">0 day left</TextBlock>
-                                </DockPanel>
-                            </Expander.Header>
-
-                            <DockPanel>
-                                <TextBlock Margin="24,8,24,16" Text="Due: 2020/12/25&#10;优先级：最高" />
-                                <Button Width="30"
-                                        Height="30"
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                    <materialDesign:PackIcon Width="24"
-                                                             Height="24"
-                                                             Kind="Close" />
-                                </Button>
-                            </DockPanel>
-                        </Expander>
-
-                        <Expander Margin="3,3,10,3">
-                            <Expander.Header>
-                                <DockPanel>
-                                    <TextBlock>数据库大作业</TextBlock>
-                                    <TextBlock HorizontalAlignment="Right">1 day left</TextBlock>
-                                </DockPanel>
-                            </Expander.Header>
-
-                            <DockPanel>
-                                <TextBlock Margin="24,8,24,16" Text="Due: 2020/12/26&#10;优先级：高" />
-                                <Button Width="30"
-                                        Height="30"
-                                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                    <materialDesign:PackIcon Width="24"
-                                                             Height="24"
-                                                             Kind="Close" />
-                                </Button>
-                            </DockPanel>
-                        </Expander>
+                        <!--  此部分代码由C#自动生成  -->
 
                     </StackPanel>
 
@@ -170,11 +138,11 @@
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
 
-            <Calendar x:Name="ScheduleCalendar" xml:lang="zh-CN"/>
+            <Calendar x:Name="ScheduleCalendar" xml:lang="zh-CN" />
 
 
 
@@ -182,8 +150,8 @@
 
             <materialDesign:Flipper x:Name="ScheduleFlipper"
                                     Grid.Row="1"
-                                    Style="{StaticResource MaterialDesignCardFlipper}"
-                                    MinHeight="250">
+                                    MinHeight="250"
+                                    Style="{StaticResource MaterialDesignCardFlipper}">
                 <materialDesign:Flipper.FrontContent>
 
 
@@ -340,12 +308,6 @@
                                             Content=" 取消  " />
                                 </StackPanel>
                             </DockPanel>
-
-
-
-
-
-
                         </StackPanel>
 
 
