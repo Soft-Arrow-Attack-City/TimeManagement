@@ -88,6 +88,10 @@ namespace TimeManagement.ViewModel
             }
         }
 
+        public Dictionary<Guid, TreeSession> TreeHistory
+        {
+        }
+
         private void UpdateProcess()
         {
             Process[] localAll = Process.GetProcesses();

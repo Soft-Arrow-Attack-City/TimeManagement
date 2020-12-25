@@ -168,6 +168,61 @@
                                 </ScrollViewer>
                             </Button.CommandParameter>
                         </Button>
+
+                        <Button Name="TreeHistory"
+                                Margin="0,2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                Content="历史记录"
+                                Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button.CommandParameter>
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel Width="750" Margin="16">
+                                        <TextBlock Margin="16,5,0,5"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}">
+                                            种树历史
+                                        </TextBlock>
+
+                                        <Border Padding="8">
+                                            <ListView ItemsSource="{Binding Items1}">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Code}" Header="Code" />
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Description" />
+                                                        <GridViewColumn Header="Options">
+                                                            <GridViewColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <ComboBox Width="100">
+                                                                        <ComboBoxItem Content="Test" />
+                                                                        <ComboBoxItem Content="Test2" />
+                                                                        <ComboBoxItem Content="Test3" />
+                                                                    </ComboBox>
+                                                                </DataTemplate>
+                                                            </GridViewColumn.CellTemplate>
+                                                        </GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Border>
+
+                                        <Button x:Name="Close"
+                                                HorizontalAlignment="Center"
+                                                Click="Close_Click"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                CommandParameter="Sample2Cancel"
+                                                Content="关闭"
+                                                IsCancel="True"
+                                                Style="{StaticResource MaterialDesignFlatButton}" />
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Button.CommandParameter>
+                        </Button>
+
                     </StackPanel>
                 </StackPanel>
             </materialDesign:Flipper.FrontContent>
