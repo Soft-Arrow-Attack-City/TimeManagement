@@ -8,10 +8,101 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal">
-        <Calendar x:Name="HomepageCalendar" xml:lang="zh-CN" />
-        <materialDesign:Clock x:Name="HomepageClock"
-                              DisplayAutomation="CycleWithSeconds"
-                              Is24Hours="True" />
-    </StackPanel>
+    <ScrollViewer materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True">
+        <Grid Margin="10,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical">
+
+                <TextBlock Foreground="Gray" Style="{StaticResource MaterialDesignHeadline2TextBlock}">
+                    Time Management.
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Right"
+                           Foreground="DarkGray"
+                           Style="{StaticResource MaterialDesignHeadline3TextBlock}">
+                    Redefined.
+                </TextBlock>
+                <Separator Margin="0,8" />
+            </StackPanel>
+
+            <materialDesign:Card Grid.Row="1"
+                                 Width="420"
+                                 Height="270"
+                                 Margin="4,2,8,16"
+                                 HorizontalAlignment="Center">
+                <Grid VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.RowSpan="5"
+                           VerticalAlignment="Stretch"
+                           Source="/Resources/Images/Tree.png"
+                           Stretch="UniformToFill"
+                           StretchDirection="Both" />
+
+                    <TextBlock Grid.Column="1"
+                               Margin="16,16,16,2"
+                               Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                               Text="Get In Touch" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="16,0,16,8"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                               Text="Say hello, make a feature request, or raise a bug through one of these channels:"
+                               TextWrapping="Wrap" />
+
+                    <Border Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="0,8,0,0"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
+                            BorderThickness="0,1,0,0">
+                        <Grid Margin="8">
+                            <Button x:Name="GitHubButton"
+                                    HorizontalAlignment="Left"
+                                    Click="GitHubButton_Click"
+                                    Style="{DynamicResource MaterialDesignFlatButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Github" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Text="GitHub" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="SchoolButton"
+                                    HorizontalAlignment="Right"
+                                    Click="SchoolButton_Click"
+                                    Style="{DynamicResource MaterialDesignFlatButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="School" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Text="Twitter" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </materialDesign:Card>
+
+            <TextBlock Grid.Row="2"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                Free. Open source. Runs everyday.
+            </TextBlock>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -16,7 +16,7 @@ namespace TimeManagement
     {
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            MySchedule.saveAllSchedule();
+            //MySchedule.saveAllSchedule();
         }
     }
 }

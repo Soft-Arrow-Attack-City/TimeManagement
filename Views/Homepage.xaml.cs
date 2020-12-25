@@ -24,5 +24,15 @@ namespace TimeManagement.Views
         {
             InitializeComponent();
         }
+
+        private void GitHubButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SchoolButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

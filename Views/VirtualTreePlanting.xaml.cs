@@ -18,6 +18,7 @@ using FluentScheduler;
 using TimeManagement.DataModel;
 using Task = System.Threading.Tasks.Task;
 using System.Threading;
+using System.ComponentModel;
 
 namespace TimeManagement.Views
 {
@@ -72,8 +73,9 @@ namespace TimeManagement.Views
             {
                 Duration = TimeSpan.FromMinutes(TimeSlider.Value),
                 Title = TaskNameText.Text,
-                Type = TaskProperties.SelectedItem?.ToString() ?? ""
+                Type = ((ComboBoxItem)TaskProperties.SelectedItem)?.Content.ToString() ?? ""
             });
+            PlantTitle.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
         }
 
         private void TreeFlipper_IsFlippedChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
@@ -83,13 +85,18 @@ namespace TimeManagement.Views
                 Task.Factory.StartNew(() => Thread.Sleep(1000)).ContinueWith(t =>
                 {
                     MainWindowViewModel.MainSnackbarMessageQueue?.Enqueue(ViewModel.PlantSuccess ? "种树成功！" : "种树失败！");
-                }, TaskScheduler.Current);
+                }, TaskScheduler.FromCurrentSynchronizationContext());
                 TreeImg.Source = new BitmapImage(
                     new Uri(ViewModel.PlantSuccess ?
                     "pack://application:,,,/Resources/Images/TreeSuccess.png" :
                     "pack://application:,,,/Resources/Images/TreeFailed.png"
                     ));
             }
+        }
+
+        private void OpenTreeHistory_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.UpdateHistory();
         }
     }
 }

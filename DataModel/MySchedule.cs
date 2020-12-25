@@ -222,6 +222,14 @@ namespace TimeManagement.DataModel
             }
             return true;
         }
+
+        public static int removeAllSchedule()
+        {
+            int count = ActiveSchedules.Count() +  ArchivedSchedules.Count();
+            ActiveSchedules.Clear();
+            ArchivedSchedules.Clear();
+            return count;
+        }
     }
 
 }
