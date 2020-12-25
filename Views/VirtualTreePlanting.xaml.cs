@@ -18,6 +18,7 @@ using FluentScheduler;
 using TimeManagement.DataModel;
 using Task = System.Threading.Tasks.Task;
 using System.Threading;
+using System.ComponentModel;
 
 namespace TimeManagement.Views
 {
@@ -72,7 +73,7 @@ namespace TimeManagement.Views
             {
                 Duration = TimeSpan.FromMinutes(TimeSlider.Value),
                 Title = TaskNameText.Text,
-                Type = TaskProperties.SelectedItem?.ToString() ?? ""
+                Type = ((ComboBoxItem)TaskProperties.SelectedItem)?.Content.ToString() ?? ""
             });
             PlantTitle.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
         }
@@ -91,6 +92,12 @@ namespace TimeManagement.Views
                     "pack://application:,,,/Resources/Images/TreeFailed.png"
                     ));
             }
+        }
+
+        private void OpenTreeHistory_Click(object sender, RoutedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(TreeHistory.ItemsSource);
+            view.Refresh();
         }
     }
 }

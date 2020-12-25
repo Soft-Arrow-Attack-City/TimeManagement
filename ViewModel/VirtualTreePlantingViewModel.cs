@@ -88,10 +88,6 @@ namespace TimeManagement.ViewModel
             }
         }
 
-        public Dictionary<Guid, TreeSession> TreeHistory
-        {
-        }
-
         private void UpdateProcess()
         {
             Process[] localAll = Process.GetProcesses();
@@ -122,13 +118,13 @@ namespace TimeManagement.ViewModel
             {
                 JobManager.RemoveJob("tree");
                 if (MyTree.Due)
-                {
                     PlantSuccess = true;
-
-                }
                 else
                     PlantSuccess = false;
+
                 Planting = false;
+                MyTree.Success = PlantSuccess;
+                TreeSession.addTree(MyTree);
             }
         }
     }

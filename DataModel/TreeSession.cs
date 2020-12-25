@@ -12,16 +12,17 @@ namespace TimeManagement.DataModel
     [MessagePackObject]
     public class TreeSession : TimeEvent
     {
-        [Key(2)]
-        public TimeSpan Duration { get; set; } = new TimeSpan(0, 25, 0);
         [Key(3)]
-        public string Type { get; set; } = "";
+        public TimeSpan Duration { get; set; } = new TimeSpan(0, 25, 0);
         [Key(4)]
-        public DateTime End { get; set; } = DateTime.Now.AddDays(1);
+        public string Type { get; set; } = "";
+        [Key(5)]
+        public bool Success { get; set; } = false;
+
         [IgnoreMember]
-        public bool Due { get { return DateTime.Now >= Created + Duration; } }
+        public DateTime End { get => Created + Duration; }
         [IgnoreMember]
-        public bool Success { get { return End - Created >= Duration; } }
+        public bool Due { get => DateTime.Now > End; }
 
         private static readonly string fileName = "TreeSessions.dat";
 
@@ -38,7 +39,7 @@ namespace TimeManagement.DataModel
 
         public static bool addTree(TreeSession tree)
         {
-            TreeSessions.Add(new Guid(), tree);
+            TreeSessions.Add(Guid.NewGuid(), tree);
             return saveAllTreeSession();
         }
 
@@ -71,6 +72,9 @@ namespace TimeManagement.DataModel
             }
             return true;
         }
+
+        [IgnoreMember]
+        public static List<TreeSession> RecentTree { get => TreeSessions.Values.OrderByDescending(t => t.End).ToList(); }
 
     }
 }
