@@ -96,8 +96,7 @@ namespace TimeManagement.Views
 
         private void OpenTreeHistory_Click(object sender, RoutedEventArgs e)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(TreeHistory.ItemsSource);
-            view.Refresh();
+            ViewModel.UpdateHistory();
         }
     }
 }
