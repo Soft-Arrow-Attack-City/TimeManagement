@@ -89,7 +89,6 @@
 
                             <TabItem Margin="16" Header="虚拟种树">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-
                                     <views:VirtualTreePlanting />
                                 </materialDesign:ColorZone>
 

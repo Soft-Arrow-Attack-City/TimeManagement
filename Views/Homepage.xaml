@@ -82,15 +82,15 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button x:Name="SchoolButton"
+                            <Button x:Name="MaterialFrameworkButton"
                                     HorizontalAlignment="Right"
-                                    Click="SchoolButton_Click"
+                                    Click="MaterialFrameworkButton_Click"
                                     Style="{DynamicResource MaterialDesignFlatButton}">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="School" />
+                                    <materialDesign:PackIcon Kind="MaterialDesign" />
                                     <TextBlock Margin="8,0,0,0"
                                                VerticalAlignment="Center"
-                                               Text="Twitter" />
+                                               Text="Material Design In XAML" />
                                 </StackPanel>
                             </Button>
                         </Grid>
