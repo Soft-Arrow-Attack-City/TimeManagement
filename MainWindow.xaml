@@ -24,9 +24,28 @@
                                   DockPanel.Dock="Top"
                                   IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
                                   Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
-                    <TextBlock HorizontalAlignment="Center">
-                        Drawer<LineBreak />
-                        这里可以放点什么？</TextBlock>
+                    <TreeView MinWidth="220">
+                        <TreeViewItem Header="开发人员">
+                            <TreeViewItem Header="赵紫延" />
+                            <TreeViewItem Header="赵祺铭" />
+                            <TreeViewItem Header="崔晏非" />
+                            <TreeViewItem Header="白昊昕" />
+                            <TreeViewItem Header="祝子涵" />
+                            <TreeViewItem Header="于祎男" />
+                            <TreeViewItem Header="王浩成" />
+                            <TreeViewItem Header="王筱淳" />
+                        </TreeViewItem>
+                        <TreeViewItem Header="借鉴项目">
+                            <TreeViewItem Header="Material Design In XAML Toolkit" />
+                            <TreeViewItem Header="Dragablz" />
+                            <TreeViewItem Header="FluentScheduler" />
+                            <TreeViewItem Header="LiveCharts" />
+                            <TreeViewItem Header="MessagePack" />
+                            <TreeViewItem Header="WpfAnimatedGif" />
+                            <TreeViewItem Header="Costura.Fody" />
+                            <TreeViewItem Header="ActivityWatch" />
+                        </TreeViewItem>
+                    </TreeView>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
 
@@ -42,13 +61,12 @@
                                       Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
                         <views:PopupBox DockPanel.Dock="Right" />
+
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    AutomationProperties.Name="Material Design In XAML Toolkit"
                                    FontSize="22"
                                    Text="时间管理 Time Management" />
-
-                        <!--<materialDesign:PackIcon Kind="Castle" />-->
                     </DockPanel>
                 </materialDesign:ColorZone>
 
