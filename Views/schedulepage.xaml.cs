@@ -215,10 +215,79 @@ namespace TimeManagement.Views
             drawScheduleCards();
         }
 
+
+        private void drawTaskCards()
+        {
+            TaskShowerPanel.Children.Clear();
+            TaskShowerPanel.Orientation = Orientation.Vertical;
+
+            Expander ex = new Expander();
+            DockPanel dp1 = new DockPanel();
+            TextBlock tb1 = new TextBlock();
+            tb1.Text = "软工项目";
+            TextBlock tb2 = new TextBlock();
+            tb2.Text = "0 day left";
+            tb2.Foreground = Brushes.Red;
+            tb2.HorizontalAlignment = HorizontalAlignment.Right;
+            dp1.Children.Add(tb1);
+            dp1.Children.Add(tb2);
+            ex.Header = dp1;
+            DockPanel dp2 = new DockPanel();
+            TextBlock tb3 = new TextBlock();
+            tb3.Text= "Due: 2020/12/25\n优先级：最高";
+            tb3.Margin = new Thickness(24, 8, 8, 16);
+            dp2.Children.Add(tb3);
+            //对于没过ddl的任务，未完成的任务有“标记为完成”和“删除”，已完成的任务有“标记为未完成”和“删除”，删除的任务就没了
+            //对于已经过ddl的任务，只能删除，或者保留7天后自动清除。
+            DockPanel dp3 = new DockPanel();
+            dp3.Width = 80;
+            dp3.HorizontalAlignment = HorizontalAlignment.Right;
+            dp3.Margin = new Thickness(24, 8, 8, 16);
+            
+            Button bt1 = new Button();
+            bt1.Height = 30;
+            bt1.Width = 30;
+            bt1.Style = refButton.Style;
+            MaterialDesignThemes.Wpf.PackIcon pi1 = new MaterialDesignThemes.Wpf.PackIcon();
+            pi1.Kind = MaterialDesignThemes.Wpf.PackIconKind.Check;
+            pi1.Height = 24;
+            pi1.Width = 24;
+            bt1.Content = pi1;
+            bt1.ToolTip = "完成此任务";
+
+            Button bt2 = new Button();
+            bt2.Height = 30;
+            bt2.Width = 30;
+            bt2.Style = refButton.Style;
+            MaterialDesignThemes.Wpf.PackIcon pi2 = new MaterialDesignThemes.Wpf.PackIcon();
+            pi2.Kind = MaterialDesignThemes.Wpf.PackIconKind.TrashCanOutline;
+            pi2.Height = 24;
+            pi2.Width = 24;
+            bt2.Content = pi2;
+            bt2.ToolTip = "删除此任务";
+            bt2.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+            bt2.BorderBrush = Brushes.BlueViolet;
+            bt2.Foreground = Brushes.Red;
+
+            dp3.Children.Add(bt1);
+            dp3.Children.Add(bt2);
+
+
+            dp2.Children.Add(dp3) ;
+            ex.Content = dp2;
+            TaskShowerPanel.Children.Add(ex);
+
+        }
+
+
+
+
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             MySchedule.loadAllSchedule();
             drawScheduleCards();
+            drawTaskCards();
         }
     }
 }

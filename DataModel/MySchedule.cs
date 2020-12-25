@@ -28,6 +28,7 @@ namespace TimeManagement.DataModel
         [Key(8)]
         public RemindMode remindMode { get; set; } = RemindMode.NoRemind;
 
+        [IgnoreMember]
         private static readonly string fileName = "Schedule.dat";
 
         [IgnoreMember]
