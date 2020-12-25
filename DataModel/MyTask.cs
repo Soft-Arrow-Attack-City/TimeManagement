@@ -1,21 +1,21 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using MessagePack;
 
 namespace TimeManagement.DataModel
 {
     [MessagePackObject]
-    public class MyTask: TimeEvent
+    public class MyTask : TimeEvent
     {
         [Key(3)]
         public DateTime Due { get; set; } = DateTime.Now.Date;
+
         [Key(4)]
         public string Comment { get; set; } = "";
+
         [Key(5)]
         public int Priority { get; set; } = 1;
 
@@ -24,9 +24,8 @@ namespace TimeManagement.DataModel
         [IgnoreMember]
         private static readonly string fileName = "Task.dat";
 
-
         [IgnoreMember]//未完成的任务，蓝，黄，红，允许完成或删除
-        private static Dictionary<Guid,MyTask> ActiveTasks =new Dictionary<Guid,MyTask>();
+        private static Dictionary<Guid, MyTask> ActiveTasks = new Dictionary<Guid, MyTask>();
 
         [IgnoreMember]//已完成，未到期的任务，绿，允许删除
         private static Dictionary<Guid, MyTask> FinishedTasks = new Dictionary<Guid, MyTask>();
@@ -86,7 +85,7 @@ namespace TimeManagement.DataModel
         {
             DateTime today = DateTime.Now.Date;
             List<Guid> dellist1 = new List<Guid>();
-            foreach(KeyValuePair<Guid,MyTask> kvp in ActiveTasks)
+            foreach (KeyValuePair<Guid, MyTask> kvp in ActiveTasks)
             {
                 if (kvp.Value.Due.Date < today) dellist1.Add(kvp.Key);
             }
@@ -97,7 +96,7 @@ namespace TimeManagement.DataModel
                 if (kvp.Value.Due.Date < today) dellist2.Add(kvp.Key);
             }
 
-            foreach(Guid id in dellist1)
+            foreach (Guid id in dellist1)
             {
                 OveredTasks.Add(id, ActiveTasks[id]);
                 ActiveTasks.Remove(id);
@@ -124,7 +123,7 @@ namespace TimeManagement.DataModel
         public static List<Guid> getActiveTasksByPriority()
         {
             List<Guid> guids = new List<Guid>();
-            var dicSort = from objDic in ActiveTasks orderby objDic.Value.Priority descending ,objDic.Value.Due ascending select objDic;
+            var dicSort = from objDic in ActiveTasks orderby objDic.Value.Priority descending, objDic.Value.Due ascending select objDic;
             foreach (KeyValuePair<Guid, MyTask> kvp in dicSort)
             {
                 guids.Add(kvp.Key);
@@ -190,10 +189,5 @@ namespace TimeManagement.DataModel
             refreshTasks();
             return true;
         }
-
-
-
-
-
     }
 }

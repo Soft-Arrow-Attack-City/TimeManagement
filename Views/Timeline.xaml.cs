@@ -1,19 +1,12 @@
-﻿using System;
+﻿using FluentScheduler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TimeManagement.DataModel;
-using FluentScheduler;
 
 namespace TimeManagement.Views
 {
@@ -23,7 +16,6 @@ namespace TimeManagement.Views
     public partial class Timeline : UserControl
     {
         private double mouseY = 0;
-        private Random random = new Random();
         private string[] ScreenUsage1h;//按时间顺序排字符串，如果没有记录，直接放null进来。//4小时刻度出现时
         private string[] ScreenUsage30min;//按时间顺序排字符串，如果没有记录，直接放null进来。//1小时刻度出现时
         private string[] ScreenUsage15min;//按时间顺序排字符串，如果没有记录，直接放null进来。//15分钟刻度出现时
@@ -31,9 +23,6 @@ namespace TimeManagement.Views
         private string[] ScreenUsage1min;//按时间顺序排字符串，如果没有记录，直接放null进来。//1分钟刻度出现时
 
         private double startsecond = 28800, endsecond = 86400;
-
-
-
 
         public Timeline()
         {
@@ -46,8 +35,6 @@ namespace TimeManagement.Views
         //窗口加载完成后执行，在xaml里添加loaded消息。
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
-
             JobManager.AddJob(
                 () => TimelineData.Sample(),
                 s => s.ToRunNow().AndEvery(5).Seconds()
@@ -55,9 +42,9 @@ namespace TimeManagement.Views
             JobManager.AddJob(
                 () => ProcessUsageData(),
                 s => s.ToRunNow().AndEvery(60).Seconds()
-            ) ;
+            );
 
-            JobManager.AddJob(() => inittimelinepic(),s => s.ToRunOnceIn(1).Seconds() );
+            JobManager.AddJob(() => inittimelinepic(), s => s.ToRunOnceIn(1).Seconds());
         }
 
         private void inittimelinepic()
@@ -92,7 +79,6 @@ namespace TimeManagement.Views
             Dictionary<string, int> count30min = new Dictionary<string, int>();
             Dictionary<string, int> count1h = new Dictionary<string, int>();
 
-
             int nlogs = winlog.Count;
             if (nlogs == 0) return false;//当日没有数据！
 
@@ -101,7 +87,7 @@ namespace TimeManagement.Views
             int now15min = 0;
             int now30min = 0;
             int now1h = 0;
-            for(int i = 0; i < nlogs; i++)
+            for (int i = 0; i < nlogs; i++)
             {
                 if (winlog[i].t / 60 == now1min)
                 {
@@ -118,7 +104,7 @@ namespace TimeManagement.Views
                         ScreenUsage1min[now1min] = count1min.Where(kvp => kvp.Value == count1min.Max(kvp => kvp.Value)).First().Key;
                         count1min.Clear();
                     }
-                    now1min = winlog[i].t / 60; 
+                    now1min = winlog[i].t / 60;
                     count1min.Add(winlog[i].s, 1);
                 }
 
@@ -130,14 +116,14 @@ namespace TimeManagement.Views
                     }
                     else count5min.Add(winlog[i].s, 1);
                 }
-                else 
+                else
                 {
                     if (count5min.Count > 0)
                     {
                         ScreenUsage5min[now5min] = count5min.Where(kvp => kvp.Value == count5min.Max(kvp => kvp.Value)).First().Key;
                         count5min.Clear();
                     }
-                        
+
                     now5min = winlog[i].t / 300;
                     count5min.Add(winlog[i].s, 1);
                 }
@@ -150,14 +136,14 @@ namespace TimeManagement.Views
                     }
                     else count15min.Add(winlog[i].s, 1);
                 }
-                else 
+                else
                 {
                     if (count15min.Count > 0)
                     {
                         ScreenUsage15min[now15min] = count15min.Where(kvp => kvp.Value == count15min.Max(kvp => kvp.Value)).First().Key;
                         count15min.Clear();
                     }
-                        
+
                     now15min = winlog[i].t / 900;
                     count15min.Add(winlog[i].s, 1);
                 }
@@ -170,14 +156,14 @@ namespace TimeManagement.Views
                     }
                     else count30min.Add(winlog[i].s, 1);
                 }
-                else 
+                else
                 {
                     if (count30min.Count > 0)
                     {
                         ScreenUsage30min[now30min] = count30min.Where(kvp => kvp.Value == count30min.Max(kvp => kvp.Value)).First().Key;
                         count30min.Clear();
                     }
-                        
+
                     now30min = winlog[i].t / 1800;
                     count30min.Add(winlog[i].s, 1);
                 }
@@ -210,18 +196,14 @@ namespace TimeManagement.Views
             return true;
         }
 
-
-
         public void drawplanGrid()
         {
-            
             planGrid.Children.Clear();
             planGrid.RowDefinitions.Clear();
 
             Dictionary<Guid, MySchedule> schdic = MySchedule.getSchedulesofDay(DateTime.Now);
             foreach (KeyValuePair<Guid, MySchedule> kvp in schdic)
             {
-
                 double ah = planGrid.ActualHeight;
                 double upperMargin = 0;
                 double lowerMargin = 0;
@@ -238,9 +220,10 @@ namespace TimeManagement.Views
                     lowerMargin = (endsecond - scheduleendsecond) / (endsecond - startsecond) * ah;
                 }
 
-
-                Button b = new Button();
-                b.Tag = kvp.Value;
+                Button b = new Button
+                {
+                    Tag = kvp.Value
+                };
                 planGrid.Children.Add(b);
 
                 b.Margin = new Thickness(5, upperMargin + 2, 3, lowerMargin + 2);
@@ -250,7 +233,6 @@ namespace TimeManagement.Views
                 b.BorderBrush = c;
                 b.Content = kvp.Value.Title;
             }
-
         }
 
         public void drawactualGrid()
@@ -264,27 +246,26 @@ namespace TimeManagement.Views
             string[] usingstring = ScreenUsage1h;
             int interval = 3600;
 
-            if (endsecond - startsecond < 1800*14)
+            if (endsecond - startsecond < 1800 * 14)
             {
                 usingstring = ScreenUsage30min;
                 interval = 1800;
             }
-            if (endsecond - startsecond < 900*14)
+            if (endsecond - startsecond < 900 * 14)
             {
                 usingstring = ScreenUsage15min;
                 interval = 900;
             }
-            if (endsecond - startsecond < 300*14)
+            if (endsecond - startsecond < 300 * 14)
             {
                 usingstring = ScreenUsage5min;
                 interval = 300;
             }
-            if (endsecond - startsecond < 60*14)
+            if (endsecond - startsecond < 60 * 14)
             {
                 usingstring = ScreenUsage1min;
                 interval = 60;
             }
-
 
             int realcount = 0;
             for (int i = (int)(startsecond / interval); i <= (int)(endsecond / interval); i++)
@@ -297,8 +278,6 @@ namespace TimeManagement.Views
 
                 string nowstring = usingstring[i];
 
-
-
                 while ((usingstring[i + 1] == nowstring) && (i < (int)(endsecond / interval)))
                 {
                     i++;
@@ -306,10 +285,7 @@ namespace TimeManagement.Views
                     height += interval;
                     if (i == (int)(startsecond / interval)) height += (i * interval - startsecond);
                     if (i == (int)(endsecond / interval)) height -= (i * interval - endsecond + interval);
-
                 }
-
-
 
                 //如果和下面的相同，就一起做了！
                 actualGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(height, GridUnitType.Star) });
@@ -321,16 +297,14 @@ namespace TimeManagement.Views
 
                 Button b = new Button();
                 actualGrid.Children.Add(b);
-                b.SetValue(Grid.RowProperty,realcount++);
+                b.SetValue(Grid.RowProperty, realcount++);
                 b.Margin = new Thickness(3, 2, 5, 2);
                 b.Height = double.NaN;
                 b.Content = nowstring;
-                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)nowstring.GetHashCode(), (byte)(nowstring.GetHashCode()/256), 255));
+                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)nowstring.GetHashCode(), (byte)(nowstring.GetHashCode() / 256), 255));
                 b.Background = c;
                 b.BorderBrush = c;
-                
             }
-            
         }
 
         public void drawTime()
@@ -343,7 +317,7 @@ namespace TimeManagement.Views
             int multi = 0;
             if (endsecond - startsecond < 12 * 60 * 60)
             {
-                interval = 60*60;
+                interval = 60 * 60;
                 mod = 1;
                 div = 4;
                 multi = 0;
@@ -370,23 +344,20 @@ namespace TimeManagement.Views
                 multi = 1;
             }
 
-
             for (int drawtime = (int)startsecond / interval; drawtime <= endsecond / interval; drawtime++)
             {
-
                 double margin = timeGrid.ActualHeight * (drawtime * interval - startsecond) / (endsecond - startsecond) - 20;
                 if (margin > -30)
                 {
-                    TextBlock a = new TextBlock();
-                    a.Text = (drawtime * 4 / div).ToString("D2") + ":" + (drawtime % mod * multi).ToString("D2");
-                    a.HorizontalAlignment = HorizontalAlignment.Right;
-                    a.Margin = new Thickness(0, margin, 0, 0);
+                    TextBlock a = new TextBlock
+                    {
+                        Text = (drawtime * 4 / div).ToString("D2") + ":" + (drawtime % mod * multi).ToString("D2"),
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        Margin = new Thickness(0, margin, 0, 0)
+                    };
                     timeGrid.Children.Add(a);
-
                 }
             }
-
-
         }
 
         private void TimelineGrid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -394,27 +365,25 @@ namespace TimeManagement.Views
             mouseY = e.GetPosition(timeGrid).Y;
         }
 
-
         private void TimelineGrid_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.MiddleButton==MouseButtonState.Pressed)
+            if (e.MiddleButton == MouseButtonState.Pressed)
             {
                 //认为是在中键拖动
-                double dragseconds = (mouseY-e.GetPosition(timeGrid).Y) / timeGrid.ActualHeight * (endsecond - startsecond);
+                double dragseconds = (mouseY - e.GetPosition(timeGrid).Y) / timeGrid.ActualHeight * (endsecond - startsecond);
                 //MessageBox.Show(dragseconds.ToString());
                 mouseY = e.GetPosition(timeGrid).Y;
-                if ((startsecond + dragseconds >= 0) && (endsecond + dragseconds <= 86400)){
+                if ((startsecond + dragseconds >= 0) && (endsecond + dragseconds <= 86400))
+                {
                     startsecond += dragseconds;
                     endsecond += dragseconds;
                 }
-
 
                 drawplanGrid();
                 drawactualGrid();
                 drawTime();
             }
         }
-
 
         private void TimelineGrid_MouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -450,6 +419,5 @@ namespace TimeManagement.Views
             drawactualGrid();
             drawTime();
         }
-
     }
 }

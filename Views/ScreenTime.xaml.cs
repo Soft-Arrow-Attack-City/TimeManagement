@@ -1,4 +1,5 @@
-﻿using LiveCharts;
+﻿using FluentScheduler;
+using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
@@ -8,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using FluentScheduler;
 
 namespace TimeManagement.Views
 {
@@ -120,8 +120,7 @@ namespace TimeManagement.Views
 
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void UpdateOnclick(object sender, RoutedEventArgs e)

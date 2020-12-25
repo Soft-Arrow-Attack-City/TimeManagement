@@ -1,16 +1,13 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using MessagePack;
-using TimeManagement.Utilities;
 using System.Windows;
+using TimeManagement.Utilities;
 
 namespace TimeManagement.DataModel
 {
-    class Alog
+    internal class Alog
     {
         public int t;//暂定0到86400之间的一个数。
         public string s;
@@ -25,6 +22,7 @@ namespace TimeManagement.DataModel
         {
             return a.t < b.t;
         }
+
         public static bool operator >(Alog a, Alog b)
         {
             return a.t > b.t;
@@ -34,6 +32,7 @@ namespace TimeManagement.DataModel
         {
             return a.t == b.t;
         }
+
         public static bool operator !=(Alog a, Alog b)
         {
             return a.t != b.t;
@@ -43,14 +42,14 @@ namespace TimeManagement.DataModel
         {
             return base.Equals(obj);
         }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
     }
 
-    class AlogCompare : IComparer<Alog>     //对时间排序
+    internal class AlogCompare : IComparer<Alog>     //对时间排序
     {
         public int Compare(Alog x, Alog y)
         {
@@ -58,18 +57,13 @@ namespace TimeManagement.DataModel
         }
     }
 
-    class FakeTimelineData
+    internal class FakeTimelineData
     {
-
-
-        private static Random random = new Random();
-
-
+        private static readonly Random random = new Random();
 
         //当前暂未与后端对接，使用generagedata生产随机的数据，测试前端代码。
         public static List<Alog> generatedata()
         {
-
             SortedSet<Alog> logs = new SortedSet<Alog>(new AlogCompare());
             List<string> ls = new List<string>(new string[] { "1rdgv4v", "2c32crq", "3q5r34ctv", "44c3c6c", "54vkgt3", "634ct9v8", "743vc53", "86b3bv" });
             for (int i = 0; i < 1000; i++)
@@ -85,26 +79,25 @@ namespace TimeManagement.DataModel
             List<Alog> sortedLogs = new List<Alog>(logs);
             return sortedLogs;
         }
-
-
     }
-
 
     [MessagePackObject]
     public class TimelineData
     {
         [Key(0)]
         public DateTime Created { get; set; } = DateTime.Today;
+
         [Key(1)]
         public string Title { get; set; } = "";
+
         [Key(2)]
         public string Program { get; set; } = "";
 
         [IgnoreMember]
         public int t { get { return (int)(Created - Created.Date).TotalSeconds; } }
+
         [IgnoreMember]
         public string s { get { return Path.GetFileName(Program) ?? ""; } }
-
 
         [IgnoreMember]
         public static List<TimelineData> todaylist = new List<TimelineData>();
@@ -122,6 +115,7 @@ namespace TimeManagement.DataModel
             }
             return true;
         }
+
         public static bool loadAllData()
         {
             try

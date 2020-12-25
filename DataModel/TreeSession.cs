@@ -1,11 +1,9 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using MessagePack;
 
 namespace TimeManagement.DataModel
 {
@@ -14,13 +12,16 @@ namespace TimeManagement.DataModel
     {
         [Key(3)]
         public TimeSpan Duration { get; set; } = new TimeSpan(0, 25, 0);
+
         [Key(4)]
         public string Type { get; set; } = "";
+
         [Key(5)]
         public bool Success { get; set; } = false;
 
         [IgnoreMember]
         public DateTime End { get => Created + Duration; }
+
         [IgnoreMember]
         public bool Due { get => DateTime.Now > End; }
 
@@ -76,6 +77,5 @@ namespace TimeManagement.DataModel
 
         [IgnoreMember]
         public static List<TreeSession> RecentTree { get => TreeSessions.Values.OrderByDescending(t => t.End).ToList(); }
-
     }
 }

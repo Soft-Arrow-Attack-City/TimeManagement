@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Threading;
-using System.Diagnostics;
-using System.Management;
+using System.Windows.Forms;
 
 namespace TimeManagement.Utilities
 {
-
-
     //矩形类。
     [StructLayout(LayoutKind.Sequential)]
-    struct RECT
+    internal struct RECT
     {
         public int Left; //最左坐标
         public int Top; //最上坐标
         public int Right; //最右坐标
         public int Bottom; //最下坐标
+
         public RECT(int l = 0, int t = 0, int r = 0, int b = 0)
         {
             Left = l;
@@ -28,11 +26,13 @@ namespace TimeManagement.Utilities
             Right = r;
             Bottom = b;
         }
+
         public bool isLegal()
         {
             if ((Left < Right) && (Top < Bottom)) return true;
             else return false;
         }
+
         public int getArea()
         {
             return (Bottom - Top) * (Right - Left);
@@ -40,11 +40,11 @@ namespace TimeManagement.Utilities
     }
 
     //分屏树，对每个屏幕单独建树。
-    class DivideScreenTree
+    internal class DivideScreenTree
     {
         private RECT bound;//本矩形的范围
-        private IntPtr hWnd;//如果句柄为零，则说明还没有被分配，可以再有list。否则说明已经被分配，不能再有list了。
-        private List<DivideScreenTree> childRect;
+        private readonly IntPtr hWnd;//如果句柄为零，则说明还没有被分配，可以再有list。否则说明已经被分配，不能再有list了。
+        private readonly List<DivideScreenTree> childRect;
 
         [DllImport("user32.dll", EntryPoint = "WindowFromPoint")]//指定坐标处窗体句柄
         private static extern IntPtr WindowFromPoint(int xPoint, int yPoint);
@@ -52,8 +52,6 @@ namespace TimeManagement.Utilities
         //DEBUG
         [DllImport("user32.dll")]
         private extern static int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-
 
         public DivideScreenTree(Screen s)
         {
@@ -154,7 +152,6 @@ namespace TimeManagement.Utilities
                 //最后处理中间的矩形，加进子树列表，而且已经有了窗体。
                 //判断窗体是不是FolderView。如果是，则这一块应该是桌面。
 
-
                 childRect.Add(
                 new DivideScreenTree(
                     new RECT(
@@ -169,8 +166,6 @@ namespace TimeManagement.Utilities
                         )
                     )
                 );
-
-
             }
         }
 
@@ -191,24 +186,22 @@ namespace TimeManagement.Utilities
                 if (pixelDict.ContainsKey(hWnd)) pixelDict[hWnd] += bound.getArea();
                 else pixelDict.Add(hWnd, bound.getArea());
             }
-
         }
-
     }
 
     //主类
     public class Monitor
     {
         private static List<DivideScreenTree> screenList;
+
         private delegate bool CallBack(IntPtr hwnd, int lParam);
-        private static CallBack myCallBack = new CallBack(DealWith);
+
+        private static readonly CallBack myCallBack = new CallBack(DealWith);
         private static bool FrontWindowAppears;
         private static IntPtr FrontWindow;
 
-
         private static bool DealWith(IntPtr hwnd, int lParam)
         {
-
             if (hwnd == FrontWindow) FrontWindowAppears = true;
             if (!FrontWindowAppears) return true;
 
@@ -223,13 +216,11 @@ namespace TimeManagement.Utilities
             foreach (DivideScreenTree tree in screenList)
             {
                 tree.DivideByWindow(r, hwnd);
-                //if (tree.JudgeWindowValid(r, hwnd)) 
+                //if (tree.JudgeWindowValid(r, hwnd))
             }
-
 
             return true;
         }
-
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         private static extern IntPtr GetForegroundWindow();
@@ -259,20 +250,17 @@ namespace TimeManagement.Utilities
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         private static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
 
-
         private static string GetMainModuleFilepath(int processId)
         {
             string wmiQueryString = "SELECT ProcessId, ExecutablePath FROM Win32_Process WHERE ProcessId = " + processId;
             using (var searcher = new ManagementObjectSearcher(wmiQueryString))
             {
-                using (var results = searcher.Get())
+                using var results = searcher.Get();
+                ManagementObject mo = results.Cast<ManagementObject>().FirstOrDefault();
+                if (mo != null)
                 {
-                    ManagementObject mo = results.Cast<ManagementObject>().FirstOrDefault();
-                    if (mo != null)
-                    {
-                        //return (string)mo["ExecutablePath"];
-                        return (string)mo["ExecutablePath"];
-                    }
+                    //return (string)mo["ExecutablePath"];
+                    return (string)mo["ExecutablePath"];
                 }
             }
             return null;
@@ -294,9 +282,7 @@ namespace TimeManagement.Utilities
             FrontWindowAppears = false;
             FrontWindow = GetForegroundWindow();
 
-
             EnumWindows(myCallBack, 0);
-
 
             Dictionary<IntPtr, int> pixelDict = new Dictionary<IntPtr, int>();
             foreach (DivideScreenTree tree in screenList)
@@ -315,8 +301,7 @@ namespace TimeManagement.Utilities
                 double winprop = kvp.Value / allarea;
                 WindowProportion.Add(winname, winprop);
 
-                int pid;
-                GetWindowThreadProcessId(kvp.Key, out pid);
+                GetWindowThreadProcessId(kvp.Key, out int pid);
                 Process myProcess = Process.GetProcessById(pid);
                 string path = GetMainModuleFilepath(myProcess.Id);
 
@@ -330,10 +315,7 @@ namespace TimeManagement.Utilities
                 {
                     ProgramProportion.Add(path, winprop);
                 }
-
-
             }
-
         }
 
         /// <summary>
@@ -358,8 +340,7 @@ namespace TimeManagement.Utilities
         public static string GetForgroundWindowProgram()
         {
             IntPtr hwnd = GetForegroundWindow();
-            int pid;
-            GetWindowThreadProcessId(hwnd, out pid);
+            GetWindowThreadProcessId(hwnd, out int pid);
             Process myProcess = Process.GetProcessById(pid);
             string path = GetMainModuleFilepath(myProcess.Id);
             return path;
@@ -381,16 +362,17 @@ namespace TimeManagement.Utilities
             foreach (Screen s in Screen.AllScreens)
             {
                 allarea += s.Bounds.Width * s.Bounds.Height;
-                RECT r = new RECT();
-                r.Left = Math.Max(s.Bounds.Left, winrect.Left);
-                r.Top = Math.Max(s.Bounds.Top, winrect.Top);
-                r.Right = Math.Min(s.Bounds.Right, winrect.Right);
-                r.Bottom = Math.Min(s.Bounds.Bottom, winrect.Bottom);
+                RECT r = new RECT
+                {
+                    Left = Math.Max(s.Bounds.Left, winrect.Left),
+                    Top = Math.Max(s.Bounds.Top, winrect.Top),
+                    Right = Math.Min(s.Bounds.Right, winrect.Right),
+                    Bottom = Math.Min(s.Bounds.Bottom, winrect.Bottom)
+                };
                 if (r.isLegal())
                 {
                     effectivearea += r.getArea();
                 }
-
             }
             return effectivearea / allarea;
         }
@@ -417,7 +399,6 @@ namespace TimeManagement.Utilities
 
             while (true)
             {
-
                 GetAllWindowProportion(ref WindowProportion, ref ProgramProportion);
                 Console.Clear();
                 Console.WriteLine("======每个窗口的占屏比======");
@@ -430,9 +411,7 @@ namespace TimeManagement.Utilities
                 Console.WriteLine("主窗口占屏比：\t" + GetForgroundWindowProportion().ToString("P6"));
 
                 Thread.Sleep(1000);
-
             }
         }
     }
-
 }

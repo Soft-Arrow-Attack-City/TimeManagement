@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TimeManagement.DataModel;
 using Xunit;
-using TimeManagement.DataModel;
 
 namespace TimeManagement.Tests
 {
@@ -20,7 +15,7 @@ namespace TimeManagement.Tests
         [Fact]
         public void ScheduleTest()
         {
-            var timeEvent = new MySchedule { Title="Test title" };
+            var timeEvent = new MySchedule { Title = "Test title" };
             Assert.Equal("Test title", timeEvent.Title);
         }
     }

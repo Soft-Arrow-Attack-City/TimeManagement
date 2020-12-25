@@ -1,19 +1,16 @@
-﻿using System;
+﻿using FluentScheduler;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentScheduler;
 using TimeManagement.DataModel;
-using Task = System.Threading.Tasks.Task;
 
 namespace TimeManagement.ViewModel
 {
-    class VirtualTreePlantingViewModel : INotifyPropertyChanged
+    internal class VirtualTreePlantingViewModel : INotifyPropertyChanged
     {
         public VirtualTreePlantingViewModel()
         {
@@ -80,8 +77,8 @@ namespace TimeManagement.ViewModel
             {
                 SetField(ref _ListBoxContent, value);
             }
-        }        
-        
+        }
+
         public ObservableCollection<TreeSession> TreeHistoryListViewContent
         {
             get => _TreeHistoryListViewContent;
@@ -107,8 +104,8 @@ namespace TimeManagement.ViewModel
             {
                 SetField(ref _Planting, value);
             }
-        }        
-        
+        }
+
         public TimeSpan TimeLeft
         {
             get => _TimeLeft;
@@ -139,8 +136,8 @@ namespace TimeManagement.ViewModel
             registry.Schedule(() => CheckPlanting()).WithName("tree").ToRunEvery(3).Seconds();
             registry.Schedule(() => UpdateTime()).WithName("timer").ToRunEvery(1).Seconds();
             JobManager.Initialize(registry);
-        }       
-        
+        }
+
         public void UpdateHistory()
         {
             TreeHistoryListViewContent = new ObservableCollection<TreeSession>(TreeSession.RecentTree);

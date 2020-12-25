@@ -1,18 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TimeManagement.Views
 {
@@ -48,7 +36,6 @@ namespace TimeManagement.Views
             theme.SetBaseTheme(isDarkTheme ? Theme.Dark : Theme.Light);
             paletteHelper.SetTheme(theme);
 
-
             //new MainWindow().Show();
             //Application.Current.MainWindow.ShowInTaskbar = false;
             //Application.Current.MainWindow.Visibility = Visibility.Hidden;
@@ -67,7 +54,6 @@ namespace TimeManagement.Views
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("清除缓存成功");
-            
         }
 
         private void HistoryButton_Click(object sender, RoutedEventArgs e)

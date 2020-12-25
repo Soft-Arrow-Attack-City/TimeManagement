@@ -1,24 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using TimeManagement.ViewModel;
-using FluentScheduler;
 using TimeManagement.DataModel;
+using TimeManagement.ViewModel;
 using Task = System.Threading.Tasks.Task;
-using System.Threading;
-using System.ComponentModel;
 
 namespace TimeManagement.Views
 {
@@ -27,12 +16,10 @@ namespace TimeManagement.Views
     /// </summary>
     public partial class VirtualTreePlanting : UserControl
     {
-
         public VirtualTreePlanting()
         {
             InitializeComponent();
             DataContext = ViewModel;
-
         }
 
         private VirtualTreePlantingViewModel ViewModel { get; } = new VirtualTreePlantingViewModel();

@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MessagePack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using MessagePack;
 
 namespace TimeManagement.DataModel
 {
     public enum Freq { NoRepeat, Daily, Weekly, Monthly, Annual }
+
     public enum RemindMode { NoRemind, RemindOnTime, Advance5min, Advance10min, Advance30min }
 
     [MessagePackObject]
@@ -17,14 +16,19 @@ namespace TimeManagement.DataModel
     {
         [Key(3)]
         public DateTime Start { get; set; } = DateTime.Now;
+
         [Key(4)]
         public TimeSpan Duration { get; set; } = new TimeSpan(0, 5, 0);
+
         [Key(5)]
         public string Comment { get; set; } = "";
+
         [Key(6)]
         public int Priority { get; set; } = 1;
+
         [Key(7)]
         public Freq Repeat { get; set; } = Freq.NoRepeat;
+
         [Key(8)]
         public RemindMode remindMode { get; set; } = RemindMode.NoRemind;
 
@@ -46,12 +50,15 @@ namespace TimeManagement.DataModel
                         case Freq.Daily:
                             newStart = today.Date + newStart.TimeOfDay;
                             break;
+
                         case Freq.Weekly:
                             while (newStart < today) newStart = newStart.AddDays(7);
                             break;
+
                         case Freq.Monthly:
                             while (newStart < today) newStart = newStart.AddMonths(1);
                             break;
+
                         case Freq.Annual:
                             while (newStart < today) newStart = newStart.AddYears(1);
                             break;
@@ -64,31 +71,30 @@ namespace TimeManagement.DataModel
                         case Freq.Daily:
                             newStart = newStart.AddDays(1);
                             break;
+
                         case Freq.Weekly:
                             newStart = newStart.AddDays(7);
                             break;
+
                         case Freq.Monthly:
                             newStart = newStart.AddMonths(1);
                             break;
+
                         case Freq.Annual:
                             newStart = newStart.AddYears(1);
                             break;
                     }
                 }
 
-
                 return new MySchedule { Description = Description, Title = Title, Start = newStart, Duration = Duration, Comment = Comment, Priority = Priority, Repeat = Repeat, remindMode = remindMode };
             }
         }
 
-
-
         [IgnoreMember]
         private static Dictionary<Guid, MySchedule> ArchivedSchedules = new Dictionary<Guid, MySchedule>();
+
         [IgnoreMember]
         private static Dictionary<Guid, MySchedule> ActiveSchedules = new Dictionary<Guid, MySchedule>();
-
-
 
         //程序刚打开的时候应该有这么一步，来处理一下可能已经过期了的日程。
         //根据当前的日期时间来刷新日程，该封存的封存，该排到下个周期的排到下个周期
@@ -160,6 +166,7 @@ namespace TimeManagement.DataModel
             saveAllSchedule();
             return true;
         }
+
         //取消本系列日程的所有重复
         public static bool removeScheduleAll(Guid id)
         {
@@ -173,9 +180,9 @@ namespace TimeManagement.DataModel
         {
             Dictionary<Guid, MySchedule> d = new Dictionary<Guid, MySchedule>();
             DateTime Today = dt.Date;
-            foreach(KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
+            foreach (KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
             {
-                if (kvp.Value.Start.Date == Today) d.Add(kvp.Key,kvp.Value);
+                if (kvp.Value.Start.Date == Today) d.Add(kvp.Key, kvp.Value);
             }
             return d;
         }
@@ -204,11 +211,9 @@ namespace TimeManagement.DataModel
                 if (File.Exists($"Active{fileName}"))
                     ActiveSchedules = MessagePackSerializer.Deserialize<Dictionary<Guid, MySchedule>>(File.ReadAllBytes($"Active{fileName}"));
 
-
-                foreach(KeyValuePair<Guid, MySchedule> kvp in ArchivedSchedules)
+                foreach (KeyValuePair<Guid, MySchedule> kvp in ArchivedSchedules)
                 {
-                    if(kvp.Value.Start.ToLocalTime().Date == DateTime.Today) kvp.Value.Start = kvp.Value.Start.ToLocalTime();
-
+                    if (kvp.Value.Start.ToLocalTime().Date == DateTime.Today) kvp.Value.Start = kvp.Value.Start.ToLocalTime();
                 }
                 foreach (KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
                 {
@@ -225,11 +230,10 @@ namespace TimeManagement.DataModel
 
         public static int removeAllSchedule()
         {
-            int count = ActiveSchedules.Count() +  ArchivedSchedules.Count();
+            int count = ActiveSchedules.Count() + ArchivedSchedules.Count();
             ActiveSchedules.Clear();
             ArchivedSchedules.Clear();
             return count;
         }
     }
-
 }

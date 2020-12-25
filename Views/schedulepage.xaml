@@ -15,7 +15,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -24,8 +23,6 @@
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -47,7 +44,6 @@
                                            VerticalAlignment="Center"
                                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                            Text="任务卡" />
-
                             </StackPanel>
 
                             <ToggleButton HorizontalAlignment="Right"
@@ -58,7 +54,6 @@
                         </DockPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-
 
                 <ScrollViewer Grid.Row="0"
                               Margin="0,10,10,10"
@@ -73,12 +68,9 @@
 
                         <!--  任务卡放在这里面  -->
                         <!--  此部分由C#代码自动生成  -->
-
                     </StackPanel>
-
                 </ScrollViewer>
             </GroupBox>
-
 
             <Expander x:Name="NewTaskExpander"
                       Grid.Row="1"
@@ -113,7 +105,6 @@
                                                   Value="3" />
                     </DockPanel>
 
-
                     <DatePicker x:Name="TaskDueDateBox"
                                 Margin="12,12,24,0"
                                 materialDesign:HintAssist.Hint="截止日期 Deadline" />
@@ -131,12 +122,9 @@
                                 Click="CreateTaskCancle_Click"
                                 Content=" 取消  " />
                     </StackPanel>
-
-
                 </StackPanel>
             </Expander>
         </Grid>
-
 
         <GridSplitter Grid.Column="1"
                       Width="5"
@@ -162,17 +150,11 @@
 
             <Calendar x:Name="ScheduleCalendar" xml:lang="zh-CN" />
 
-
-
-
-
             <materialDesign:Flipper x:Name="ScheduleFlipper"
                                     Grid.Row="1"
                                     MinHeight="250"
                                     Style="{StaticResource MaterialDesignCardFlipper}">
                 <materialDesign:Flipper.FrontContent>
-
-
 
                     <GroupBox Header="近期日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
                         <GroupBox.HeaderTemplate>
@@ -195,8 +177,6 @@
                                                                  Height="24"
                                                                  Kind="FlipHorizontal" />
                                     </Button>
-
-
                                 </DockPanel>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
@@ -204,12 +184,7 @@
                         <ScrollViewer>
                             <StackPanel x:Name="ScheduleShowerPanel" />
                         </ScrollViewer>
-
-
-
                     </GroupBox>
-
-
                 </materialDesign:Flipper.FrontContent>
                 <materialDesign:Flipper.BackContent>
 
@@ -235,8 +210,6 @@
                                                                  Height="24"
                                                                  Kind="FlipHorizontal" />
                                     </Button>
-
-
                                 </DockPanel>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
@@ -253,7 +226,6 @@
                                     <Setter Property="Margin" Value="8,8,8,8" />
                                 </Style>
                             </StackPanel.Resources>
-
 
                             <TextBox x:Name="ScheduleNameInputBox"
                                      Margin="12,0,24,0"
@@ -309,7 +281,6 @@
                                     从选定日期开始
                                 </Button>
 
-
                                 <StackPanel Margin="0,16,0,0"
                                             HorizontalAlignment="Right"
                                             Orientation="Horizontal">
@@ -327,15 +298,9 @@
                                 </StackPanel>
                             </DockPanel>
                         </StackPanel>
-
-
                     </GroupBox>
                 </materialDesign:Flipper.BackContent>
             </materialDesign:Flipper>
-
-
         </Grid>
-
-
     </Grid>
 </UserControl>

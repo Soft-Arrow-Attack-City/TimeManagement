@@ -91,7 +91,6 @@
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
                                     <views:VirtualTreePlanting />
                                 </materialDesign:ColorZone>
-
                             </TabItem>
                         </dragablz:TabablzControl>
                     </Grid>
