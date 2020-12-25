@@ -20,11 +20,17 @@
 
             <Separator />
 
-            <Button x:Name="MenuButton" Content="菜单" />
+            <Button x:Name="MenuButton"
+                    Click="MenuButton_Click"
+                    Content="清除缓存" />
 
-            <Button x:Name="HistoryButton" Content="成就榜" />
+            <Button x:Name="HistoryButton"
+                    Click="HistoryButton_Click"
+                    Content="成就榜" />
 
-            <Button x:Name="AboutButton" Content="关于" />
+            <Button x:Name="AboutButton"
+                    Click="AboutButton_Click"
+                    Content="关于" />
 
             <Separator />
 

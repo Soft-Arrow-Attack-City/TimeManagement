@@ -125,7 +125,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataModel\Task.cs" />
+    <Compile Include="DataModel\MyTask.cs" />
     <Compile Include="DataModel\TreeSession.cs" />
     <Compile Include="DataModel\MySchedule.cs" />
     <Compile Include="DataModel\TimeEvent.cs" />

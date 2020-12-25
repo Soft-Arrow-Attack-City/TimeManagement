@@ -47,11 +47,37 @@ namespace TimeManagement.Views
 
             theme.SetBaseTheme(isDarkTheme ? Theme.Dark : Theme.Light);
             paletteHelper.SetTheme(theme);
+
+
+            //new MainWindow().Show();
+            //Application.Current.MainWindow.ShowInTaskbar = false;
+            //Application.Current.MainWindow.Visibility = Visibility.Hidden;
+            MainWindow ww = (MainWindow)Application.Current.MainWindow;
+            MainWindow w = new MainWindow();
+            w.Show();
+            Application.Current.MainWindow = w;
+            ww.Close();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("清除缓存成功");
+            
+        }
+
+        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("你没有获得任何成就！");
+        }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("小组成员：赵紫延 赵祺铭 崔晏菲 白昊昕 祝子涵 于祎男 王浩威 王筱淳");
         }
     }
 }
