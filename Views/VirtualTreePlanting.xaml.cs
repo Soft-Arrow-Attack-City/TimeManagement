@@ -83,7 +83,7 @@ namespace TimeManagement.Views
                 Task.Factory.StartNew(() => Thread.Sleep(1000)).ContinueWith(t =>
                 {
                     MainWindowViewModel.MainSnackbarMessageQueue?.Enqueue(ViewModel.PlantSuccess ? "种树成功！" : "种树失败！");
-                }, TaskScheduler.Current);
+                }, TaskScheduler.FromCurrentSynchronizationContext());
                 TreeImg.Source = new BitmapImage(
                     new Uri(ViewModel.PlantSuccess ?
                     "pack://application:,,,/Resources/Images/TreeSuccess.png" :
