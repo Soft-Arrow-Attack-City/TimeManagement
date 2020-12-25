@@ -135,7 +135,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="DataModel\TimelineData.cs" />
-    <Compile Include="Utilities\ScreenMonitoring.cs" />
+    <Compile Include="Utilities\Monitor.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\VirtualTreePlantingViewModel.cs" />
     <Compile Include="Views\Homepage.xaml.cs">

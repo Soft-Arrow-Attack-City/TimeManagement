@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimeManagement.DataModel;
+using FluentScheduler;
 
 namespace TimeManagement.Views
 {
@@ -29,7 +30,7 @@ namespace TimeManagement.Views
         private string[] ScreenUsage5min;//按时间顺序排字符串，如果没有记录，直接放null进来。//5分钟刻度出现时
         private string[] ScreenUsage1min;//按时间顺序排字符串，如果没有记录，直接放null进来。//1分钟刻度出现时
 
-        private double startsecond, endsecond;
+        private double startsecond = 28800, endsecond = 86400;
 
 
 
@@ -37,16 +38,27 @@ namespace TimeManagement.Views
         public Timeline()
         {
             InitializeComponent();
-            startsecond = 28800;
-            endsecond = 86400;
-            LoadUsageData();
 
+            TimelineData.loadAllData();
+            ProcessUsageData();
         }
 
         //窗口加载完成后执行，在xaml里添加loaded消息。
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            drawTimeline();
+            drawplanGrid();
+            drawactualGrid();
+            drawTime();
+
+            JobManager.AddJob(
+                () => TimelineData.Sample(),
+                s => s.ToRunNow().AndEvery(5).Seconds()
+            );
+            JobManager.AddJob(
+                () => ProcessUsageData(),
+                s => s.ToRunNow().AndEvery(60).Seconds()
+            ) ;
+
         }
 
         //这个消息响应让时间跟着窗口大小变化。
@@ -54,10 +66,11 @@ namespace TimeManagement.Views
         {
             base.OnRenderSizeChanged(sizeInfo);
             drawTime();
+            drawplanGrid();
         }
 
-        //将真的或者假的数据载入进来，并进行一定的处理
-        private bool LoadUsageData()
+        //将真的或者假的数据载入进来，并进行一定的处理。
+        private bool ProcessUsageData()
         {
             //修复24:00:00的bug，要加1。
             ScreenUsage1h = new string[24 + 1];
@@ -67,7 +80,7 @@ namespace TimeManagement.Views
             ScreenUsage1min = new string[1440 + 1];
 
             //获取真的或者假的屏幕使用记录数据，要排好序的。尽管其中的时间粒度可能很粗或者很细，很不均匀。
-            List<DataModel.Alog> winlog = DataModel.TimelineData.generatedata();
+            List<TimelineData> winlog = TimelineData.todaylist;
 
             Dictionary<string, int> count1min = new Dictionary<string, int>();
             Dictionary<string, int> count5min = new Dictionary<string, int>();
@@ -189,13 +202,14 @@ namespace TimeManagement.Views
             ScreenUsage15min[now15min] = count15min.Where(kvp => kvp.Value == count15min.Max(kvp => kvp.Value)).First().Key;
             ScreenUsage30min[now30min] = count30min.Where(kvp => kvp.Value == count30min.Max(kvp => kvp.Value)).First().Key;
             ScreenUsage1h[now1h] = count1h.Where(kvp => kvp.Value == count1h.Max(kvp => kvp.Value)).First().Key;
+
             return true;
         }
 
 
 
-        //绘制时间线的函数
-        public void drawTimeline()
+        //绘制时间线的函数，分成两半来写。
+        public void drawplanGrid()
         {
 
             //绘制计划的时间线，暂时先用随机数据。
@@ -203,7 +217,7 @@ namespace TimeManagement.Views
             planGrid.RowDefinitions.Clear();
 
             Dictionary<Guid, MySchedule> schdic = MySchedule.getSchedulesofDay(DateTime.Now);
-            foreach(KeyValuePair<Guid, MySchedule> kvp in schdic)
+            foreach (KeyValuePair<Guid, MySchedule> kvp in schdic)
             {
 
                 double ah = planGrid.ActualHeight;
@@ -235,23 +249,10 @@ namespace TimeManagement.Views
                 b.Content = kvp.Value.Title;
             }
 
+        }
 
-            /*
-            for (int i = 0; i < 10; i++)
-            {
-                planGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(random.NextDouble(), GridUnitType.Star) });
-                Button b = new Button();
-                planGrid.Children.Add(b);
-                b.SetValue(Grid.RowProperty, i);
-                b.Margin = new Thickness(5, 2, 3, 2);
-                b.Height = double.NaN;
-                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)(random.NextDouble() * 256), (byte)(random.NextDouble() * 256), 255));
-                b.Background = c;
-                b.BorderBrush = c;
-                b.Content = "plan" + i.ToString();
-
-            }
-            */
+        public void drawactualGrid()
+        {
             //绘制实际的时间线。采用winlog中的数据。
             actualGrid.Children.Clear();
             actualGrid.RowDefinitions.Clear();
@@ -326,11 +327,8 @@ namespace TimeManagement.Views
                 b.Background = c;
                 b.BorderBrush = c;
                 
-
-
             }
             
-            drawTime();
         }
 
         public void drawTime()
@@ -409,7 +407,9 @@ namespace TimeManagement.Views
                 }
 
 
-                drawTimeline();
+                drawplanGrid();
+                drawactualGrid();
+                drawTime();
             }
         }
 
@@ -444,7 +444,9 @@ namespace TimeManagement.Views
                 if (endsecond - startsecond < 300) startsecond = endsecond - 300;
             }
 
-            drawTimeline();
+            drawplanGrid();
+            drawactualGrid();
+            drawTime();
         }
 
     }
