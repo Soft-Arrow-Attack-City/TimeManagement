@@ -45,15 +45,13 @@
 
                     <DockPanel Margin="0,8">
                         <Slider x:Name="TimeSlider"
-                                MinWidth="280"
+                                MinWidth="200"
                                 HorizontalAlignment="Right"
                                 DockPanel.Dock="Right"
                                 Maximum="120"
                                 Minimum="1"
                                 Orientation="Horizontal"
-                                TickFrequency="5"
-                                TickPlacement="BottomRight"
-                                ToolTip="时间单位：分钟"
+                                Style="{StaticResource MaterialDesignDiscreteSlider}"
                                 Value="25" />
                         <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                             设置时间(min)
@@ -263,12 +261,21 @@
                                gif:ImageBehavior.AnimatedSource="/Resources/Images/TreePlanting.gif"
                                Stretch="Uniform" />
 
-                        <TextBlock Grid.Row="1"
-                                   Margin="0,24"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            正在种树...
-                        </TextBlock>
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Margin="0,24"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">
+                                正在种树...
+                            </TextBlock>
+
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                剩余时间
+                            </TextBlock>
+                            <TextBlock Margin="0,0,0,25"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding TimeLeft, StringFormat=\{0:h\\:mm\\:ss\}}" />
+                        </StackPanel>
 
                         <Button Grid.Row="2"
                                 Width="100"
