@@ -38,6 +38,7 @@ namespace TimeManagement.ViewModel
         public bool PlantSuccess { get; private set; } = false;
         public string TreeTitle { get => MyTree?.Title ?? "未命名任务"; }
         private TimeSpan _TotalDuration = TimeSpan.Zero;
+        private TimeSpan _TimeLeft = TimeSpan.Zero;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -106,6 +107,15 @@ namespace TimeManagement.ViewModel
             {
                 SetField(ref _Planting, value);
             }
+        }        
+        
+        public TimeSpan TimeLeft
+        {
+            get => _TimeLeft;
+            set
+            {
+                SetField(ref _TimeLeft, value);
+            }
         }
 
         private void UpdateProcess()
@@ -127,6 +137,7 @@ namespace TimeManagement.ViewModel
             MyTree = tree;
             Registry registry = new Registry();
             registry.Schedule(() => CheckPlanting()).WithName("tree").ToRunEvery(3).Seconds();
+            registry.Schedule(() => UpdateTime()).WithName("timer").ToRunEvery(1).Seconds();
             JobManager.Initialize(registry);
         }       
         
@@ -143,6 +154,7 @@ namespace TimeManagement.ViewModel
                 (Selected.Intersect(currentProcesses).Count() > 0))
             {
                 JobManager.RemoveJob("tree");
+                JobManager.RemoveJob("timer");
                 if (MyTree.Due)
                     PlantSuccess = true;
                 else
@@ -152,6 +164,11 @@ namespace TimeManagement.ViewModel
                 MyTree.Success = PlantSuccess;
                 TreeSession.addTree(MyTree);
             }
+        }
+
+        public void UpdateTime()
+        {
+            TimeLeft = MyTree.End - DateTime.Now;
         }
     }
 }
