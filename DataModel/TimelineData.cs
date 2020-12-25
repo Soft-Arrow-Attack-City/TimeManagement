@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using MessagePack;
+using TimeManagement.Utilities;
+using System.Windows;
 
 namespace TimeManagement.DataModel
 {
@@ -54,7 +58,7 @@ namespace TimeManagement.DataModel
         }
     }
 
-    class TimelineData
+    class FakeTimelineData
     {
 
 
@@ -83,5 +87,61 @@ namespace TimeManagement.DataModel
         }
 
 
+    }
+
+
+    [MessagePackObject]
+    public class TimelineData
+    {
+        [Key(0)]
+        public DateTime Created { get; } = DateTime.Now;
+        [Key(1)]
+        public string Title { get; set; } = "";
+        [Key(2)]
+        public string Program { get; set; } = "";
+
+        [IgnoreMember]
+        public int t { get { return (int)(Created - Created.Date).TotalSeconds; } }
+        [IgnoreMember]
+        public string s { get { return Path.GetFileName(Program); } }
+
+
+        [IgnoreMember]
+        public static List<TimelineData> todaylist = new List<TimelineData>();
+
+        public static bool saveAllData()
+        {
+            try
+            {
+                File.WriteAllBytes("timelinedata.dat", MessagePackSerializer.Serialize(todaylist));
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
+            return true;
+        }
+        public static bool loadAllData()
+        {
+            try
+            {
+                if (File.Exists("timelinedata.dat"))
+                    todaylist = MessagePackSerializer.Deserialize<List<TimelineData>>(File.ReadAllBytes($"timelinedata.dat"));
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(e.ToString());
+                return false;
+            }
+            return true;
+        }
+
+        public static bool Sample()
+        {
+            todaylist.Add(new TimelineData { Title = Monitor.GetForgroundWindowName(), Program = Monitor.GetForgroundWindowProgram() });
+            saveAllData();
+            return true;
+        }
     }
 }
