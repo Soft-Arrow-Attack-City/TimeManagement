@@ -262,7 +262,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Clock.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <ItemGroup>
     <Analyzer Include="packages\MessagePackAnalyzer.2.2.85\analyzers\dotnet\MessagePackAnalyzer.dll" />
   </ItemGroup>

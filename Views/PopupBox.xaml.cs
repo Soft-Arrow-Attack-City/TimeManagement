@@ -52,11 +52,11 @@ namespace TimeManagement.Views
             //new MainWindow().Show();
             //Application.Current.MainWindow.ShowInTaskbar = false;
             //Application.Current.MainWindow.Visibility = Visibility.Hidden;
-            MainWindow ww = (MainWindow)Application.Current.MainWindow;
-            MainWindow w = new MainWindow();
-            w.Show();
-            Application.Current.MainWindow = w;
-            ww.Close();
+            //MainWindow ww = (MainWindow)Application.Current.MainWindow;
+            //MainWindow w = new MainWindow();
+            //w.Show();
+            //Application.Current.MainWindow = w;
+            //ww.Close();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

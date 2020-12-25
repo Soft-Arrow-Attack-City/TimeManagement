@@ -47,7 +47,7 @@
 
                     <Image Grid.RowSpan="5"
                            VerticalAlignment="Stretch"
-                           Source="/Resources/Images/Tree.png"
+                           Source="/Resources/Images/Clock.jpg"
                            Stretch="UniformToFill"
                            StretchDirection="Both" />
 
