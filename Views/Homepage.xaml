@@ -90,7 +90,7 @@
                                     <materialDesign:PackIcon Kind="MaterialDesign" />
                                     <TextBlock Margin="8,0,0,0"
                                                VerticalAlignment="Center"
-                                               Text="Material Design In XAML" />
+                                               Text="Material UI" />
                                 </StackPanel>
                             </Button>
                         </Grid>

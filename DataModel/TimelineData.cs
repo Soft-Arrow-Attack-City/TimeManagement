@@ -63,7 +63,7 @@ namespace TimeManagement.DataModel
 
 
         private static Random random = new Random();
-        
+
 
 
         //当前暂未与后端对接，使用generagedata生产随机的数据，测试前端代码。
@@ -103,7 +103,7 @@ namespace TimeManagement.DataModel
         [IgnoreMember]
         public int t { get { return (int)(Created - Created.Date).TotalSeconds; } }
         [IgnoreMember]
-        public string s { get { return Path.GetFileName(Program); } }
+        public string s { get { return Path.GetFileName(Program) ?? ""; } }
 
 
         [IgnoreMember]
@@ -130,7 +130,7 @@ namespace TimeManagement.DataModel
                     todaylist = MessagePackSerializer.Deserialize<List<TimelineData>>(File.ReadAllBytes($"timelinedata.dat"));
                 else todaylist = new List<TimelineData>();
 
-                foreach(TimelineData tld in todaylist)
+                foreach (TimelineData tld in todaylist)
                 {
                     tld.Created = tld.Created.ToLocalTime();
                 }
@@ -145,7 +145,7 @@ namespace TimeManagement.DataModel
 
         public static bool Sample()
         {
-            todaylist.Add(new TimelineData {Created=DateTime.Now, Title = Monitor.GetForgroundWindowName(), Program = Monitor.GetForgroundWindowProgram() });
+            todaylist.Add(new TimelineData { Created = DateTime.Now, Title = Monitor.GetForgroundWindowName(), Program = Monitor.GetForgroundWindowProgram() });
             saveAllData();
             return true;
         }
