@@ -98,7 +98,7 @@ namespace TimeManagement.DataModel
 
             foreach (KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
             {
-                if (kvp.Value.Start < DateTime.Now)
+                if (kvp.Value.Start < DateTime.Now.Date)
                 {
                     toremovelist.Add(kvp.Key);
                 }
@@ -171,7 +171,13 @@ namespace TimeManagement.DataModel
 
         public static Dictionary<Guid, MySchedule> getSchedulesofDay(DateTime dt)
         {
-            return null;
+            Dictionary<Guid, MySchedule> d = new Dictionary<Guid, MySchedule>();
+            DateTime Today = dt.Date;
+            foreach(KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
+            {
+                if (kvp.Value.Start.Date == Today) d.Add(kvp.Key,kvp.Value);
+            }
+            return d;
         }
 
         public static bool saveAllSchedule()

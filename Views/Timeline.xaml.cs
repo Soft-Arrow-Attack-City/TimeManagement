@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeManagement.DataModel;
 
 namespace TimeManagement.Views
 {
@@ -191,10 +192,7 @@ namespace TimeManagement.Views
             return true;
         }
 
-        private bool LoadScheduleData()
-        {
-            return true;
-        }
+
 
         //绘制时间线的函数
         public void drawTimeline()
@@ -203,6 +201,41 @@ namespace TimeManagement.Views
             //绘制计划的时间线，暂时先用随机数据。
             planGrid.Children.Clear();
             planGrid.RowDefinitions.Clear();
+
+            Dictionary<Guid, MySchedule> schdic = MySchedule.getSchedulesofDay(DateTime.Now);
+            foreach(KeyValuePair<Guid, MySchedule> kvp in schdic)
+            {
+
+                double ah = planGrid.ActualHeight;
+                double upperMargin = 0;
+                double lowerMargin = 0;
+
+                double schedulestartsecond = (kvp.Value.Start - kvp.Value.Start.Date).TotalSeconds;
+                double scheduleendsecond = (kvp.Value.Start - kvp.Value.Start.Date + kvp.Value.Duration).TotalSeconds;
+
+                if (startsecond < schedulestartsecond)
+                {
+                    upperMargin = (schedulestartsecond - startsecond) / (endsecond - startsecond) * ah;
+                }
+                if (scheduleendsecond < endsecond)
+                {
+                    lowerMargin = (endsecond - scheduleendsecond) / (endsecond - startsecond) * ah;
+                }
+
+
+                Button b = new Button();
+                b.Tag = kvp.Value;
+                planGrid.Children.Add(b);
+
+                b.Margin = new Thickness(5, upperMargin + 2, 3, lowerMargin + 2);
+                b.Height = double.NaN;
+                SolidColorBrush c = new SolidColorBrush(Color.FromArgb(200, (byte)(kvp.Value.Title.GetHashCode()), (byte)(kvp.Value.Title.GetHashCode() / 256), 255));
+                b.Background = c;
+                b.BorderBrush = c;
+                b.Content = kvp.Value.Title;
+            }
+
+
             /*
             for (int i = 0; i < 10; i++)
             {
