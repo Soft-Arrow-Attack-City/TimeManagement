@@ -37,16 +37,25 @@
                       Style="{DynamicResource MaterialDesignCardGroupBox}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Width="32"
-                                                     Height="32"
-                                                     VerticalAlignment="Center"
-                                                     Kind="ImageArea" />
-                            <TextBlock Margin="8,0,0,0"
-                                       VerticalAlignment="Center"
-                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                       Text="任务卡" />
-                        </StackPanel>
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="32"
+                                                         Height="32"
+                                                         VerticalAlignment="Center"
+                                                         Kind="ImageArea" />
+                                <TextBlock Margin="8,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                           Text="任务卡" />
+
+                            </StackPanel>
+
+                            <ToggleButton HorizontalAlignment="Right"
+                                          Click="ToggleButton_Click"
+                                          IsChecked="False"
+                                          Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                                          ToolTip="按优先级排序" />
+                        </DockPanel>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
 
@@ -63,7 +72,7 @@
                                 Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
 
                         <!--  任务卡放在这里面  -->
-                        <!--  此部分代码由C#自动生成  -->
+                        <!--  此部分由C#代码自动生成  -->
 
                     </StackPanel>
 
@@ -71,7 +80,8 @@
             </GroupBox>
 
 
-            <Expander Grid.Row="1"
+            <Expander x:Name="NewTaskExpander"
+                      Grid.Row="1"
                       Margin="10,0,10,0"
                       ExpandDirection="Up"
                       Header="创建新的任务！">
@@ -89,7 +99,8 @@
                     </StackPanel.Resources>
 
                     <TextBlock Margin="6,8,24,8" Text="新建任务卡" />
-                    <TextBox Margin="12,0,24,0"
+                    <TextBox x:Name="TaskNameBox"
+                             Margin="12,0,24,0"
                              materialDesign:HintAssist.Hint="任务名称 Task name"
                              Text="新任务1" />
 
@@ -97,11 +108,15 @@
                         <TextBlock Margin="12,12,24,0"
                                    FontSize="14"
                                    Text="优先级 Priority" />
-                        <materialDesign:RatingBar Margin="2,12,2,0" Value="3" />
+                        <materialDesign:RatingBar x:Name="TaskPriorBar"
+                                                  Margin="2,12,2,0"
+                                                  Value="3" />
                     </DockPanel>
 
 
-                    <DatePicker Margin="12,12,24,0" materialDesign:HintAssist.Hint="截止日期 Deadline" />
+                    <DatePicker x:Name="TaskDueDateBox"
+                                Margin="12,12,24,0"
+                                materialDesign:HintAssist.Hint="截止日期 Deadline" />
 
                     <StackPanel Margin="0,8,0,0"
                                 HorizontalAlignment="Right"
@@ -110,8 +125,11 @@
                                 Margin="0,0,2,0"
                                 Background="YellowGreen"
                                 BorderBrush="YellowGreen"
+                                Click="CreateTask_Click"
                                 Content="创建 !" />
-                        <Button Height="28" Content=" 取消  " />
+                        <Button Height="28"
+                                Click="CreateTaskCancle_Click"
+                                Content=" 取消  " />
                     </StackPanel>
 
 
