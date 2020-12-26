@@ -24,14 +24,6 @@
                     Click="MenuButton_Click"
                     Content="清除缓存" />
 
-            <Button x:Name="HistoryButton"
-                    Click="HistoryButton_Click"
-                    Content="成就榜" />
-
-            <Button x:Name="AboutButton"
-                    Click="AboutButton_Click"
-                    Content="关于" />
-
             <Separator />
 
             <Button x:Name="ExitButton"

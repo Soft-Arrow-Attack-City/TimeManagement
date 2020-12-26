@@ -189,5 +189,12 @@ namespace TimeManagement.DataModel
             refreshTasks();
             return true;
         }
+
+        public static void clearAllTasks()
+        {
+            ActiveTasks.Clear();
+            FinishedTasks.Clear();
+            OveredTasks.Clear();
+        }
     }
 }

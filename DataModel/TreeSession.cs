@@ -77,5 +77,10 @@ namespace TimeManagement.DataModel
 
         [IgnoreMember]
         public static List<TreeSession> RecentTree { get => TreeSessions.Values.OrderByDescending(t => t.End).ToList(); }
+
+        public static void clearAllTrees()
+        {
+            TreeSessions.Clear();
+        }
     }
 }
