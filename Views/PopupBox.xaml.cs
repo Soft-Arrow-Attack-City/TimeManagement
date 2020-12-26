@@ -1,6 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TimeManagement.DataModel;
+using TimeManagement.ViewModel;
 
 namespace TimeManagement.Views
 {

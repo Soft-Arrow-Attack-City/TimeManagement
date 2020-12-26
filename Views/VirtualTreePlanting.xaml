@@ -44,41 +44,41 @@
                                      materialDesign:HintAssist.Hint="键入新任务名称" />
                         </DockPanel>
 
-                    <DockPanel Margin="0,8">
-                        <Slider x:Name="TimeSlider"
-                                MinWidth="200"
-                                HorizontalAlignment="Right"
-                                DockPanel.Dock="Right"
-                                Maximum="120"
-                                Minimum="1"
-                                Orientation="Horizontal"
-                                Style="{StaticResource MaterialDesignDiscreteSlider}"
-                                Value="25" />
-                        <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                            设置时间(min)
-                        </TextBlock>
-                    </DockPanel>
+                        <DockPanel Margin="0,8">
+                            <Slider x:Name="TimeSlider"
+                                    MinWidth="200"
+                                    HorizontalAlignment="Right"
+                                    DockPanel.Dock="Right"
+                                    Maximum="120"
+                                    Minimum="1"
+                                    Orientation="Horizontal"
+                                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                    Value="25" />
+                            <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                设置时间(min)
+                            </TextBlock>
+                        </DockPanel>
 
-                    <DockPanel Margin="0,8">
-                        <TextBlock Width="150"
-                                   VerticalAlignment="Center"
-                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                            任务性质
-                        </TextBlock>
-                        <ComboBox x:Name="TaskProperties"
-                                  MinWidth="200"
-                                  HorizontalAlignment="Right"
-                                  HorizontalContentAlignment="Center"
-                                  materialDesign:HintAssist.Hint="工作性质"
-                                  materialDesign:HintAssist.HintOpacity=".26"
-                                  IsEditable="True">
-                            <ComboBoxItem>学习</ComboBoxItem>
-                            <ComboBoxItem>休息</ComboBoxItem>
-                            <ComboBoxItem>工作</ComboBoxItem>
-                            <ComboBoxItem>运动</ComboBoxItem>
-                            <ComboBoxItem>其他</ComboBoxItem>
-                        </ComboBox>
-                    </DockPanel>
+                        <DockPanel Margin="0,8">
+                            <TextBlock Width="150"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
+                                任务性质
+                            </TextBlock>
+                            <ComboBox x:Name="TaskProperties"
+                                      MinWidth="200"
+                                      HorizontalAlignment="Right"
+                                      HorizontalContentAlignment="Center"
+                                      materialDesign:HintAssist.Hint="工作性质"
+                                      materialDesign:HintAssist.HintOpacity=".26"
+                                      IsEditable="True">
+                                <ComboBoxItem>学习</ComboBoxItem>
+                                <ComboBoxItem>休息</ComboBoxItem>
+                                <ComboBoxItem>工作</ComboBoxItem>
+                                <ComboBoxItem>运动</ComboBoxItem>
+                                <ComboBoxItem>其他</ComboBoxItem>
+                            </ComboBox>
+                        </DockPanel>
 
                         <StackPanel>
                             <Button x:Name="Start"
@@ -113,33 +113,33 @@
                                             </TextBlock>
                                             <DockPanel Margin="10,5">
 
-                                            <Button x:Name="Clear"
-                                                    Width="120"
-                                                    Margin="10,0,0,0"
-                                                    HorizontalAlignment="Right"
-                                                    Click="Clear_Click"
-                                                    DockPanel.Dock="Right"
-                                                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                                                    ToolTip="MaterialDesignOutlinedButton">
-                                                清除
-                                            </Button>
-                                            <Button x:Name="Add"
-                                                    Width="120"
-                                                    Margin="10,0,0,0"
-                                                    HorizontalAlignment="Right"
-                                                    Click="Add_Click"
-                                                    DockPanel.Dock="Right"
-                                                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                                                    ToolTip="MaterialDesignOutlinedButton">
-                                                添加
-                                            </Button>
-                                            <TextBox x:Name="BlacklistSearchText"
-                                                     Margin="0,0,10,0"
-                                                     VerticalAlignment="Center"
-                                                     materialDesign:HintAssist.Hint="搜索"
-                                                     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DockPanel>
+                                                <Button x:Name="Clear"
+                                                        Width="120"
+                                                        Margin="10,0,0,0"
+                                                        HorizontalAlignment="Right"
+                                                        Click="Clear_Click"
+                                                        DockPanel.Dock="Right"
+                                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                        ToolTip="MaterialDesignOutlinedButton">
+                                                    清除
+                                                </Button>
+                                                <Button x:Name="Add"
+                                                        Width="120"
+                                                        Margin="10,0,0,0"
+                                                        HorizontalAlignment="Right"
+                                                        Click="Add_Click"
+                                                        DockPanel.Dock="Right"
+                                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                        ToolTip="MaterialDesignOutlinedButton">
+                                                    添加
+                                                </Button>
+                                                <TextBox x:Name="BlacklistSearchText"
+                                                         Margin="0,0,10,0"
+                                                         VerticalAlignment="Center"
+                                                         materialDesign:HintAssist.Hint="搜索"
+                                                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                                            </DockPanel>
 
                                             <Border Padding="8">
                                                 <ListBox x:Name="BlacklistBox"
@@ -211,37 +211,37 @@
                                                            Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
                                                            Text="{Binding TotalDuration}" />
 
-                                            <Button x:Name="HistoryClose"
-                                                    HorizontalAlignment="Center"
-                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                    CommandParameter="Sample2Cancel"
-                                                    Content="关闭"
-                                                    IsCancel="True"
-                                                    Style="{StaticResource MaterialDesignFlatButton}" />
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </Button.CommandParameter>
-                            </Button>
-                        </materialDesign:Badged>
+                                                <Button x:Name="HistoryClose"
+                                                        HorizontalAlignment="Center"
+                                                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                        CommandParameter="Sample2Cancel"
+                                                        Content="关闭"
+                                                        IsCancel="True"
+                                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </materialDesign:Badged>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </materialDesign:Flipper.FrontContent>
-            <materialDesign:Flipper.BackContent>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <materialDesign:ColorZone Padding="6" Mode="PrimaryMid">
-                        <DockPanel>
-                            <TextBlock Margin="8,0" VerticalAlignment="Center">种树任务</TextBlock>
-                            <TextBlock x:Name="PlantTitle"
-                                       Margin="8,0"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       Text="{Binding Path=TreeTitle}" />
-                        </DockPanel>
-                    </materialDesign:ColorZone>
+                </materialDesign:Flipper.FrontContent>
+                <materialDesign:Flipper.BackContent>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone Padding="6" Mode="PrimaryMid">
+                            <DockPanel>
+                                <TextBlock Margin="8,0" VerticalAlignment="Center">种树任务</TextBlock>
+                                <TextBlock x:Name="PlantTitle"
+                                           Margin="8,0"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Path=TreeTitle}" />
+                            </DockPanel>
+                        </materialDesign:ColorZone>
 
                         <Grid Grid.Row="1" Margin="0,25">
                             <Grid.RowDefinitions>
@@ -250,11 +250,11 @@
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
 
-                        <Image Grid.Row="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               gif:ImageBehavior.AnimatedSource="/Resources/Images/TreePlanting.gif"
-                               Stretch="Uniform" />
+                            <Image Grid.Row="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   gif:ImageBehavior.AnimatedSource="/Resources/Images/TreePlanting.gif"
+                                   Stretch="Uniform" />
 
                             <StackPanel Grid.Row="1">
                                 <TextBlock Margin="0,24"

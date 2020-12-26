@@ -3,8 +3,9 @@ using MaterialDesignThemes.Wpf;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using TimeManagement.ViewModel;
+using System.Windows.Input;
 using TimeManagement.Utilities;
+using TimeManagement.ViewModel;
 
 namespace TimeManagement
 {
