@@ -126,8 +126,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
-      <HintPath>packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
+    <Reference Include="XamlAnimatedGif, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\XamlAnimatedGif.1.2.3\lib\net45\XamlAnimatedGif.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
