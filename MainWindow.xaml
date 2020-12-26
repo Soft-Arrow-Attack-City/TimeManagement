@@ -25,7 +25,9 @@
                                   IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
                                   Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                     <TreeView MinWidth="220">
-                        <TreeViewItem Header="开发人员">
+                        <TreeViewItem x:Name="Developers"
+                                      Header="开发人员"
+                                      IsExpanded="True">
                             <TreeViewItem Header="赵紫延" />
                             <TreeViewItem Header="赵祺铭" />
                             <TreeViewItem Header="崔晏非" />
@@ -35,15 +37,33 @@
                             <TreeViewItem Header="王浩成" />
                             <TreeViewItem Header="王筱淳" />
                         </TreeViewItem>
-                        <TreeViewItem Header="借鉴项目">
-                            <TreeViewItem Header="Material Design In XAML Toolkit" />
-                            <TreeViewItem Header="Dragablz" />
-                            <TreeViewItem Header="FluentScheduler" />
-                            <TreeViewItem Header="LiveCharts" />
-                            <TreeViewItem Header="MessagePack" />
-                            <TreeViewItem Header="WpfAnimatedGif" />
-                            <TreeViewItem Header="Costura.Fody" />
-                            <TreeViewItem Header="ActivityWatch" />
+                        <TreeViewItem x:Name="Projects"
+                                      Header="借鉴项目"
+                                      IsExpanded="True">
+                            <TreeViewItem x:Name="MaterialItem"
+                                          Header="Material Design In XAML Toolkit"
+                                          MouseUp="MaterialItem_MouseUp" />
+                            <TreeViewItem x:Name="DragablzItem"
+                                          Header="Dragablz"
+                                          MouseUp="DragablzItem_MouseUp" />
+                            <TreeViewItem x:Name="FluentSchedulerItem"
+                                          Header="FluentScheduler"
+                                          MouseUp="FluentSchedulerItem_MouseUp" />
+                            <TreeViewItem x:Name="LiveChartsItem"
+                                          Header="LiveCharts"
+                                          MouseUp="LiveChartsItem_MouseUp" />
+                            <TreeViewItem x:Name="MessagePackItem"
+                                          Header="MessagePack/neuecc"
+                                          MouseUp="MessagePackItem_MouseUp" />
+                            <TreeViewItem x:Name="WpfAnimatedGifItem"
+                                          Header="WpfAnimatedGif"
+                                          MouseUp="WpfAnimatedGifItem_MouseUp" />
+                            <TreeViewItem x:Name="CosturaItem"
+                                          Header="Costura.Fody"
+                                          MouseUp="CosturaItem_MouseUp" />
+                            <TreeViewItem x:Name="ActivityWatchItem"
+                                          Header="ActivityWatch"
+                                          MouseUp="ActivityWatchItem_MouseUp" />
                         </TreeViewItem>
                     </TreeView>
                 </DockPanel>

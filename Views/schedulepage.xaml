@@ -18,324 +18,326 @@
 
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <ScrollViewer materialDesign:ScrollViewerAssist.IsAutoHideEnabled="True">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
 
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <GroupBox Margin="0,0,8,2"
-                      materialDesign:ColorZoneAssist.Mode="Accent"
-                      Style="{DynamicResource MaterialDesignCardGroupBox}">
-                <GroupBox.HeaderTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Width="32"
-                                                         Height="32"
-                                                         VerticalAlignment="Center"
-                                                         Kind="ImageArea" />
-                                <TextBlock Margin="8,0,0,0"
-                                           VerticalAlignment="Center"
-                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                           Text="任务卡" />
-
-                            </StackPanel>
-
-                            <ToggleButton HorizontalAlignment="Right"
-                                          Click="ToggleButton_Click"
-                                          IsChecked="False"
-                                          Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
-                                          ToolTip="按优先级排序" />
-                        </DockPanel>
-                    </DataTemplate>
-                </GroupBox.HeaderTemplate>
-
-
-                <ScrollViewer Grid.Row="0"
-                              Margin="0,10,10,10"
-                              BorderThickness="10"
-                              VerticalScrollBarVisibility="Visible">
-                    <StackPanel x:Name="TaskShowerPanel">
-                        <Button x:Name="refButton"
-                                Width="30"
-                                Height="30"
-                                Opacity="0"
-                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
-
-                        <!--  任务卡放在这里面  -->
-                        <!--  此部分由C#代码自动生成  -->
-
-                    </StackPanel>
-
-                </ScrollViewer>
-            </GroupBox>
-
-
-            <Expander x:Name="NewTaskExpander"
-                      Grid.Row="1"
-                      Margin="10,0,10,0"
-                      ExpandDirection="Up"
-                      Header="创建新的任务！">
-                <StackPanel Margin="12,8,12,8"
-                            Orientation="Vertical"
-                            TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                    <StackPanel.Resources>
-                        <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="CheckBox">
-                            <Setter Property="Margin" Value="8,8,10,8" />
-                        </Style>
-                        <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
-                            <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
-                            <Setter Property="Margin" Value="8,8,8,8" />
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <TextBlock Margin="6,8,24,8" Text="新建任务卡" />
-                    <TextBox x:Name="TaskNameBox"
-                             Margin="12,0,24,0"
-                             materialDesign:HintAssist.Hint="任务名称 Task name"
-                             Text="新任务1" />
-
-                    <DockPanel>
-                        <TextBlock Margin="12,12,24,0"
-                                   FontSize="14"
-                                   Text="优先级 Priority" />
-                        <materialDesign:RatingBar x:Name="TaskPriorBar"
-                                                  Margin="2,12,2,0"
-                                                  Value="3" />
-                    </DockPanel>
-
-
-                    <DatePicker x:Name="TaskDueDateBox"
-                                Margin="12,12,24,0"
-                                materialDesign:HintAssist.Hint="截止日期 Deadline" />
-
-                    <StackPanel Margin="0,8,0,0"
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                        <Button Height="28"
-                                Margin="0,0,2,0"
-                                Background="YellowGreen"
-                                BorderBrush="YellowGreen"
-                                Click="CreateTask_Click"
-                                Content="创建 !" />
-                        <Button Height="28"
-                                Click="CreateTaskCancle_Click"
-                                Content=" 取消  " />
-                    </StackPanel>
-
-
-                </StackPanel>
-            </Expander>
-        </Grid>
-
-
-        <GridSplitter Grid.Column="1"
-                      Width="5"
-                      Height="auto"
-                      HorizontalAlignment="Stretch" />
-
-        <!--
-            TextBox Grid.Column="2"
-            Height="300"
-            Margin="20,20,20,20"
-            materialDesign:HintAssist.Hint="新建日程"
-            AcceptsReturn="True"
-            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-            TextWrapping="Wrap"
-            VerticalScrollBarVisibility="Auto" /
-        -->
-
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="2*" />
-            </Grid.RowDefinitions>
-
-            <Calendar x:Name="ScheduleCalendar" xml:lang="zh-CN" />
-
-
-
-
-
-            <materialDesign:Flipper x:Name="ScheduleFlipper"
-                                    Grid.Row="1"
-                                    MinHeight="250"
-                                    Style="{StaticResource MaterialDesignCardFlipper}">
-                <materialDesign:Flipper.FrontContent>
-
-
-
-                    <GroupBox Header="近期日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <materialDesign:PackIcon Width="32"
-                                                             Height="32"
-                                                             VerticalAlignment="Center"
-                                                             Kind="ImageArea" />
-                                    <TextBlock Margin="8,0,0,0"
-                                               VerticalAlignment="Center"
-                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                               Text="{Binding}" />
-
-                                    <Button HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                        <materialDesign:PackIcon Width="24"
-                                                                 Height="24"
-                                                                 Kind="FlipHorizontal" />
-                                    </Button>
-
-
-                                </DockPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
-
-                        <ScrollViewer>
-                            <StackPanel x:Name="ScheduleShowerPanel" />
-                        </ScrollViewer>
-
-
-
-                    </GroupBox>
-
-
-                </materialDesign:Flipper.FrontContent>
-                <materialDesign:Flipper.BackContent>
-
-                    <GroupBox Header="添加日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
-
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <materialDesign:PackIcon Width="32"
-                                                             Height="32"
-                                                             VerticalAlignment="Center"
-                                                             Kind="ImageArea" />
-                                    <TextBlock Margin="8,0,0,0"
-                                               VerticalAlignment="Center"
-                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                               Text="{Binding}" />
-
-                                    <Button HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                                        <materialDesign:PackIcon Width="24"
-                                                                 Height="24"
-                                                                 Kind="FlipHorizontal" />
-                                    </Button>
-
-
-                                </DockPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
-
-                        <StackPanel Margin="12,8,12,8"
-                                    Orientation="Vertical"
-                                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                            <StackPanel.Resources>
-                                <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="CheckBox">
-                                    <Setter Property="Margin" Value="8,8,10,8" />
-                                </Style>
-                                <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
-                                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
-                                    <Setter Property="Margin" Value="8,8,8,8" />
-                                </Style>
-                            </StackPanel.Resources>
-
-
-                            <TextBox x:Name="ScheduleNameInputBox"
-                                     Margin="12,0,24,0"
-                                     materialDesign:HintAssist.Hint="日程名称 Schedule name"
-                                     Text="新日程1" />
-
-                            <Grid Margin="0,0,0,14">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="135" />
-                                </Grid.ColumnDefinitions>
-                                <materialDesign:TimePicker x:Name="ScheduleStartTimerPicker"
-                                                           Grid.Column="0"
-                                                           Margin="12,12,24,0"
-                                                           materialDesign:HintAssist.Hint="开始时间"
-                                                           Is24Hours="True"
-                                                           WithSeconds="True" />
-                                <materialDesign:TimePicker x:Name="ScheduleEndTimerPicker"
-                                                           Grid.Column="1"
-                                                           Margin="12,12,24,0"
-                                                           materialDesign:HintAssist.Hint="结束时间"
-                                                           Is24Hours="True"
-                                                           WithSeconds="True" />
-                                <ComboBox x:Name="ScheduleRemindBox"
-                                          Grid.Column="2"
-                                          Margin="12,12,24,0"
-                                          materialDesign:HintAssist.Hint="提醒">
-                                    <ComboBoxItem Content="不提醒    " />
-                                    <ComboBoxItem Content="准时提醒  " />
-                                    <ComboBoxItem Content="提前5分钟 " />
-                                    <ComboBoxItem Content="提前10分钟" />
-                                    <ComboBoxItem Content="提前半小时" />
-                                </ComboBox>
-                            </Grid>
-
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <GroupBox Margin="0,0,8,2"
+                          materialDesign:ColorZoneAssist.Mode="Accent"
+                          Style="{DynamicResource MaterialDesignCardGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
                             <DockPanel>
-                                <ComboBox x:Name="ScheduleRepeatBox"
-                                          Width="60"
-                                          Margin="12,0,8,0"
-                                          materialDesign:HintAssist.Hint="重复">
-                                    <ComboBoxItem Content="不重复" />
-                                    <ComboBoxItem Content="每天" />
-                                    <ComboBoxItem Content="每周" />
-                                    <ComboBoxItem Content="每月" />
-                                    <ComboBoxItem Content="每年" />
-                                </ComboBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Width="32"
+                                                             Height="32"
+                                                             VerticalAlignment="Center"
+                                                             Kind="ImageArea" />
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                               Text="任务卡" />
 
-                                <!--  点一下变成“从今天开始”，再点一下变成“从选定日期开始”  -->
-                                <Button x:Name="WhentoStartButton"
-                                        Width="130"
-                                        Click="WhentoStartButton_Click">
-                                    从选定日期开始
-                                </Button>
-
-
-                                <StackPanel Margin="0,16,0,0"
-                                            HorizontalAlignment="Right"
-                                            Orientation="Horizontal">
-                                    <Button x:Name="CreateScheduleButton"
-                                            Height="28"
-                                            Margin="0,0,2,0"
-                                            Background="YellowGreen"
-                                            BorderBrush="YellowGreen"
-                                            Click="CreateScheduleButton_Click"
-                                            Content="创建 !" />
-                                    <Button x:Name="CancelCreateScheduleButton"
-                                            Height="28"
-                                            Click="CancelCreateScheduleButton_Click"
-                                            Content=" 取消  " />
                                 </StackPanel>
+
+                                <ToggleButton HorizontalAlignment="Right"
+                                              Click="ToggleButton_Click"
+                                              IsChecked="False"
+                                              Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                                              ToolTip="按优先级排序" />
                             </DockPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+
+
+                    <ScrollViewer Grid.Row="0"
+                                  Margin="0,10,10,10"
+                                  BorderThickness="10"
+                                  VerticalScrollBarVisibility="Visible">
+                        <StackPanel x:Name="TaskShowerPanel">
+                            <Button x:Name="refButton"
+                                    Width="30"
+                                    Height="30"
+                                    Opacity="0"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
+
+                            <!--  任务卡放在这里面  -->
+                            <!--  此部分由C#代码自动生成  -->
+
+                        </StackPanel>
+
+                    </ScrollViewer>
+                </GroupBox>
+
+
+                <Expander x:Name="NewTaskExpander"
+                          Grid.Row="1"
+                          Margin="10,0,10,0"
+                          ExpandDirection="Up"
+                          Header="创建新的任务！">
+                    <StackPanel Margin="12,8,12,8"
+                                Orientation="Vertical"
+                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                        <StackPanel.Resources>
+                            <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="CheckBox">
+                                <Setter Property="Margin" Value="8,8,10,8" />
+                            </Style>
+                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
+                                <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
+                                <Setter Property="Margin" Value="8,8,8,8" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <TextBlock Margin="6,8,24,8" Text="新建任务卡" />
+                        <TextBox x:Name="TaskNameBox"
+                                 Margin="12,0,24,0"
+                                 materialDesign:HintAssist.Hint="任务名称 Task name"
+                                 Text="新任务1" />
+
+                        <DockPanel>
+                            <TextBlock Margin="12,12,24,0"
+                                       FontSize="14"
+                                       Text="优先级 Priority" />
+                            <materialDesign:RatingBar x:Name="TaskPriorBar"
+                                                      Margin="2,12,2,0"
+                                                      Value="3" />
+                        </DockPanel>
+
+
+                        <DatePicker x:Name="TaskDueDateBox"
+                                    Margin="12,12,24,0"
+                                    materialDesign:HintAssist.Hint="截止日期 Deadline" />
+
+                        <StackPanel Margin="0,8,0,0"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
+                            <Button Height="28"
+                                    Margin="0,0,2,0"
+                                    Background="YellowGreen"
+                                    BorderBrush="YellowGreen"
+                                    Click="CreateTask_Click"
+                                    Content="创建 !" />
+                            <Button Height="28"
+                                    Click="CreateTaskCancle_Click"
+                                    Content=" 取消  " />
                         </StackPanel>
 
 
-                    </GroupBox>
-                </materialDesign:Flipper.BackContent>
-            </materialDesign:Flipper>
+                    </StackPanel>
+                </Expander>
+            </Grid>
+
+
+            <GridSplitter Grid.Column="1"
+                          Width="5"
+                          Height="auto"
+                          HorizontalAlignment="Stretch" />
+
+            <!--
+                TextBox Grid.Column="2"
+                Height="300"
+                Margin="20,20,20,20"
+                materialDesign:HintAssist.Hint="新建日程"
+                AcceptsReturn="True"
+                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                TextWrapping="Wrap"
+                VerticalScrollBarVisibility="Auto" /
+            -->
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <Calendar x:Name="ScheduleCalendar" xml:lang="zh-CN" />
+
+
+
+
+
+                <materialDesign:Flipper x:Name="ScheduleFlipper"
+                                        Grid.Row="1"
+                                        MinHeight="250"
+                                        Style="{StaticResource MaterialDesignCardFlipper}">
+                    <materialDesign:Flipper.FrontContent>
+
+
+
+                        <GroupBox Header="近期日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Width="32"
+                                                                 Height="32"
+                                                                 VerticalAlignment="Center"
+                                                                 Kind="ImageArea" />
+                                        <TextBlock Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                   Text="{Binding}" />
+
+                                        <Button HorizontalAlignment="Right"
+                                                VerticalAlignment="Bottom"
+                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                            <materialDesign:PackIcon Width="24"
+                                                                     Height="24"
+                                                                     Kind="FlipHorizontal" />
+                                        </Button>
+
+
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+
+                            <ScrollViewer>
+                                <StackPanel x:Name="ScheduleShowerPanel" />
+                            </ScrollViewer>
+
+
+
+                        </GroupBox>
+
+
+                    </materialDesign:Flipper.FrontContent>
+                    <materialDesign:Flipper.BackContent>
+
+                        <GroupBox Header="添加日程" Style="{DynamicResource MaterialDesignCardGroupBox}">
+
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <materialDesign:PackIcon Width="32"
+                                                                 Height="32"
+                                                                 VerticalAlignment="Center"
+                                                                 Kind="ImageArea" />
+                                        <TextBlock Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                   Text="{Binding}" />
+
+                                        <Button HorizontalAlignment="Right"
+                                                VerticalAlignment="Bottom"
+                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                            <materialDesign:PackIcon Width="24"
+                                                                     Height="24"
+                                                                     Kind="FlipHorizontal" />
+                                        </Button>
+
+
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+
+                            <StackPanel Margin="12,8,12,8"
+                                        Orientation="Vertical"
+                                        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                <StackPanel.Resources>
+                                    <Style BasedOn="{StaticResource MaterialDesignCheckBox}" TargetType="CheckBox">
+                                        <Setter Property="Margin" Value="8,8,10,8" />
+                                    </Style>
+                                    <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
+                                        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True" />
+                                        <Setter Property="Margin" Value="8,8,8,8" />
+                                    </Style>
+                                </StackPanel.Resources>
+
+
+                                <TextBox x:Name="ScheduleNameInputBox"
+                                         Margin="12,0,24,0"
+                                         materialDesign:HintAssist.Hint="日程名称 Schedule name"
+                                         Text="新日程1" />
+
+                                <Grid Margin="0,0,0,14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="135" />
+                                    </Grid.ColumnDefinitions>
+                                    <materialDesign:TimePicker x:Name="ScheduleStartTimerPicker"
+                                                               Grid.Column="0"
+                                                               Margin="12,12,24,0"
+                                                               materialDesign:HintAssist.Hint="开始时间"
+                                                               Is24Hours="True"
+                                                               WithSeconds="True" />
+                                    <materialDesign:TimePicker x:Name="ScheduleEndTimerPicker"
+                                                               Grid.Column="1"
+                                                               Margin="12,12,24,0"
+                                                               materialDesign:HintAssist.Hint="结束时间"
+                                                               Is24Hours="True"
+                                                               WithSeconds="True" />
+                                    <ComboBox x:Name="ScheduleRemindBox"
+                                              Grid.Column="2"
+                                              Margin="12,12,24,0"
+                                              materialDesign:HintAssist.Hint="提醒">
+                                        <ComboBoxItem Content="不提醒    " />
+                                        <ComboBoxItem Content="准时提醒  " />
+                                        <ComboBoxItem Content="提前5分钟 " />
+                                        <ComboBoxItem Content="提前10分钟" />
+                                        <ComboBoxItem Content="提前半小时" />
+                                    </ComboBox>
+                                </Grid>
+
+                                <DockPanel>
+                                    <ComboBox x:Name="ScheduleRepeatBox"
+                                              Width="60"
+                                              Margin="12,0,8,0"
+                                              materialDesign:HintAssist.Hint="重复">
+                                        <ComboBoxItem Content="不重复" />
+                                        <ComboBoxItem Content="每天" />
+                                        <ComboBoxItem Content="每周" />
+                                        <ComboBoxItem Content="每月" />
+                                        <ComboBoxItem Content="每年" />
+                                    </ComboBox>
+
+                                    <!--  点一下变成“从今天开始”，再点一下变成“从选定日期开始”  -->
+                                    <Button x:Name="WhentoStartButton"
+                                            Width="130"
+                                            Click="WhentoStartButton_Click">
+                                        从选定日期开始
+                                    </Button>
+
+
+                                    <StackPanel Margin="0,16,0,0"
+                                                HorizontalAlignment="Right"
+                                                Orientation="Horizontal">
+                                        <Button x:Name="CreateScheduleButton"
+                                                Height="28"
+                                                Margin="0,0,2,0"
+                                                Background="YellowGreen"
+                                                BorderBrush="YellowGreen"
+                                                Click="CreateScheduleButton_Click"
+                                                Content="创建 !" />
+                                        <Button x:Name="CancelCreateScheduleButton"
+                                                Height="28"
+                                                Click="CancelCreateScheduleButton_Click"
+                                                Content=" 取消  " />
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+
+
+                        </GroupBox>
+                    </materialDesign:Flipper.BackContent>
+                </materialDesign:Flipper>
+
+
+            </Grid>
 
 
         </Grid>
-
-
-    </Grid>
+    </ScrollViewer>
 </UserControl>
