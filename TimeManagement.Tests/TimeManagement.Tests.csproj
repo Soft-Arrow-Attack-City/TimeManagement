@@ -61,7 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModelTests.cs" />
+    <Compile Include="DataModelTests\EventTests.cs" />
+    <Compile Include="DataModelTests\ScheduleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
