@@ -7,7 +7,7 @@ namespace TimeManagement.DataModel
     public class TimeEvent
     {
         [Key(0)]
-        public DateTime Created { get; } = DateTime.Now;
+        public DateTime Created { get; set; } = DateTime.Now;
 
         [Key(1)]
         public string Title { get; set; } = "";

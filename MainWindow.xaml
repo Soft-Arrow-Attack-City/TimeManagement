@@ -80,7 +80,7 @@
                                       IsChecked="False"
                                       Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
-                        <views:PopupBox DockPanel.Dock="Right" />
+                        <views:PopupBox x:Name="PopupBox" DockPanel.Dock="Right" />
 
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"

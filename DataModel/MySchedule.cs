@@ -213,11 +213,13 @@ namespace TimeManagement.DataModel
 
                 foreach (KeyValuePair<Guid, MySchedule> kvp in ArchivedSchedules)
                 {
-                    if (kvp.Value.Start.ToLocalTime().Date == DateTime.Today) kvp.Value.Start = kvp.Value.Start.ToLocalTime();
+                    kvp.Value.Created = kvp.Value.Created.ToLocalTime();
+                    kvp.Value.Start = kvp.Value.Start.ToLocalTime();
                 }
                 foreach (KeyValuePair<Guid, MySchedule> kvp in ActiveSchedules)
                 {
-                    if (kvp.Value.Start.ToLocalTime().Date == DateTime.Today) kvp.Value.Start = kvp.Value.Start.ToLocalTime();
+                    kvp.Value.Created = kvp.Value.Created.ToLocalTime();
+                    kvp.Value.Start = kvp.Value.Start.ToLocalTime();
                 }
             }
             catch (IOException e)
