@@ -51,7 +51,7 @@ namespace TimeManagement.Views
             MySchedule.removeAllSchedule();
             MyTask.clearAllTasks();
             TreeSession.clearAllTrees();
-            Task.Factory.StartNew(() => Thread.Sleep(1000)).ContinueWith(t =>
+            Task.Factory.StartNew(() => Thread.Sleep(500)).ContinueWith(t =>
             {
                 MainWindowViewModel.MainSnackbarMessageQueue?.Enqueue("清除缓存成功");
             }, TaskScheduler.FromCurrentSynchronizationContext());

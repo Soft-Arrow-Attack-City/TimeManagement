@@ -109,25 +109,25 @@
                                                  FixedHeaderCount="1">
                             <TabItem Margin="16" Header="主页">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:Homepage x:Name="Homepage" />
+                                    <views:Homepage />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
                             <TabItem Margin="16" Header="屏幕时间">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:ScreenTime x:Name="ScreenTime" />
+                                    <views:ScreenTime />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
                             <TabItem Margin="16" Header="日程管理">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:schedulepage x:Name="Schedule" />
+                                    <views:schedulepage />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
                             <TabItem Margin="16" Header="虚拟种树">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:VirtualTreePlanting x:Name="Planting" />
+                                    <views:VirtualTreePlanting />
                                 </materialDesign:ColorZone>
                             </TabItem>
                         </dragablz:TabablzControl>
