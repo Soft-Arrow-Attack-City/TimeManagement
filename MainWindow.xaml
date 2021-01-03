@@ -80,7 +80,7 @@
                                       IsChecked="False"
                                       Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
-                        <views:PopupBox DockPanel.Dock="Right" />
+                        <views:PopupBox x:Name="PopupBox" DockPanel.Dock="Right" />
 
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
@@ -109,25 +109,25 @@
                                                  FixedHeaderCount="1">
                             <TabItem Margin="16" Header="主页">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:Homepage />
+                                    <views:Homepage x:Name="Homepage" />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
                             <TabItem Margin="16" Header="屏幕时间">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:ScreenTime />
+                                    <views:ScreenTime x:Name="ScreenTime" />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
                             <TabItem Margin="16" Header="日程管理">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:schedulepage />
+                                    <views:schedulepage x:Name="Schedule" />
                                 </materialDesign:ColorZone>
                             </TabItem>
 
                             <TabItem Margin="16" Header="虚拟种树">
                                 <materialDesign:ColorZone VerticalAlignment="Stretch" Style="{StaticResource MaterialDesignTabColorZone}">
-                                    <views:VirtualTreePlanting />
+                                    <views:VirtualTreePlanting x:Name="Planting" />
                                 </materialDesign:ColorZone>
                             </TabItem>
                         </dragablz:TabablzControl>

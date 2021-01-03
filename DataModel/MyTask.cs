@@ -11,7 +11,7 @@ namespace TimeManagement.DataModel
     public class MyTask : TimeEvent
     {
         [Key(3)]
-        public DateTime Due { get; set; } = DateTime.Now.Date;
+        public DateTime Due { get; set; } = DateTime.Today;
 
         [Key(4)]
         public string Comment { get; set; } = "";
